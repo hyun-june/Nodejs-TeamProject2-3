@@ -1,0 +1,22 @@
+.navbar {
+  width: 422px;
+  height: 60px;
+  background-color: #fafaf9;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  color: #1c1917;
+}
+.nav-item.active {
+  color: #2563eb;
+}
+.nav-item span {
+  font-size: 10px;
+}

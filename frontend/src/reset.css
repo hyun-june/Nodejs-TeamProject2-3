@@ -332,6 +332,12 @@ input[type="submit"] {
   *overflow: visible; /* 4 */
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 /**
  * Re-set default cursor for disabled elements.
  */

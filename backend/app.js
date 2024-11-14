@@ -2,11 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
-import { apiRouter } from "./routes/apiRouter";
-import { userRouter } from "./routes/userRouter";
-import { authRouter } from "./routes/authRouter";
-import { foodRouter } from "./routes/foodRouter";
-import { exerciseRouter } from "./routes/exerciseRouter";
+import { apiRouter } from "./routes/apiRouter.js";
 dotenv.config();
 
 const app = express();
@@ -14,11 +10,7 @@ const app = express();
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use("/api", apiRouter);
-app.use("/user", userRouter);
-app.use("/auth", authRouter);
-app.use("/food", foodRouter);
-app.use("/exercise", exerciseRouter);
+app.use("api", apiRouter);
 
 const mongoURI = process.env.LOCAL_DB_ADDRESS;
 

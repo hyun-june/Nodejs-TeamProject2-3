@@ -6,6 +6,11 @@
   color: white;
 }
 
+.common-button_Area {
+  width: 100%;
+  padding-top: 1rem;
+}
+
 .button-color_black {
   background-color: black;
 }

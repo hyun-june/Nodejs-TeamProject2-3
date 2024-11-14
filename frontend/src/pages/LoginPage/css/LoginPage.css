@@ -8,6 +8,10 @@
   align-items: center;
 }
 
+#loginPage-title {
+  margin-bottom: 1.5rem;
+}
+
 .page_Link {
   text-align: center;
   position: relative;

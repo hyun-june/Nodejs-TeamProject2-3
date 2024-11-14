@@ -12,16 +12,11 @@ export const LoginPage = () => {
   };
   return (
     <div className="loginPage-Container">
-      <div>L O G I N</div>
+      <div id="loginPage-title">L O G I N</div>
       <div className="login-section">
         <form onSubmit={handleSubmit(onLoginSubmit)}>
-          <CommonInput title="Email" register={register} className="width-80" />
-          <CommonInput
-            title="Password"
-            type="password"
-            register={register}
-            className="width-80"
-          />
+          <CommonInput title="Email" register={register} />
+          <CommonInput title="Password" type="password" register={register} />
           <CommonButton type="submit" className="button-color_black">
             로그인
           </CommonButton>

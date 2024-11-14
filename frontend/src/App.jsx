@@ -10,9 +10,9 @@ function App() {
     <div id="commonLayout">
       <div id="commonLayout-Container">
         <LoginPage />
-        {/* <SignUpPage />
-        <UserDetailPage />
-        <NotFoundPage /> */}
+        {/* <SignUpPage /> */}
+        {/* <UserDetailPage /> */}
+        {/* <NotFoundPage /> */}
       </div>
     </div>
   );

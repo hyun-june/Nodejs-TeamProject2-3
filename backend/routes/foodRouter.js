@@ -1,6 +1,13 @@
 import express from "express";
+import {
+  deleteFood,
+  getAllFood,
+  getFood,
+  postFood,
+  updateFood,
+} from "../controllers/foodController.js";
 
 export const foodRouter = express.Router();
 
-foodRouter.route("/").get().post();
-foodRouter.route("/foodId").get().post().put().delete();
+foodRouter.route("/").get(getAllFood).post(postFood);
+foodRouter.route("/:foodId").get(getFood).put(updateFood).delete(deleteFood);

@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 const foodSchema = new mongoose.Schema(
   {
-    id: { tpye: String, required: true, unique: true },
     name: { type: String, required: true },
     category: { type: Array, required: true },
     nutrient: [

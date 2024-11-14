@@ -2,7 +2,7 @@ import "./css/CommonButton.css";
 
 export const CommonButton = ({ type, onClick, children, className }) => {
   return (
-    <div style={{ width: "80%" }}>
+    <div className="common-button_Area">
       <button
         type={type}
         onClick={onClick}

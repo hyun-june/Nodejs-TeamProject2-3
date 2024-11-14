@@ -1,5 +1,5 @@
 import { AppRouter } from "./routes/AppRouter";
-import { NavBar } from "./components/shared/NavBar/NavBar.jsx";
+// import { NavBar } from "./components/shared/NavBar/NavBar.jsx";
 import "./reset.css";
 import "./App.css";
 // import LoginPage from "./pages/LoginPage/LoginPage";
@@ -11,7 +11,7 @@ function App() {
   return (
     <div>
       <AppRouter />
-      <NavBar />
+      {/* <NavBar /> */}
     </div>
     // <div id="commonLayout">
     //   <div id="commonLayout-Container">

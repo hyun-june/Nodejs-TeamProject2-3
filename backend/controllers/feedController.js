@@ -70,7 +70,6 @@ export const updateFeed = async (req, res) => {
     res.status(404).json({ status: "fail", message: error.message });
   }
 };
-
 export const deleteFeed = async (req, res) => {
   try {
     const { id } = req.params;

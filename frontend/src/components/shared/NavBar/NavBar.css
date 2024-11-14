@@ -14,9 +14,17 @@
   cursor: pointer;
   color: #1c1917;
 }
+
 .nav-item.active {
   color: #2563eb;
 }
+
+.nav-item svg {
+  width: 30px;
+  height: 30px;
+}
+
 .nav-item span {
+  margin-top: 3.75px;
   font-size: 10px;
 }

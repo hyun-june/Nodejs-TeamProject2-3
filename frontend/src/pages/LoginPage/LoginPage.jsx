@@ -1,11 +1,11 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import CommonForm from "../../components/shared/CommonForm";
-import CommonButton from "../../components/shared/CommonButton";
+import { CommonInput } from "../../components/shared/CommonInput/CommonInput";
+import { CommonButton } from "../../components/shared/CommonButton/CommonButton";
 import "./css/LoginPage.css";
 
-const LoginPage = () => {
+export const LoginPage = () => {
   const { register, handleSubmit } = useForm();
   const onLoginSubmit = (formData) => {
     console.log("Form Data:", formData);
@@ -15,8 +15,8 @@ const LoginPage = () => {
       <div>L O G I N</div>
       <div className="login-section">
         <form onSubmit={handleSubmit(onLoginSubmit)}>
-          <CommonForm title="Email" register={register} className="width-80" />
-          <CommonForm
+          <CommonInput title="Email" register={register} className="width-80" />
+          <CommonInput
             title="Password"
             type="password"
             register={register}
@@ -33,5 +33,3 @@ const LoginPage = () => {
     </div>
   );
 };
-
-export default LoginPage;

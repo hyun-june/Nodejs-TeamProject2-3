@@ -1,4 +1,6 @@
-const CommonButton = ({ type, onClick, children, className }) => {
+import "./css/CommonButton.css";
+
+export const CommonButton = ({ type, onClick, children, className }) => {
   return (
     <div style={{ width: "80%" }}>
       <button
@@ -11,5 +13,3 @@ const CommonButton = ({ type, onClick, children, className }) => {
     </div>
   );
 };
-
-export default CommonButton;

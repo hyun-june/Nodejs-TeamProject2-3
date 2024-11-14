@@ -30,7 +30,7 @@ const items = [
 ];
 
 export const NavBar = ({ ...props }) => {
-  const location = useLocation();
+  const { pathname } = useLocation();
 
   return (
     <>
@@ -39,9 +39,23 @@ export const NavBar = ({ ...props }) => {
           <Link
             key={path}
             to={path}
-            className={`nav-item ${location.pathname === path ? "active" : ""}`}
+            className={`nav-item ${
+              path === "/"
+                ? pathname === path
+                  ? "active"
+                  : ""
+                : pathname.includes(path)
+                ? "active"
+                : ""
+            }`}
           >
-            {location.pathname === path ? activeIcon : icon}
+            {path === "/"
+              ? pathname === path
+                ? activeIcon
+                : icon
+              : pathname.includes(path)
+              ? activeIcon
+              : icon}
             <span>{text}</span>
           </Link>
         ))}

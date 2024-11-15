@@ -1,0 +1,13 @@
+.add-button{
+    position: absolute;
+    bottom: calc(60px + 30px);
+    right: 20px;
+    background-color: var(--point-color);
+    color: var(--main-color);
+    padding: 1em;
+    border-radius: 999px;
+    transition: all .3s;
+    &:hover{
+        opacity: .8;
+    }
+}

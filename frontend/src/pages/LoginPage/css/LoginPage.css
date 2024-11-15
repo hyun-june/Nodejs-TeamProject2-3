@@ -1,24 +1,31 @@
 .loginPage-Container {
   width: 100%;
-}
+  padding: 0 3em;
+  margin-bottom: 6em;
 
-.loginPage-Container form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  & h1 {
+    margin-bottom: 2em;
+    color: #1c1917;
+    font-weight: bold;
+    font-size: 25px;
+  }
 
-#loginPage-title {
-  margin-bottom: 1.5rem;
-}
+  & form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-.page_Link {
-  text-align: center;
-  position: relative;
-  top: 14rem;
-}
+  & footer {
+    text-align: center;
+    position: relative;
+    top: 17em;
+    color: #a8a29e;
+    font-weight: bold;
 
-.page_Link a {
-  text-decoration: none;
-  color: inherit;
+    & a {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
 }

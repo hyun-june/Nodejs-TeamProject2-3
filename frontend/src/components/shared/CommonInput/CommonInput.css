@@ -11,9 +11,19 @@
   display: flex;
   flex-direction: column;
   text-align: left;
+  position: relative;
 }
 
 .common-form-title {
   font-size: 0.8rem;
   margin-bottom: 4px;
+  color: #a8a29e;
+  font-weight: bold;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.7em;
+  position: absolute;
+  bottom: -1.3em;
 }

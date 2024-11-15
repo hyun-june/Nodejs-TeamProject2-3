@@ -1,4 +1,4 @@
-import "./css/CommonButton.css";
+import "./CommonButton.css";
 
 export const CommonButton = ({ type, onClick, children, className }) => {
   return (

@@ -10,9 +10,8 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  border: 1px solid black;
   text-align: center;
   justify-content: center;
-  padding: 0 10%;
+  background-color: #fafaf9;
+  color: #1c1917;
 }

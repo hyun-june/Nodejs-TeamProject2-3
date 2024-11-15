@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema(
     email: { type: String, required: true, unique: true },
     name: { type: String, required: true },
     password: { type: String, required: true },
-    phone: { type: Number, required: true },
+    phone: { type: Number },
     level: { type: String, default: "customer" },
   },
   { timestamps: true }
@@ -26,7 +26,6 @@ userSchema.methods.generateToken = function () {
     const token = jwt.sign({ _id: this._id }, process.env.JWT_SECRET_KEY, {
       expiresIn: "1h",
     });
-    console.log("token", token);
     return token;
   } catch (error) {
     throw new Error("Token generation failed");

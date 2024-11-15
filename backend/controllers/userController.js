@@ -1,5 +1,4 @@
 import { User } from "../Model/User.js";
-import { UserDetail } from "../Model/UserDetail.js";
 import bcrypt from "bcryptjs";
 
 export const createUser = async (req, res) => {
@@ -11,7 +10,6 @@ export const createUser = async (req, res) => {
     }
     const salt = await bcrypt.genSalt(10);
     password = await bcrypt.hash(password, salt);
-    console.log("Encrypted password:", password);
     const newUser = new User({
       email,
       name,
@@ -30,22 +28,17 @@ export const loginWithEmail = async (req, res) => {
   try {
     const { email, password } = req.body;
     let user = await User.findOne({ email });
-    console.log("user", user);
     if (user) {
       const isMatch = await bcrypt.compare(
         password.trim(),
         user.password.trim()
       );
-      console.log(isMatch);
-      console.log("password", password);
-      console.log("user", user.password);
       if (isMatch) {
         const token = await user.generateToken();
-        console.log("token", token);
         return res.status(200).json({ status: "success", user, token });
       }
     }
-    throw new Error("Invalid email or password");
+    throw new Error("이메일 또는 비밀번호가 일치하지 않습니다.");
   } catch (error) {
     return res.status(400).json({ status: "fail", error: error.message });
   }

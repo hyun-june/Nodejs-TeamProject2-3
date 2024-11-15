@@ -11,20 +11,21 @@ export const UserDetailPage = () => {
     console.log("Form Data:", formData);
   };
   return (
-    <div className="userDetailPage-Container">
+    <main className="userDetailPage-Container">
       <form onSubmit={handleSubmit(onUserSubmit)}>
-        <div className="detail-first-section">
+        <CommonInput title="닉네임" register={register} />
+        <section className="detail-first-section">
           <CommonInput title="나이" type="number" register={register} />
           <CommonInput title="키" type="number" register={register} />
-        </div>
-        <div className="detail-second-section">
+        </section>
+        <section className="detail-second-section">
           <CommonInput title="체중" type="number" register={register} />
           <CommonInput title="목표 체중" type="number" register={register} />
           <CommonButton type="submit" className="button-color_blue">
             저장
           </CommonButton>
-        </div>
+        </section>
       </form>
-    </div>
+    </main>
   );
 };

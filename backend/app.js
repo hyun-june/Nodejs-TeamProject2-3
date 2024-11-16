@@ -10,7 +10,6 @@ const app = express();
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 app.use("/api", apiRouter);
 
 const mongoURI = process.env.LOCAL_DB_ADDRESS;

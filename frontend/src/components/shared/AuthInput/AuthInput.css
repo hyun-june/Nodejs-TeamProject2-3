@@ -9,19 +9,19 @@
   & label {
     font-size: 0.8rem;
     margin-bottom: 4px;
-    color: #a8a29e;
+    color: var(--light-gray-color);
     font-weight: bold;
   }
 
   & input {
-    border: 1px solid black;
+    border: 1px solid var(--light-gray-color);
     height: 50px;
     border-radius: 7px;
     padding-left: 1rem;
   }
 
   & span {
-    color: red;
+    color: var(--warn-color);
     font-size: 0.7em;
     position: absolute;
     bottom: -1.3em;

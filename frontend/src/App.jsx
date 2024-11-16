@@ -1,19 +1,17 @@
-import { LoginPage } from "./pages/LoginPage/LoginPage";
-import { SignUpPage } from "./pages/SignUpPage/SignUpPage";
-import { UserDetailPage } from "./pages/UserDetailPage/UserDetailPage";
-import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage";
+import { AppRouter } from "./routes/AppRouter";
+import { NavBar } from "./components/shared/NavBar/NavBar.jsx";
+import { useLocation } from "react-router-dom";
 import "./reset.css";
 import "./App.css";
 
 function App() {
+  const location = useLocation();
+  const hideNavbar = ["/", "/feed", "/my"].includes(location.pathname);
+
   return (
-    <div id="commonLayout">
-      <div id="commonLayout-Container">
-        <LoginPage />
-        {/* <SignUpPage /> */}
-        {/* <UserDetailPage /> */}
-        {/* <NotFoundPage /> */}
-      </div>
+    <div>
+      <AppRouter />
+      {hideNavbar && <NavBar />}
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  deleteFeed,
   getAllFeed,
   getFeed,
   postFeed,
@@ -9,4 +10,4 @@ import {
 export const feedRouter = express.Router();
 
 feedRouter.route("/").get(getAllFeed).post(postFeed);
-feedRouter.route("/:feedId").get(getFeed).put(updateFeed).delete();
+feedRouter.route("/:feedId").get(getFeed).put(updateFeed).delete(deleteFeed);

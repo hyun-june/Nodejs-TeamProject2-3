@@ -70,3 +70,49 @@ export const updateFeed = async (req, res) => {
     res.status(404).json({ status: "fail", message: error.message });
   }
 };
+export const deleteFeed = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const feed = await Feed.findByIdAndDelete(id);
+    if (!feed) throw new Error("삭제할 피드가 없습니다");
+    res.status(200).json({ status: "success", data: food });
+  } catch (error) {
+    res.status(400).json({ status: "fail", message: error.message });
+  }
+};
+
+export const registerView = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const feed = await Feed.findByIdAndUpdate(
+      id,
+      { $inc: { views: 1 } },
+      { new: true }
+    );
+    if (!feed) {
+      throw new Error("피드를 찾을 수 없습니다");
+    }
+    return res.status(200).json({ status: "success", data: feed });
+  } catch (error) {
+    return res.status(500).json({ status: "fail", message: error.message });
+  }
+};
+
+export const registerLike = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const feed = await Feed.findByIdAndUpdate(
+      id,
+      { $inc: { likes: 1 } },
+      { new: true }
+    );
+    if (!feed) {
+      throw new Error("피드를 찾을 수 없습니다");
+    }
+    return res.status(200).json({ status: "success", data: feed });
+  } catch (error) {
+    return res.status(500).json({ status: "fail", message: error.message });
+  }
+};

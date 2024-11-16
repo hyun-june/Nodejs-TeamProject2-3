@@ -18,6 +18,7 @@ export const LoginPage = () => {
 
   const handleLoginSubmit = async (formData) => {
     const { Email, Password } = formData;
+    console.log(formData);
     try {
       const response = await api.post("/user/login", {
         email: Email,

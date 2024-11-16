@@ -1,11 +1,11 @@
 .loginPage-Container {
   width: 100%;
   padding: 0 3em;
-  margin-bottom: 6em;
+  margin-top: 8em;
 
   & h1 {
     margin-bottom: 2em;
-    color: #1c1917;
+    color: var(--text-color);
     font-weight: bold;
     font-size: 25px;
   }
@@ -19,8 +19,8 @@
   & footer {
     text-align: center;
     position: relative;
-    top: 17em;
-    color: #a8a29e;
+    top: 22em;
+    color: var(--light-gray-color);
     font-weight: bold;
 
     & a {

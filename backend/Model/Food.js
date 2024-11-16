@@ -6,9 +6,9 @@ const foodSchema = new mongoose.Schema(
     category: { type: Array, required: true },
     nutrient: [
       {
-        Carbohydrate: { type: String, required: true },
-        Protein: { type: String, required: true },
-        Fat: { type: String, required: true },
+        Carbohydrate: { type: Number, required: true },
+        Protein: { type: Number, required: true },
+        Fat: { type: Number, required: true },
       },
     ],
     defaultGram: { type: Number },

@@ -1,4 +1,5 @@
 import { User } from "../Model/User.js";
+import { UserDetail } from "../Model/UserDetail.js";
 import bcrypt from "bcryptjs";
 
 //유저 생성
@@ -29,24 +30,14 @@ export const getUser = async (req, res) => {
   try {
     const { email, password } = req.body;
     let user = await User.findOne({ email });
-    if (user) {
-      const isMatch = await bcrypt.compare(
-        password.trim(),
-        user.password.trim()
-      );
-      if (isMatch) {
-        const token = await user.generateToken();
-        return res.status(200).json({ status: "success", user, token });
-      }
+    if (!user) {
+      throw new Error("이메일 또는 비밀번호가 일치하지 않습니다.");
     }
-    throw new Error("이메일 또는 비밀번호가 일치하지 않습니다.");
+    return res.status(200).json({ status: "success", user, token });
   } catch (error) {
     return res.status(400).json({ status: "fail", error: error.message });
   }
 };
-
-//내 정보 수정하기 (이름,)
-export const updateUser = async (req, res) => {};
 
 //유저 디테일 페이지 저장하기
 export const postUserDetail = async (req, res) => {
@@ -105,5 +96,19 @@ export const updateUserDetail = async (req, res) => {
     res.status(200).json({ status: "success", data: userDetail });
   } catch (error) {
     return res.status(400).json({ status: "fail", message: error.message });
+  }
+};
+
+//다른 유저 디테일
+export const getOtherUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    let user = await User.findOne({ id });
+    if (!user) {
+      throw new Error("해당 유저를 찾을 수 없습니다.");
+    }
+    return res.status(200).json({ status: "success", user, token });
+  } catch (error) {
+    return res.status(400).json({ status: "fail", error: error.message });
   }
 };

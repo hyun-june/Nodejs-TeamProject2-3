@@ -5,10 +5,13 @@ import { api } from "../../utils/api";
 import { AuthInput } from "../../components/shared/AuthInput/AuthInput";
 import { AuthButton } from "../../components/shared/AuthButton/AuthButton";
 import "./css/LoginPage.css";
+import { useLogin } from "../../core/hooks/useAuth";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const { mutate: login, isLoading, isError, error } = useLogin();
+
   const {
     register,
     handleSubmit,
@@ -17,6 +20,7 @@ export const LoginPage = () => {
   } = useForm({ mode: "onChange" });
 
   const handleLoginSubmit = async (formData) => {
+    login({ email: formData.Email, password: formData.Password });
     const { Email, Password } = formData;
     console.log(formData);
     try {

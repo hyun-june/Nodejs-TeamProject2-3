@@ -1,9 +1,8 @@
-import React from "react";
 import { useForm } from "react-hook-form";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { api } from "../../utils/api";
-import { CommonInput } from "../../components/shared/CommonInput/CommonInput";
-import { CommonButton } from "../../components/shared/CommonButton/CommonButton";
+import { AuthInput } from "../../components/shared/AuthInput/AuthInput";
+import { AuthButton } from "../../components/shared/AuthButton/AuthButton";
 import "./css/SignUpPage.css";
 
 export const SignUpPage = () => {
@@ -41,41 +40,45 @@ export const SignUpPage = () => {
   };
 
   return (
-    <main className="signUpPage-Container">
+    <div className="signUpPage-Container">
       <h1>SIGN UP</h1>
       <form onSubmit={handleSubmit(handleSingUpSubmit)}>
-        <CommonInput
+        <AuthInput
+          id="signup-name"
           title="Name"
           type="text"
           register={register}
           error={errors.Name}
         />
-        <CommonInput
+        <AuthInput
+          id="signup-email"
           title="Email"
           type="text"
           register={register}
           error={errors.Email}
         />
-        <CommonInput
+        <AuthInput
+          id="signup-password"
           title="Password"
           type="password"
           register={register}
           error={errors.Password}
         />
-        <CommonInput
+        <AuthInput
+          id="signup-confirmpassword"
           title="ConfirmPassword"
           type="password"
           register={register}
           error={errors.ConfirmPassword}
         />
 
-        <CommonButton type="submit" className="button-color_black">
+        <AuthButton type="submit" className="button-color_black">
           회원가입
-        </CommonButton>
+        </AuthButton>
       </form>
       <footer>
         <Link to="/login">로그인 하기</Link>
       </footer>
-    </main>
+    </div>
   );
 };

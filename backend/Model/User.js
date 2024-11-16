@@ -13,7 +13,6 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-//필요 없는 정보 제거
 userSchema.method.toJSON = function () {
   const obj = this._doc;
   delete obj.password;

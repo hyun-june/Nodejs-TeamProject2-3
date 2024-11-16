@@ -10,6 +10,7 @@ import { useLogin } from "../../core/hooks/useAuth";
 export const LoginPage = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+
   const { mutate: login, isLoading, isError, error } = useLogin();
 
   const {
@@ -20,7 +21,9 @@ export const LoginPage = () => {
   } = useForm({ mode: "onChange" });
 
   const handleLoginSubmit = async (formData) => {
+
     login({ email: formData.Email, password: formData.Password });
+
     const { Email, Password } = formData;
     console.log(formData);
     try {

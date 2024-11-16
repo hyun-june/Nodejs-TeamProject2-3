@@ -3,6 +3,31 @@ import { User } from "../Model/User.js";
 
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
+export const loginWithEmail = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    let user = await User.findOne({ email });
+    console.log("user", user);
+    if (user) {
+      const isMatch = await bcrypt.compare(
+        password.trim(),
+        user.password.trim()
+      );
+      console.log(isMatch);
+      console.log("password", password);
+      console.log("user", user.password);
+      if (isMatch) {
+        const token = await user.generateToken();
+        console.log("token", token);
+        return res.status(200).json({ status: "success", user, token });
+      }
+    }
+    throw new Error("email or password");
+  } catch (error) {
+    return res.status(400).json({ status: "fail", error: error.message });
+  }
+};
+
 export const authenticate = async (req, res, next) => {
   try {
     const tokenString = req.headers.authorization;

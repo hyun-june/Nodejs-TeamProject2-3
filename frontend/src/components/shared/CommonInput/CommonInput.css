@@ -1,0 +1,19 @@
+.common-input {
+  border: 1px solid black;
+  height: 50px;
+  border-radius: 7px;
+  padding-left: 1rem;
+}
+
+.common-form {
+  width: 100%;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.common-form-title {
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+}

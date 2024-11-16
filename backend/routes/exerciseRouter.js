@@ -11,7 +11,7 @@ export const exerciseRouter = express.Router();
 
 exerciseRouter.route("/").get(getAllExercise).post(postExercise);
 exerciseRouter
-  .route(":id")
+  .route("/:id")
   .get(getExercise)
   .put(updateExercise)
   .delete(deleteExercise);

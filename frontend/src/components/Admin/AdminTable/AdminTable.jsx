@@ -1,6 +1,17 @@
 import "./AdminTable.css";
 
-export const AdminTable = ({handleOpenManager, list, theads}) => {
+const initButtonOption = [
+    {
+        name : 'update', 
+        title : '수정'
+    },
+    {
+        name : 'delete', 
+        title : '삭제'
+    },
+]
+
+export const AdminTable = ({handleOpenManager, list, theads , buttonOption = initButtonOption}) => {
     return <>
         <table id='admin-table'>
             <thead>
@@ -15,8 +26,10 @@ export const AdminTable = ({handleOpenManager, list, theads}) => {
                         { theads.map( head => <td key={head}>{listItem[head]}</td>)}
                         <td >
                             <div className="list-buttons">
-                                <button onClick={()=> handleOpenManager('update')}>수정</button>
-                                <button onClick={()=> handleOpenManager('delete')}>삭제</button>
+                                { 
+                                    buttonOption.map(({name, title})=> 
+                                        <button key={name} className={name} onClick={()=> handleOpenManager(name)}>{title}</button>) 
+                                }
                             </div>
                         </td>
                     </tr>

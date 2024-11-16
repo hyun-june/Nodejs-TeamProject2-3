@@ -29,6 +29,7 @@ const dailyFoodSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+//음식 칼로리를 계산하는 미들웨어
 dailyFoodSchema.pre("save", async function (next) {
   //음식 정보를 가져옴
   const food = await mongoose.model("Food").findById(this.foodId);

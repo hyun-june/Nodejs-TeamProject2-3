@@ -1,47 +1,84 @@
-import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import CommonForm from "../../components/shared/CommonForm";
-import CommonButton from "../../components/shared/CommonButton";
+import { Link, useNavigate } from "react-router-dom";
+import { api } from "../../utils/api";
+import { AuthInput } from "../../components/shared/AuthInput/AuthInput";
+import { AuthButton } from "../../components/shared/AuthButton/AuthButton";
 import "./css/SignUpPage.css";
 
-const SignUpPage = () => {
-  const { register, handleSubmit } = useForm();
+export const SignUpPage = () => {
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm({ mode: "onChange" });
 
-  const onSingUpSubmit = (formData) => {
-    console.log("Form Data:", formData);
+  const handleSingUpSubmit = async (formData) => {
+    const { Password, ConfirmPassword, Email, Name } = formData;
+    try {
+      if (Password !== ConfirmPassword) {
+        setError("ConfirmPassword", {
+          type: "manual",
+          message: "패스워드가 일치하지 않습니다. 다시 입력해주세요.",
+        });
+        return;
+      }
+      const response = await api.post("/user", {
+        password: Password,
+        email: Email,
+        name: Name,
+      });
+      if (response.status == 200) {
+        navigate("/login");
+      } else {
+        throw new Error(response.data.error);
+      }
+    } catch (error) {
+      return error.error;
+    }
   };
+
   return (
     <div className="signUpPage-Container">
-      <div>S I G N U P</div>
-      <form onSubmit={handleSubmit(onSingUpSubmit)}>
-        <CommonForm
+      <h1>SIGN UP</h1>
+      <form onSubmit={handleSubmit(handleSingUpSubmit)}>
+        <AuthInput
+          id="signup-name"
+          title="Name"
+          type="text"
+          register={register}
+          error={errors.Name}
+        />
+        <AuthInput
+          id="signup-email"
           title="Email"
           type="text"
           register={register}
-          className="width-80"
+          error={errors.Email}
         />
-        <CommonForm
+        <AuthInput
+          id="signup-password"
           title="Password"
           type="password"
           register={register}
-          className="width-80"
+          error={errors.Password}
         />
-        <CommonForm
-          title="Confirm Password"
+        <AuthInput
+          id="signup-confirmpassword"
+          title="ConfirmPassword"
           type="password"
           register={register}
-          className="width-80"
+          error={errors.ConfirmPassword}
         />
-        <CommonButton type="submit" className="button-color_black">
+
+        <AuthButton type="submit" className="button-color_black">
           회원가입
-        </CommonButton>
+        </AuthButton>
       </form>
-      <div className="page_Link">
+      <footer>
         <Link to="/login">로그인 하기</Link>
-      </div>
+      </footer>
     </div>
   );
 };
-
-export default SignUpPage;

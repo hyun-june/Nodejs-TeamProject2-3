@@ -1,10 +1,9 @@
-import React from "react";
 import { useForm } from "react-hook-form";
-import CommonForm from "../../components/shared/CommonForm";
-import CommonButton from "../../components/shared/CommonButton";
+import { AuthInput } from "../../components/shared/AuthInput/AuthInput";
+import { AuthButton } from "../../components/shared/AuthButton/AuthButton";
 import "./css/UserDetailPage.css";
 
-const UserDetailPage = () => {
+export const UserDetailPage = () => {
   const { register, handleSubmit } = useForm();
 
   const onUserSubmit = (formData) => {
@@ -13,20 +12,29 @@ const UserDetailPage = () => {
   return (
     <div className="userDetailPage-Container">
       <form onSubmit={handleSubmit(onUserSubmit)}>
-        <div className="detail-first-section">
-          <CommonForm title="나이" type="number" register={register} />
-          <CommonForm title="키" type="number" register={register} />
-        </div>
-        <div className="detail-second-section">
-          <CommonForm title="체중" type="number" register={register} />
-          <CommonForm title="목표 체중" type="number" register={register} />
-          <CommonButton type="submit" className="button-color_blue">
+        <AuthInput id="nickname" title="닉네임" register={register} />
+        <section className="detail-first-section">
+          <AuthInput id="age" title="나이" type="number" register={register} />
+          <AuthInput id="height" title="키" type="number" register={register} />
+        </section>
+        <section className="detail-second-section">
+          <AuthInput
+            id="weight"
+            title="체중"
+            type="number"
+            register={register}
+          />
+          <AuthInput
+            id="purpose weight"
+            title="목표 체중"
+            type="number"
+            register={register}
+          />
+          <AuthButton type="submit" className="button-color_blue">
             저장
-          </CommonButton>
-        </div>
+          </AuthButton>
+        </section>
       </form>
     </div>
   );
 };
-
-export default UserDetailPage;

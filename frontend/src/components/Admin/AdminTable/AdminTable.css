@@ -26,10 +26,10 @@
                         opacity: .7; 
                     }
                 }
-                button:nth-child(1) {
+                .update {
                     background-color: var(--dark-gray-color);
                 }
-                button:nth-child(2) {
+                .delete {
                     background-color: var(--warn-color);
                 }
             }

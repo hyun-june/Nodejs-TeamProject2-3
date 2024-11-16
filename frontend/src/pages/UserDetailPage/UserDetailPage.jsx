@@ -1,7 +1,6 @@
-import React from "react";
 import { useForm } from "react-hook-form";
-import { CommonInput } from "../../components/shared/CommonInput/CommonInput";
-import { CommonButton } from "../../components/shared/CommonButton/CommonButton";
+import { AuthInput } from "../../components/shared/AuthInput/AuthInput";
+import { AuthButton } from "../../components/shared/AuthButton/AuthButton";
 import "./css/UserDetailPage.css";
 
 export const UserDetailPage = () => {
@@ -13,17 +12,28 @@ export const UserDetailPage = () => {
   return (
     <div className="userDetailPage-Container">
       <form onSubmit={handleSubmit(onUserSubmit)}>
-        <div className="detail-first-section">
-          <CommonInput title="나이" type="number" register={register} />
-          <CommonInput title="키" type="number" register={register} />
-        </div>
-        <div className="detail-second-section">
-          <CommonInput title="체중" type="number" register={register} />
-          <CommonInput title="목표 체중" type="number" register={register} />
-          <CommonButton type="submit" className="button-color_blue">
+        <AuthInput id="nickname" title="닉네임" register={register} />
+        <section className="detail-first-section">
+          <AuthInput id="age" title="나이" type="number" register={register} />
+          <AuthInput id="height" title="키" type="number" register={register} />
+        </section>
+        <section className="detail-second-section">
+          <AuthInput
+            id="weight"
+            title="체중"
+            type="number"
+            register={register}
+          />
+          <AuthInput
+            id="purpose weight"
+            title="목표 체중"
+            type="number"
+            register={register}
+          />
+          <AuthButton type="submit" className="button-color_blue">
             저장
-          </CommonButton>
-        </div>
+          </AuthButton>
+        </section>
       </form>
     </div>
   );

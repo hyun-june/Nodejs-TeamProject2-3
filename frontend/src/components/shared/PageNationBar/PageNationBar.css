@@ -1,0 +1,24 @@
+#page-nation-bar{
+    display: flex;
+    gap: 1em;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    li {
+        a {
+            padding: .6em;
+            border-radius: 4px;
+            border: 1px solid var(--light-gray-color);
+            display: flex;
+            transition: all .3s;
+            &:hover {
+                color: var(--main-color);
+                background-color: var(--light-gray-color);
+            }
+        }
+        .crr-page {
+            color: var(--main-color);
+            background-color: var(--light-gray-color);
+        }
+    }
+}

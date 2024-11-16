@@ -1,0 +1,23 @@
+.admin-layout-navbar{
+    background-color: var(--main-color);
+    ol {
+        display: flex;
+        li {
+            flex-grow: 1;
+            &>a{
+                color: var(--dark-gray-color);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                gap: .4em;
+                padding: .4em 0;
+                font-size: 1.6em;
+                span {
+                    font-size: .5em;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}

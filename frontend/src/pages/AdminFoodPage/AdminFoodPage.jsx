@@ -1,5 +1,9 @@
+import { SearchBar } from "../../components/shared/SearchBar/SearchBar"
+import { AdminFoodList } from "./components/AdminFoodList/AdminFoodList"
+
 export const AdminFoodPage = () => {
-    return <div>
-        AdminFoodPage
-    </div>
+    return <>
+        <SearchBar/>
+        <AdminFoodList/>
+    </>
 }

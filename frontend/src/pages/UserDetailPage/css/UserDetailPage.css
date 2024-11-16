@@ -1,9 +1,11 @@
 .userDetailPage-Container {
   width: 100%;
-}
+  padding: 0 3em;
+  margin-bottom: 7em;
 
-.userDetailPage-Container form {
-  margin-bottom: 15rem;
+  & form {
+    margin-bottom: 12rem;
+  }
 }
 
 .detail-first-section {

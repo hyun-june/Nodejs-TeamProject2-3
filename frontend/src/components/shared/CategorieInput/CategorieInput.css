@@ -1,0 +1,27 @@
+.categorie-input{
+    display: flex;
+    flex-direction: column;
+    padding-top: 1em;
+    label {
+        font-weight: bold;
+    }
+    select {
+        margin: 1em 0;
+        padding: .8em;
+        border-radius: 8px;
+        appearance:none;
+    }
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .6em;
+        color: var(--main-color);
+        li {
+            display: flex;
+            gap: 1em;
+            background-color: var(--dark-gray-color);
+            padding: .6em;
+            border-radius: 8px;
+        }
+    }
+}

@@ -1,0 +1,15 @@
+#search-bar {
+    position: relative;
+    input {
+        width: 100%;
+        padding: .8em 3em .8em 1.2em;
+        border-radius: 999px;
+        border: 1px solid var(--light-gray-color);
+    }
+    button {
+        position: absolute;
+        right: 1em;
+        top: 0;
+        bottom: 0;
+    }
+}

@@ -8,11 +8,6 @@ import "./css/LoginPage.css";
 import { useLogin } from "../../core/hooks/useAuth";
 
 export const LoginPage = () => {
-  const navigate = useNavigate();
-  const [user, setUser] = useState(null);
-
-  const { mutate: login, isLoading, isError, error } = useLogin();
-
   const {
     register,
     handleSubmit,
@@ -20,29 +15,11 @@ export const LoginPage = () => {
     formState: { errors },
   } = useForm({ mode: "onChange" });
 
+  const { mutate: login, isLoading, isError, error } = useLogin();
+
   const handleLoginSubmit = async (formData) => {
-
     login({ email: formData.Email, password: formData.Password });
-
-    const { Email, Password } = formData;
     console.log(formData);
-    try {
-      const response = await api.post("/user/login", {
-        email: Email,
-        password: Password,
-      });
-      if (response.status === 200) {
-        setUser(response.data.user);
-        sessionStorage.setItem("token", response.data.token);
-        navigate("/");
-      }
-      throw new Error(response.data.error);
-    } catch (error) {
-      setError("Password", {
-        type: "manual",
-        message: error.error,
-      });
-    }
   };
 
   return (

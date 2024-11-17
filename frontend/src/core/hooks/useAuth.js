@@ -3,14 +3,17 @@ import { useNavigate } from "react-router-dom";
 import { createUser, postLogin } from "../api/auth";
 
 export const useLogin = () => {
+  const navigate = useNavigate();
+
   return useMutation({
-    mutationFn: ({ email, password }) => postLogin(email, password),
+    mutationFn: ({ email, password }) => postLogin({ email, password }),
     onSuccess: (data) => {
-      sessionStorage.setItem("token", data.token); // 성공 시 토큰 저장
+      sessionStorage.setItem("token", data.token);
+      navigate("/");
       console.log("로그인 성공:", data);
     },
     onError: (error) => {
-      console.error("로그인 실패:", error.message);
+      console.error("로그인 실패:", error);
     },
   });
 };

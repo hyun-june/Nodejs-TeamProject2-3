@@ -1,10 +1,6 @@
-import { useState } from "react";
 import { AddButton } from "../../components/shared/AddButton/AddButton";
 import { SearchBar } from "../../components/shared/SearchBar/SearchBar";
-import { FaEllipsisVertical } from "react-icons/fa6";
 import { FeedBox } from "./components/FeedBox/FeedBox";
-import { FaHeart } from "react-icons/fa";
-import { LikeButton } from "../../components/Feed/LikeButton/LikeButton";
 import "./css/FeedPage.css";
 
 const testImg = [

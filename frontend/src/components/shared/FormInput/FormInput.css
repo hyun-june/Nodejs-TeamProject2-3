@@ -6,7 +6,8 @@
     label {
         font-weight: bold;
     }
-    input {
+
+    input , textarea{
         width: 100%;
         border-radius: 8px;
         border: 1px solid var(--light-gray-color);
@@ -14,5 +15,8 @@
         &:focus {
             border: 1px solid var(--text-color);
         }
+    }
+    textarea{
+        min-height: 100px
     }
 }

@@ -4,6 +4,7 @@ import { api } from "../../utils/api";
 import { AuthInput } from "../../components/shared/AuthInput/AuthInput";
 import { AuthButton } from "../../components/shared/AuthButton/AuthButton";
 import "./css/SignUpPage.css";
+import { useSignUp } from "../../core/hooks/useAuth";
 
 export const SignUpPage = () => {
   const navigate = useNavigate();
@@ -14,29 +15,26 @@ export const SignUpPage = () => {
     formState: { errors },
   } = useForm({ mode: "onChange" });
 
+
+  const { mutate: signUp, isLoading, isError, error } = useSignUp();
+
   const handleSingUpSubmit = async (formData) => {
     const { Password, ConfirmPassword, Email, Name } = formData;
-    try {
-      if (Password !== ConfirmPassword) {
-        setError("ConfirmPassword", {
-          type: "manual",
-          message: "패스워드가 일치하지 않습니다. 다시 입력해주세요.",
-        });
-        return;
-      }
-      const response = await api.post("/user", {
-        password: Password,
-        email: Email,
-        name: Name,
+    console.log("formData", formData);
+
+    if (Password !== ConfirmPassword) {
+      setError("ConfirmPassword", {
+        type: "manual",
+        message: "패스워드가 일치하지 않습니다. 다시 입력해주세요.",
       });
-      if (response.status == 200) {
-        navigate("/login");
-      } else {
-        throw new Error(response.data.error);
-      }
-    } catch (error) {
-      return error.error;
+      return;
     }
+    signUp({
+      name: formData.Name,
+      email: formData.Email,
+      password: formData.Password,
+    });
+
   };
 
   return (

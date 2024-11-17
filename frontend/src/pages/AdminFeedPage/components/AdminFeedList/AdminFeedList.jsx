@@ -3,8 +3,6 @@ import { PageNationBar } from "../../../../components/shared/PageNationBar/PageN
 import { BottomSheet } from "../../../../components/shared/BottomSheet/BottomSheet"
 import { useBottomSheet } from "../../../../components/shared/BottomSheet/components/useBottomSheet"
 import { AdminTable } from "../../../../components/Admin/AdminTable/AdminTable"
-import { AdminFeedAddForm } from "../AdminFeedAddForm/AdminFeedAddForm"
-import { AdminFeedUpdateForm } from "../AdminFeedUpdateForm/AdminFeedUpdateForm"
 import { AdminFeedDeleteForm } from "../AdminFeedDeleteForm/AdminFeedDeleteForm"
 
 const mocks = [
@@ -26,8 +24,6 @@ const mocks = [
 ]
 
 const manageOptions = {
-    'add' : <AdminFeedAddForm/>,
-    'update' : <AdminFeedUpdateForm/>,
     'delete' : <AdminFeedDeleteForm/>,
 }
 

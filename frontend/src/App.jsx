@@ -3,15 +3,18 @@ import { NavBar } from "./components/shared/NavBar/NavBar.jsx";
 import { useLocation } from "react-router-dom";
 import "./reset.css";
 import "./App.css";
+import { AppLayout } from "./components/Layout/AllLayout/AppLayout.jsx";
 
 function App() {
   const location = useLocation();
-  const hideNavbar = ["/", "/feed", "/my"].includes(location.pathname);
+  const showNavbar = ["/", "/feed", "/my"].includes(location.pathname);
 
   return (
     <div>
-      <AppRouter />
-      {hideNavbar && <NavBar />}
+      <AppLayout>
+        <AppRouter />
+        {showNavbar && <NavBar />}
+      </AppLayout>
     </div>
   );
 }

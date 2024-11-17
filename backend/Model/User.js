@@ -7,8 +7,8 @@ const userSchema = new mongoose.Schema(
     email: { type: String, required: true, unique: true },
     name: { type: String, required: true },
     password: { type: String, required: true },
-    phone: { type: Number },
     level: { type: String, default: "customer" },
+    feed: { type: mongoose.Schema.Types.ObjectId, ref: "Feed" },
   },
   { timestamps: true }
 );
@@ -21,6 +21,7 @@ userSchema.method.toJSON = function () {
   return obj;
 };
 
+//jwt 사용해서 유저 토큰 생성하는 미들웨어
 userSchema.methods.generateToken = function () {
   try {
     const token = jwt.sign({ _id: this._id }, process.env.JWT_SECRET_KEY, {

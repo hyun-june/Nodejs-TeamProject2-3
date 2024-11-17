@@ -1,5 +1,6 @@
 import "./AdminTable.css";
 
+
 const initButtonOption = [
     {
         name : 'update', 
@@ -26,6 +27,7 @@ export const AdminTable = ({handleOpenManager, list, theads , buttonOption = ini
                         { theads.map( head => <td key={head}>{listItem[head]}</td>)}
                         <td >
                             <div className="list-buttons">
+
                                 { 
                                     buttonOption.map(({name, title})=> 
                                         <button key={name} className={name} onClick={()=> handleOpenManager(name)}>{title}</button>) 

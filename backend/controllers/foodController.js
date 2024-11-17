@@ -16,8 +16,8 @@ export const getAllFood = async (req, res) => {
 export const postFood = async (req, res) => {
   try {
     const { name, category, nutrient, defaultGram, calorie } = req.body;
-    const newFood = await Food.create({
 
+    const newFood = await Food.create({
       name,
       category,
       nutrient,

@@ -1,5 +1,6 @@
 import { Feed } from "../Model/Feed.js";
 
+// 모든 피드를 보여줌
 export const getAllFeed = async (req, res) => {
   try {
     const feed = await Feed.find();
@@ -13,18 +14,19 @@ export const getAllFeed = async (req, res) => {
   }
 };
 
+//피드를 새로 등록함
 export const postFeed = async (req, res) => {
   try {
     const { fileUrl, description, hashtags, views, likes } = req.body;
     const { userId } = req;
 
-    const newFeed = await Exercise.create({
+    const newFeed = await Feed.create({
       fileUrl,
       description,
       hashtags,
       views,
       likes,
-      userId,
+      user: userId,
     });
     res.status(200).json({ status: "success", data: newFeed });
   } catch (error) {
@@ -36,20 +38,28 @@ export const postFeed = async (req, res) => {
   }
 };
 
+// 개별 피드를 가져옴
 export const getFeed = async (req, res) => {
   try {
     const { id } = req.params;
+    const { userId } = req;
     const feed = await Feed.findById(id);
 
     if (!feed) {
       throw new Error("해당 피드을 찾을 수 없습니다.");
     }
-    res.status(200).json({ status: "success", data: feed });
+
+    const isLiked = feed.likedBy.includes(userId);
+
+    res
+      .status(200)
+      .json({ status: "success", data: { ...feed.toObject(), isLiked } });
   } catch (error) {
     res.status(404).json({ status: "fail", message: error.message });
   }
 };
 
+// 피드를 수정함
 export const updateFeed = async (req, res) => {
   try {
     const { id } = req.params;
@@ -70,17 +80,20 @@ export const updateFeed = async (req, res) => {
     res.status(404).json({ status: "fail", message: error.message });
   }
 };
+
+//피드를 삭제함
 export const deleteFeed = async (req, res) => {
   try {
     const { id } = req.params;
     const feed = await Feed.findByIdAndDelete(id);
     if (!feed) throw new Error("삭제할 피드가 없습니다");
-    res.status(200).json({ status: "success", data: food });
+    res.status(200).json({ status: "success", data: feed });
   } catch (error) {
     res.status(400).json({ status: "fail", message: error.message });
   }
 };
 
+//조회수를 1 늘려줌
 export const registerView = async (req, res) => {
   const { id } = req.params;
 
@@ -99,18 +112,51 @@ export const registerView = async (req, res) => {
   }
 };
 
+// 좋아요
 export const registerLike = async (req, res) => {
   const { id } = req.params;
+  const { userId } = req;
 
   try {
-    const feed = await Feed.findByIdAndUpdate(
-      id,
-      { $inc: { likes: 1 } },
-      { new: true }
-    );
+    const feed = await Feed.findById(id);
     if (!feed) {
       throw new Error("피드를 찾을 수 없습니다");
     }
+    //이미 좋아요를 누른 사용자 확인
+    if (feed.likedBy.includes(userId)) {
+      throw new Error("이미 좋아요를 눌렀습니다.");
+    }
+
+    feed.likes += 1;
+    feed.likedBy.push(userId);
+    await feed.save();
+
+    return res.status(200).json({ status: "success", data: feed });
+  } catch (error) {
+    return res.status(500).json({ status: "fail", message: error.message });
+  }
+};
+
+//좋아요 취소
+export const registerUnlike = async (req, res) => {
+  const { id } = req.params;
+  const { userId } = req;
+
+  try {
+    const feed = await Feed.findById(id);
+    if (!feed) {
+      throw new Error("피드를 찾을 수 없습니다.");
+    }
+    //좋아요를 누른 사용자 확인
+    if (!feed.likedBy.includes(userId)) {
+      throw new Error("좋아요 상태가 아닙니다.");
+    }
+
+    // 좋아요 취소
+    feed.likes -= 1;
+    feed.likedBy = feed.likedBy.filter((id) => id.toString() !== userId);
+    await feed.save();
+
     return res.status(200).json({ status: "success", data: feed });
   } catch (error) {
     return res.status(500).json({ status: "fail", message: error.message });

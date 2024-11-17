@@ -2,7 +2,7 @@ import { IoMdArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
 import "./Header.css";
 
-export const Header = ({ backTo, title, children}) => {
+export const Header = ({ backTo, title, children = <></>}) => {
 
     return (
         <header className="header">

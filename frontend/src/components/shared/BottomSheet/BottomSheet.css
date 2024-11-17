@@ -1,0 +1,29 @@
+.bottom-sheet-overlay{
+    position: absolute;
+    background: rgba(0,0,0,.3);
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
+
+.bottom-sheet-content{
+    position: absolute;
+    background: white;
+    bottom: 0;
+    width: 100%;
+    border-radius: 8px 8px 0px 0px;
+    animation : slide-in .3s;
+    z-index: 1001;
+    .bottom-sheet-title {
+        padding: 1em;
+    }
+}
+
+@keyframes slide-in {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0%);
+    }
+}

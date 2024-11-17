@@ -1,0 +1,29 @@
+.notFound-layout {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.notFound-Container {
+  width: 100%;
+  max-width: 600px;
+  min-width: 320px;
+  flex-grow: 1;
+  margin: 0 auto;
+  background-color: var(--main-color);
+  color: var(--text-color);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+
+  & span {
+    font-weight: bold;
+  }
+
+  & button {
+    width: 60%;
+  }
+}

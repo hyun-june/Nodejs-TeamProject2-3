@@ -1,0 +1,75 @@
+#admin-table{
+    width: 100%;
+    margin : 1em 0 2em;
+    th {
+        text-align: start;
+        border-bottom: 1px solid var(--light-gray-color);
+        padding: .8em 0;
+        font-weight: bold;
+        color: var(--light-gray-color);
+        text-transform: uppercase;
+    }
+    tbody {
+        td {
+            .list-buttons {
+                display: flex;
+                gap: .4em;
+                justify-content: end;
+                color: var(--main-color);
+                button {
+                    font-size: .8em;
+                    padding: .8em 1em;
+                    border-radius: 4px;
+                    margin: .6em 0;
+                    transition: all .3s;
+                    &:hover {
+                        opacity: .7; 
+                    }
+                }
+
+                .update {
+                    background-color: var(--dark-gray-color);
+                }
+                .delete {
+
+                    background-color: var(--warn-color);
+                }
+            }
+        }
+    }
+}
+
+#admin-manager{
+    max-height: 100dvh;
+    overflow: auto;
+    h1 {
+        font-size: 1.2em;
+        padding: 1em .8em;
+        font-weight: bold;
+    }
+    hr {
+        border: 1px solid var(--sub-color);
+    }
+    .manager-content{
+        padding: 1em .8em;
+    }
+    .input-flex{
+        display: flex;
+        gap: 1em;
+    }
+    .submit-btn{
+        width: 100%;
+        border-radius: 8px;
+        padding: 1em 0;
+        background-color: var(--point-color);
+        color: var(--main-color);
+        margin-top : 2em;
+        transition: all .3s;
+        &:hover {
+            opacity: .8;
+        }
+    }
+    .delete-btn {
+        background-color: var(--warn-color);
+    }
+}

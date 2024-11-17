@@ -1,0 +1,15 @@
+.auth-header {
+  background-color: var(--main-color);
+  display: flex;
+  gap: 1em;
+  height: 60px;
+  padding: 0 1.2em;
+  position: sticky;
+  top: 0px;
+
+  h1 {
+    flex-grow: 1;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+}

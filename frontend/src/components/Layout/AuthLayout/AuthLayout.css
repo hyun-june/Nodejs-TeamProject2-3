@@ -1,0 +1,16 @@
+#authLayout {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#authLayout-Container {
+  width: 100%;
+  max-width: 600px;
+  min-width: 320px;
+  flex-grow: 1;
+  margin: 0 auto;
+  background-color: var(--main-color);
+  color: #1c1917;
+  text-align: center;
+}

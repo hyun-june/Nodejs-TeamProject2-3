@@ -92,6 +92,7 @@ video {
   vertical-align: baseline;
   vertical-align: -webkit-baseline-middle;
   vertical-align: -moz-middle-with-baseline;
+  text-decoration: none; /* 밑줄 제거 */
 }
 
 /* make sure to set some focus styles for accessibility */
@@ -211,9 +212,8 @@ html {
 /**
  * Address `outline` inconsistency between Chrome and other browsers.
  */
-
-a:focus {
-  outline: thin dotted;
+a:visited {
+  color: inherit;
 }
 
 /**
@@ -330,6 +330,12 @@ input[type="submit"] {
   -webkit-appearance: button; /* 2 */
   cursor: pointer; /* 3 */
   *overflow: visible; /* 4 */
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 /**

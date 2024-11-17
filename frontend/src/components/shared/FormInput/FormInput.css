@@ -1,0 +1,22 @@
+.form-input{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding-top: 1em;
+    label {
+        font-weight: bold;
+    }
+
+    input , textarea{
+        width: 100%;
+        border-radius: 8px;
+        border: 1px solid var(--light-gray-color);
+        padding: .8em 1em;
+        &:focus {
+            border: 1px solid var(--text-color);
+        }
+    }
+    textarea{
+        min-height: 100px
+    }
+}

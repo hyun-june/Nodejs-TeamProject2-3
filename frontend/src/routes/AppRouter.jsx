@@ -11,6 +11,8 @@ import { AdminFeedPage } from "../pages/AdminFeedPage/AdminFeedPage";
 import { AdminFoodPage } from "../pages/AdminFoodPage/AdminFoodPage";
 import { AdminLayout } from "../components/Layout/AdminLayout/AdminLayout";
 import { AuthLayout } from "../components/Layout/AuthLayout/AuthLayout";
+import { AppLayout } from "../components/Layout/AllLayout/AppLayout";
+import { DailyFoodPage } from "../pages/DailyFoodPage/DailyFoodPage";
 
 export const AppRouter = () => {
   return (
@@ -30,6 +32,7 @@ export const AppRouter = () => {
         <Route path="feed" element={<AdminFeedPage />} />
       </Route>
 
+      <Route path="/food" element={<DailyFoodPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

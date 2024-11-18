@@ -1,0 +1,10 @@
+.feed-inner-body {
+  height: calc(100dvh-60px);
+  display: flex;
+  flex-direction: column;
+}
+
+.feed-main {
+  flex-grow: 1;
+  overflow-y: hidden;
+}

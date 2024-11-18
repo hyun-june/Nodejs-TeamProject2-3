@@ -14,17 +14,23 @@ import { AuthLayout } from "../components/Layout/AuthLayout/AuthLayout";
 import { DailyFoodPage } from "../pages/DailyFoodPage/DailyFoodPage";
 import { FoodLayout } from "../components/Layout/FoodLayout/FoodLayout";
 import { FoodSearchPage } from "../pages/FoodSearchPage/FoodSearchPage";
+import { MainLayout } from "../components/Layout/MainLayout/MainLayout";
+import { FeedCreate } from "../pages/FeedPage/components/FeedCreate/FeedCreate";
 
 export const AppRouter = () => {
   return (
     <Routes>
-      <Route path="/" element={<MainPage />} />
-      <Route path="/feed" element={<FeedPage />} />
-      <Route path="/my" element={<MyPage />} />
+      <Route path="/" element={<MainLayout />}>
+        <Route path="" element={<MainPage />} />
+        <Route path="feed" element={<FeedPage />} />
+        <Route path="my" element={<MyPage />} />
+      </Route>
+      <Route path="/feed-create" element={<FeedCreate />} />
       <Route element={<AuthLayout />}>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/sign-up" element={<SignUpPage />} />
         <Route path="/user/detail" element={<UserDetailPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
 
       <Route path="/admin" element={<AdminLayout />}>

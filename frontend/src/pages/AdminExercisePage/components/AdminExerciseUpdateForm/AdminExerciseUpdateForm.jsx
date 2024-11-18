@@ -4,7 +4,7 @@ import { CategorieInput } from "../../../../components/shared/CategorieInput/Cat
 import { Textarea } from "../../../../components/shared/Textarea/Textarea"
 
 export const AdminExerciseUpdateForm = () => {
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, formState : { errors } } = useForm()
 
     const handleFormSubmit = (formData) => {
         console.log(formData)
@@ -14,10 +14,10 @@ export const AdminExerciseUpdateForm = () => {
         <h1>운동 수정하기</h1>
         <hr />
         <form className="manager-content" onSubmit={handleSubmit(handleFormSubmit)}>
-            <FormInput id='name' title='이름' {...register("name")}/>
+            <FormInput name='name' title='이름' register={register} errMsg={errors.name?.message}/>
             <CategorieInput/>
-            <FormInput id='defaultGram' title='운동 강도' {...register("defaultGram")}/>
-            <Textarea id="description" title="운동설명"/>
+            <FormInput name='defaultGram' title='운동 강도' register={register} errMsg={errors.defaultGram?.message}/>
+            <Textarea name="description" title="운동설명" register={register} errMsg={errors.description?.message}/>
             <button className="submit-btn">수정</button>
         </form>
     </div>

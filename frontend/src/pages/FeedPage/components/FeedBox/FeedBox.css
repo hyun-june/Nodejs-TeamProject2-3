@@ -1,0 +1,49 @@
+.feed-imgbox {
+  & img {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    border-top: 1px solid var(--sub-color);
+    border-bottom: 1px solid var(--sub-color);
+    object-fit: cover;
+  }
+}
+
+.feed-inner {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.feed-text {
+  line-height: 1.4;
+}
+
+.closeText {
+  padding-left: 1em;
+}
+
+.feed-top {
+  display: flex;
+  padding: 1em;
+  align-items: center;
+  justify-content: space-between;
+}
+.feed-top-text {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.feed-tags-list {
+  display: flex;
+  gap: 1em;
+}
+
+.feed-tag-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 0 1em;
+}

@@ -1,0 +1,14 @@
+#container {
+  width: clamp(300px, 100%, 450px);
+  margin: 0 auto;
+  border: 1px solid var(--light-gray-color);
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.layout-main {
+  flex: 1;
+}

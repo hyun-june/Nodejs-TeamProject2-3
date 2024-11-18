@@ -1,8 +1,7 @@
 .userDetailPage-Container {
   width: 100%;
   padding: 0 3em;
-  margin-bottom: 7em;
-
+  margin-top: 2em;
   & form {
     margin-bottom: 12rem;
   }

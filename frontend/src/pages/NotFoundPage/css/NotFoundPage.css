@@ -8,8 +8,7 @@
   width: 100%;
   max-width: 600px;
   min-width: 320px;
-  flex-grow: 1;
-  margin: 0 auto;
+  margin-top: 10em;
   background-color: var(--main-color);
   color: var(--text-color);
   text-align: center;

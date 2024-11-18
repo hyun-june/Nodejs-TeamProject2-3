@@ -26,6 +26,7 @@ export const AppRouter = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/sign-up" element={<SignUpPage />} />
         <Route path="/user/detail" element={<UserDetailPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
 
       <Route path="/admin" element={<AdminLayout />}>
@@ -35,7 +36,6 @@ export const AppRouter = () => {
       </Route>
 
       <Route path="/food" element={<DailyFoodPage />} />
-      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 };

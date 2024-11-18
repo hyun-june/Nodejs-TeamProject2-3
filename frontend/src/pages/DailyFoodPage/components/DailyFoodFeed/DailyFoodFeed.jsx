@@ -1,4 +1,5 @@
 import { GoPlus } from "react-icons/go";
+import { Link } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -17,7 +18,9 @@ export const DailyFoodFeed = () => {
       </section>
       <section className="DailyFood__Feed-content-box">
         <button aria-label="음식 추가">
-          <GoPlus />
+          <Link to="/food/search">
+            <GoPlus />
+          </Link>
         </button>
       </section>
       <footer className="DailyFood__Feed-footer">

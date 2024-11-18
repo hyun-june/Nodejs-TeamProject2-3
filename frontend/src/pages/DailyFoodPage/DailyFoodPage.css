@@ -63,6 +63,11 @@
   align-items: center;
   justify-content: space-between;
   width: 90%;
+  margin: 30px 0px;
+  span {
+    font-size: 24px;
+    font-weight: 600;
+  }
 }
 
 /* 피드 스타일 */
@@ -85,7 +90,6 @@
 
 .DailyFood__Feed {
   width: 253px;
-  margin-top: 20px;
   background-color: white;
   padding: 20px;
   height: 313px;

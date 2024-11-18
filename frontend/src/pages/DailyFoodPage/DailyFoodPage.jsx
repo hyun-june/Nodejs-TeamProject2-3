@@ -31,6 +31,7 @@ export const DailyFoodPage = () => {
             <span>kcal</span>
           </div>
         </div>
+
         <Slider {...setting}>
           <DailyFoodFeed />
           <DailyFoodFeed />

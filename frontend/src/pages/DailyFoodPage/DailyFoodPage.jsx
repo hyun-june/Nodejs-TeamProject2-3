@@ -11,7 +11,7 @@ export const DailyFoodPage = () => {
     dots: false,
     infinite: false,
     slidesToShow: 1.3,
-    slidesToScroll: 1,
+    slidesToScroll: 0.75,
     arrows: false,
     swipe: true,
   };
@@ -19,7 +19,7 @@ export const DailyFoodPage = () => {
   return (
     <>
       {/* <Header/> */}
-      <main>
+      <main className="DailyFood">
         <DailyFoodCalender />
 
         <div className="DailyFood__total-calorie">

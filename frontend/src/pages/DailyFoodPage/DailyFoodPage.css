@@ -1,16 +1,14 @@
-main {
-  background-color: #a8a29e;
+.DailyFood {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100dvh;
 }
 
 /* 달력 관련 css */
 .food-calender {
   display: flex;
   align-items: center;
-  background-color: #fafaf9;
+  background-color: white;
   padding: 20px;
   margin-top: 25px;
   width: 90%;
@@ -27,6 +25,38 @@ main {
   margin-left: 20px;
 }
 
+/* 스타일 파일 (예: styles.css) */
+.modal-content {
+  font-size: 10px;
+  width: 80%; /* 너비를 원하는 대로 조절 */
+  max-width: 500px; /* 최대 너비 */
+  height: 70%; /* 높이를 원하는 대로 조절 */
+  max-height: 600px; /* 최대 높이 */
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  width: 80%; /* 너비를 원하는 대로 조절 */
+  max-width: 400px; /* 최대 너비 */
+  height: auto; /* 높이를 내용에 맞게 조절 */
+  max-height: 80%; /* 최대 높이 */
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 /* 총 칼로리 위쪽 */
 .DailyFood__total-calorie {
   display: flex;
@@ -36,28 +66,29 @@ main {
 }
 
 /* 피드 스타일 */
-element.style {
-  width: 270px;
-}
+
 .slick-slider {
-  width: 90%;
+  width: 100%;
   height: 300px;
   display: flex;
+  padding-left: 20px;
 }
 
 .slick-slide {
+  width: 253px !important;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 500px;
+  margin-right: 5px;
 }
 
 .DailyFood__Feed {
-  width: 95%;
+  width: 253px;
   margin-top: 20px;
-  background-color: #fafaf9;
+  background-color: white;
   padding: 20px;
-  height: 300px;
+  height: 313px;
   border-radius: 10px;
 }
 
@@ -68,16 +99,21 @@ element.style {
   margin-bottom: 45px;
 }
 .DailyFood__Feed-content-box {
-  background-color: #fff;
+  height: 55px;
+  background-color: white;
+  margin-top: 3px;
   padding: 10px;
-  border: 1px solid black;
+  border: 1px solid #b8b3af;
   border-radius: 10px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .DailyFood__Feed-content-box-inner {
   width: 100%;
+  h3 {
+    font-size: 17px;
+  }
 }
 .DailyFood__Feed-content-box > div {
   margin: 0 10px;
@@ -87,8 +123,21 @@ element.style {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  color: #b8b3af;
+  font-size: 12px;
   div {
     font-size: 10px;
   }
   margin-top: 5px;
+}
+
+.DailyFood__Feed-footer {
+  margin-top: 50px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  .DailyFood__Feed-totalCalorie-Num {
+    font-size: 24px;
+    font-weight: 700;
+  }
 }

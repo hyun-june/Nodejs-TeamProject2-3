@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { AddButton } from "../../components/shared/AddButton/AddButton";
 import { SearchBar } from "../../components/shared/SearchBar/SearchBar";
 import { FeedBox } from "./components/FeedBox/FeedBox";
@@ -19,7 +20,9 @@ export const FeedPage = () => {
           <FeedBox src={item} key={index} />
         ))}
 
-        <AddButton />
+        <Link to="/feed-create">
+          <AddButton />
+        </Link>
       </div>
     </div>
   );

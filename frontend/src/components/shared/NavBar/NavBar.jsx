@@ -1,35 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import "./NavBar.css";
-import {
-  BsPersonFill,
-  BsPerson,
-  BsPostcardFill,
-  BsPostcard,
-} from "react-icons/bs";
-import { IoHome, IoHomeOutline } from "react-icons/io5";
 
-const items = [
-  {
-    path: "/",
-    icon: <IoHomeOutline />,
-    activeIcon: <IoHome />,
-    text: "홈",
-  },
-  {
-    path: "/feed",
-    icon: <BsPostcard />,
-    activeIcon: <BsPostcardFill />,
-    text: "피드",
-  },
-  {
-    path: "/my",
-    icon: <BsPerson />,
-    activeIcon: <BsPersonFill />,
-    text: "내정보",
-  },
-];
-
-export const NavBar = ({ ...props }) => {
+export const NavBar = ({ items, ...props }) => {
   const { pathname } = useLocation();
 
   return (

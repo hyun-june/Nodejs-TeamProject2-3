@@ -1,18 +1,40 @@
 import { Outlet } from "react-router-dom"
-import { AdminNavbar } from "./components/AdminNavbar/AdminNavbar";
-import { AdminHeader } from "./components/AdminHeader/AdminHeader";
+import { Header } from "../../shared/Header/Header";
+import { NavBar } from "../../shared/NavBar/NavBar";
+import { FaBowlFood } from "react-icons/fa6"; 
+import { MdSportsVolleyball, MdDynamicFeed } from "react-icons/md";
 import "./AdminLayout.css";
+
+const items = [
+    {
+        path: "/admin/food",
+        icon: <FaBowlFood />,
+        activeIcon: <FaBowlFood />,
+        text: "food",
+    },
+    {
+        path: "/admin/exercise",
+        icon: <MdSportsVolleyball />,
+        activeIcon: <MdSportsVolleyball />,
+        text: "exercise",
+    },
+    {
+        path: "/admin/feed",
+        icon: <MdDynamicFeed />,
+        activeIcon: <MdDynamicFeed />,
+        text: "feed",
+    },
+];
 
 export const AdminLayout = () => {
 
-    return <div id="temporary-inner-body">
-        <div id="bottom-sheet"/>
-        <div className="admin-layout-main">
-            <AdminHeader/>
+    return <>
+        <div className="layout-main admin-layout-main">
+            <Header backTo='/' title='Admin' />
             <main>
                 <Outlet/>
             </main>
         </div>
-        <AdminNavbar/>
-    </div>
+        <NavBar items={items}/>
+    </>
 }

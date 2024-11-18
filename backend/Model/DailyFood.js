@@ -16,7 +16,7 @@ const dailyFoodSchema = new mongoose.Schema(
     quantity: {
       type: Number,
       required: true,
-      min: 1, //1회, 2회로 작성
+      min: 0, //g 표기
     },
     totalCalories: { type: Number, required: true, min: 0 },
     nutrition: {

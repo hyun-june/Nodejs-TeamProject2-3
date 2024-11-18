@@ -33,7 +33,7 @@ const items = [
 export const MainLayout = () => {
 
     return <>
-        <div className="layout-main">
+        <div className="layout">
             <Outlet/>
         </div>
         <NavBar items={items}/>

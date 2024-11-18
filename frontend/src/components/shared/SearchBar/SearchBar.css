@@ -1,5 +1,6 @@
 #search-bar {
     position: relative;
+    width: 100%;
     input {
         width: 100%;
         padding: .8em 3em .8em 1.2em;

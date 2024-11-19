@@ -1,10 +1,64 @@
 .userDetailPage-Container {
   width: 100%;
+  height: 100dvh;
   padding: 0 3em;
   margin-top: 2em;
-  & form {
-    margin-bottom: 12rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.profilePreview {
+  position: relative;
+  margin-bottom: 1em;
+  & img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
   }
+
+  & button {
+    padding: 1em;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
+
+.profile-Section {
+  background-color: var(--sub-color);
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1em;
+  & label {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    color: var(--light-gray-color);
+  }
+
+  & input {
+    display: none;
+  }
+}
+
+.profileInfo-form {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.profile-icon {
+  width: 3em;
+}
+
+.text-align {
+  text-align: left;
 }
 
 .detail-first-section {

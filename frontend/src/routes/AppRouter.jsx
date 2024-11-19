@@ -13,7 +13,7 @@ import { AdminLayout } from "../components/Layout/AdminLayout/AdminLayout";
 import { AuthLayout } from "../components/Layout/AuthLayout/AuthLayout";
 import { DailyFoodPage } from "../pages/DailyFoodPage/DailyFoodPage";
 import { MainLayout } from "../components/Layout/MainLayout/MainLayout";
-import { FeedCreate } from "../pages/FeedPage/components/FeedCreate/FeedCreate";
+import { FeedCreatePage } from "../pages/FeedCreatePage/FeedCreatePage";
 
 export const AppRouter = () => {
   return (
@@ -23,7 +23,7 @@ export const AppRouter = () => {
         <Route path="feed" element={<FeedPage />} />
         <Route path="my" element={<MyPage />} />
       </Route>
-      <Route path="/feed-create" element={<FeedCreate />} />
+      <Route path="/feed-create" element={<FeedCreatePage />} />
       <Route element={<AuthLayout />}>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/sign-up" element={<SignUpPage />} />

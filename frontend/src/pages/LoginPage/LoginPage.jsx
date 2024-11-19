@@ -4,8 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { api } from "../../utils/api";
 import { AuthInput } from "../../components/shared/AuthInput/AuthInput";
 import { AuthButton } from "../../components/shared/AuthButton/AuthButton";
-import "./css/LoginPage.css";
 import { useLogin } from "../../core/hooks/useAuth";
+import "./css/LoginPage.css";
 
 export const LoginPage = () => {
   const {

@@ -5,6 +5,7 @@ import "./DailyFoodPage.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { DailyFoodFeed } from "./components/DailyFoodFeed/DailyFoodFeed";
+import { Header } from "../../components/shared/Header/Header";
 
 export const DailyFoodPage = () => {
   const setting = {
@@ -18,7 +19,7 @@ export const DailyFoodPage = () => {
 
   return (
     <>
-      {/* <Header/> */}
+      <Header backTo={-1} title={"식단"} />
       <main className="DailyFood">
         <DailyFoodCalender />
 

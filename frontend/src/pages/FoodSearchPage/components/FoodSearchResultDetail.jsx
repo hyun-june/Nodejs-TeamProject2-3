@@ -1,6 +1,36 @@
 import { FoodSearchResultDonutChart } from "./FoodSearchResultDonutChart";
+import { Tabs } from "../../../components/shared/Tabs/Tabs";
 
 export const FoodSearchResultDetail = () => {
+  const Tabs1 = () => {
+    return (
+      <div className="tab-input-container">
+        <input
+          className="tab-input"
+          placeholder="인분 or 개수를 적어주세요."
+        ></input>
+      </div>
+    );
+  };
+
+  const Tabs2 = () => {
+    return (
+      <div className="tab-input-container">
+        <input className="tab-input" placeholder="g수를 적어주세요."></input>
+      </div>
+    );
+  };
+
+  const items = [
+    {
+      title: "개마다(100g)",
+      comp: <Tabs1 />,
+    },
+    {
+      title: "g",
+      comp: <Tabs2 />,
+    },
+  ];
   return (
     <>
       <header className="FoodDetail-title">
@@ -27,6 +57,14 @@ export const FoodSearchResultDetail = () => {
           </div>
         </article>
         <FoodSearchResultDonutChart />
+      </section>
+      <section className="FoodDetail-footer">
+        <div>
+          <Tabs items={items} className="FoodDetailTabs" />
+        </div>
+        <div className="FoodDetail-addButton">
+          <button>추가</button>
+        </div>
       </section>
     </>
   );

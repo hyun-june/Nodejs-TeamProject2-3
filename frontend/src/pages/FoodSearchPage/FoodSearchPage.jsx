@@ -1,15 +1,18 @@
 import { BottomSheet } from "../../components/shared/BottomSheet/BottomSheet";
 import { useBottomSheet } from "../../components/shared/BottomSheet/components/useBottomSheet";
+import { Header } from "../../components/shared/Header/Header";
 import { SearchBar } from "../../components/shared/SearchBar/SearchBar";
 import { FoodSearchResultDetail } from "./components/FoodSearchResultDetail";
 import "./FoodSearchPage.css";
 
 export const FoodSearchPage = () => {
-  const { bottomSheetProps, open, close } = useBottomSheet();
+  const { bottomSheetProps, open } = useBottomSheet();
   return (
     <>
       <header>
-        <SearchBar />
+        <Header>
+          <SearchBar />
+        </Header>
       </header>
       <main>
         <section className="DailyFood__Feed-content-box" onClick={open}>
@@ -22,12 +25,9 @@ export const FoodSearchPage = () => {
           </div>
         </section>
         <section>
-          <BottomSheet {...bottomSheetProps}>
-            <button onClick={close}>닫기</button>
+          <BottomSheet {...bottomSheetProps} className="Food-bottomSheet">
+            <FoodSearchResultDetail />
           </BottomSheet>
-        </section>
-        <section>
-          <FoodSearchResultDetail />
         </section>
       </main>
     </>

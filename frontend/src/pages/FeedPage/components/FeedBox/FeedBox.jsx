@@ -1,8 +1,9 @@
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { LikeButton } from "../../../../components/Feed/LikeButton/LikeButton";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { TagButton } from "../TagButton/TagButton";
 import { Avatar } from "../../../../components/shared/Avatar/Avatar";
-import { useState } from "react";
 import "./FeedBox.css";
 
 const feedtext = `라이언 귀엽다. 라이언 귀엽다.라이언 귀엽다. 라이언 귀엽다.라이언
@@ -15,15 +16,20 @@ const feedtext = `라이언 귀엽다. 라이언 귀엽다.라이언 귀엽다. 
 const maxLength = 80;
 
 export const FeedBox = ({ src }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const [isShowMore, setIsShowMore] = useState(false);
 
   const handleShowMoreClick = () => {
     setIsShowMore(!isShowMore);
   };
 
+  const handleMoveFeed = (feedId) => [navigate(`/feed/${feedId}`)];
+
   const displayedText = isShowMore ? feedtext : feedtext.slice(0, maxLength);
   return (
-    <article>
+    <article className={location.pathname === "/feed" ? "feed-container" : ""}>
       <div className="feed-top">
         <div className="feed-top-text">
           <Avatar />
@@ -34,9 +40,10 @@ export const FeedBox = ({ src }) => {
         </div>
         <FaEllipsisVertical />
       </div>
-      <picture className="feed-imgbox">
+      <picture className="feed-imgbox" onClick={handleMoveFeed}>
         <img src={src} alt="" />
       </picture>
+
       <div className="feed-inner">
         <LikeButton />
         <div className={`feed-text ${isShowMore ? "show-more" : ""}`}>

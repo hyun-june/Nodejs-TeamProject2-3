@@ -14,6 +14,7 @@ import { AuthLayout } from "../components/Layout/AuthLayout/AuthLayout";
 import { DailyFoodPage } from "../pages/DailyFoodPage/DailyFoodPage";
 import { MainLayout } from "../components/Layout/MainLayout/MainLayout";
 import { FeedCreatePage } from "../pages/FeedCreatePage/FeedCreatePage";
+import { FeedDetailPage } from "../pages/FeedDetailPage/FeedDetailPage";
 
 export const AppRouter = () => {
   return (
@@ -23,6 +24,8 @@ export const AppRouter = () => {
         <Route path="feed" element={<FeedPage />} />
         <Route path="my" element={<MyPage />} />
       </Route>
+
+      <Route path="/feed/:id" element={<FeedDetailPage />} />
       <Route path="/feed-create" element={<FeedCreatePage />} />
       <Route element={<AuthLayout />}>
         <Route path="/login" element={<LoginPage />} />

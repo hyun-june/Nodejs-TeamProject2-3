@@ -15,7 +15,11 @@ export const UserDetailPage = () => {
   const onUserSubmit = async (formData) => {
     console.log("Form Data:", formData);
     const profileInfoData = new FormData();
-    profileInfoData.append("profileImg", profileImgfile);
+    if (profileImgfile) {
+      profileInfoData.append("profileImg", profileImgfile);
+    } else {
+      profileInfoData.append("profileImg", "/basic-profile.png");
+    }
 
     // try {
     //   const response = await fetch("/profile-upload", {

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AddButton } from "../../components/shared/AddButton/AddButton";
 import { SearchBar } from "../../components/shared/SearchBar/SearchBar";
 import { FeedBox } from "./components/FeedBox/FeedBox";
@@ -11,6 +11,11 @@ const testImg = [
 ];
 
 export const FeedPage = () => {
+  const navigate = useNavigate();
+
+  const handleFeedClick = (feedId) => {
+    navigate(`/feed/${feedId}`);
+  };
   return (
     <div className="feed-inner-body">
       <div className="feed-main">

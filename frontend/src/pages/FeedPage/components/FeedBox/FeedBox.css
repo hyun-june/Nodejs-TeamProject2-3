@@ -1,3 +1,7 @@
+.feed-container {
+  border-bottom: 1px solid var(--sub-color);
+}
+
 .feed-imgbox {
   & img {
     width: 100%;
@@ -5,7 +9,7 @@
     max-height: 500px;
     border-top: 1px solid var(--sub-color);
     border-bottom: 1px solid var(--sub-color);
-    object-fit: cover;
+    object-fit: contain;
   }
 }
 
@@ -46,4 +50,5 @@
   flex-direction: column;
   gap: 1em;
   padding: 0 1em;
+  margin-bottom: 1em;
 }

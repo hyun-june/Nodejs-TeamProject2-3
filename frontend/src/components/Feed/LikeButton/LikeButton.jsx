@@ -9,12 +9,13 @@ export const LikeButton = () => {
   const handleLikeUpDown = () => {
     setLikeStatus((status) => !status);
     setLikes((items) => items + (likeStatus ? -1 : 1));
+    return status;
   };
 
   return (
     <div className="like-line">
       <button onClick={handleLikeUpDown}>
-        <FaHeart id="like-icon" />
+        <FaHeart className={likeStatus ? "like-icon liked" : "like-icon"} />
       </button>
       <span>{`좋아요 ${likes}개`}</span>
     </div>

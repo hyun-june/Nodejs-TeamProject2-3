@@ -1,7 +1,14 @@
 import { FoodSearchResultDonutChart } from "./FoodSearchResultDonutChart";
 import { Tabs } from "../../../components/shared/Tabs/Tabs";
 
-export const FoodSearchResultDetail = () => {
+export const FoodSearchResultDetail = ({ selectedFood }) => {
+  console.log("selectedFood", selectedFood);
+  const {
+    name = "알 수 없음",
+    nutrient = [{}],
+    defaultGram = 100,
+  } = selectedFood;
+  console.log("selectedFood11", selectedFood);
   const Tabs1 = () => {
     return (
       <div className="tab-input-container">
@@ -23,7 +30,7 @@ export const FoodSearchResultDetail = () => {
 
   const items = [
     {
-      title: "개마다(100g)",
+      title: `${defaultGram}g`,
       comp: <Tabs1 />,
     },
     {
@@ -31,32 +38,33 @@ export const FoodSearchResultDetail = () => {
       comp: <Tabs2 />,
     },
   ];
+
   return (
     <>
       <header className="FoodDetail-title">
-        <h1>사과</h1>
+        <h1>{name}</h1>
       </header>
       <section className="FoodDetail-nutrient">
         <article className="FoodDetail-nutrient__Car">
           <div>
-            <p>24.2g</p>
+            <p>{nutrient[0]?.Carbohydrate || 0}g</p>
             <p>탄수화물</p>
           </div>
         </article>
         <article className="FoodDetail-nutrient__Pro">
           <div>
-            <p>0.6g</p>
+            <p>{nutrient[0]?.Protein || 0}g</p>
             <p>단백질</p>
           </div>
         </article>
 
         <article className="FoodDetail-nutrient__Fat">
           <div>
-            <p>0.4g</p>
+            <p>{nutrient[0]?.Fat || 0}g</p>
             <p>지방</p>
           </div>
         </article>
-        <FoodSearchResultDonutChart />
+        <FoodSearchResultDonutChart nutrient={nutrient[0]} />
       </section>
       <section className="FoodDetail-footer">
         <div>

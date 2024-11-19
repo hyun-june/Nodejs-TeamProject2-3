@@ -17,9 +17,13 @@ export const DailyFoodPage = () => {
     swipe: true,
   };
 
+  const mealTypes = ["아침", "점심", "저녁", "간식"];
+
   return (
     <>
-      <Header backTo={-1} title={"식단"} />
+      <header>
+        <Header backTo={-1} title={"식단"} />
+      </header>
       <main className="DailyFood">
         <DailyFoodCalender />
 
@@ -32,12 +36,10 @@ export const DailyFoodPage = () => {
             <span>kcal</span>
           </div>
         </div>
-
         <Slider {...setting}>
-          <DailyFoodFeed />
-          <DailyFoodFeed />
-          <DailyFoodFeed />
-          <DailyFoodFeed />
+          {mealTypes.map((mealType) => (
+            <DailyFoodFeed key={mealType} mealType={mealType} />
+          ))}
         </Slider>
       </main>
     </>

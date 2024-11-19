@@ -1,0 +1,94 @@
+/* main {
+  background-color: #a8a29e;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100dvh;
+} */
+
+/* 달력 관련 css */
+.food-calender {
+  display: flex;
+  align-items: center;
+  background-color: #fafaf9;
+  padding: 20px;
+  margin-top: 25px;
+  width: 90%;
+  border-radius: 10px;
+}
+
+.food-calender__calender-icon {
+  font-size: 19px;
+  margin-right: 15px;
+  color: #2563eb;
+}
+
+.food-calender__downBtn-icon {
+  margin-left: 20px;
+}
+
+/* 총 칼로리 위쪽 */
+.DailyFood__total-calorie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+}
+
+/* 피드 스타일 */
+element.style {
+  width: 270px;
+}
+.slick-slider {
+  width: 90%;
+  height: 300px;
+  display: flex;
+}
+
+.slick-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+}
+
+.DailyFood__Feed {
+  width: 95%;
+  margin-top: 20px;
+  background-color: #fafaf9;
+  padding: 20px;
+  height: 300px;
+  border-radius: 10px;
+}
+
+.DailyFood__Feed-title {
+  border: none;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 45px;
+}
+.DailyFood__Feed-content-box {
+  background-color: #fff;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.DailyFood__Feed-content-box-inner {
+  width: 100%;
+}
+.DailyFood__Feed-content-box > div {
+  margin: 0 10px;
+}
+
+.DailyFood_Feed-content-box__explain {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  div {
+    font-size: 10px;
+  }
+  margin-top: 5px;
+}

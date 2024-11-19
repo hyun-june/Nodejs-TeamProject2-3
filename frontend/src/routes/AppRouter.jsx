@@ -11,17 +11,24 @@ import { AdminFeedPage } from "../pages/AdminFeedPage/AdminFeedPage";
 import { AdminFoodPage } from "../pages/AdminFoodPage/AdminFoodPage";
 import { AdminLayout } from "../components/Layout/AdminLayout/AdminLayout";
 import { AuthLayout } from "../components/Layout/AuthLayout/AuthLayout";
+import { DailyFoodPage } from "../pages/DailyFoodPage/DailyFoodPage";
+import { MainLayout } from "../components/Layout/MainLayout/MainLayout";
+import { FeedCreatePage } from "../pages/FeedCreatePage/FeedCreatePage";
 
 export const AppRouter = () => {
   return (
     <Routes>
-      <Route path="/" element={<MainPage />} />
-      <Route path="/feed" element={<FeedPage />} />
-      <Route path="/my" element={<MyPage />} />
+      <Route path="/" element={<MainLayout />}>
+        <Route path="" element={<MainPage />} />
+        <Route path="feed" element={<FeedPage />} />
+        <Route path="my" element={<MyPage />} />
+      </Route>
+      <Route path="/feed-create" element={<FeedCreatePage />} />
       <Route element={<AuthLayout />}>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/sign-up" element={<SignUpPage />} />
         <Route path="/user/detail" element={<UserDetailPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
 
       <Route path="/admin" element={<AdminLayout />}>
@@ -30,7 +37,7 @@ export const AppRouter = () => {
         <Route path="feed" element={<AdminFeedPage />} />
       </Route>
 
-      <Route path="*" element={<NotFoundPage />} />
+      <Route path="/food" element={<DailyFoodPage />} />
     </Routes>
   );
 };

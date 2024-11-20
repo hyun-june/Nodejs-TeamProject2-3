@@ -17,7 +17,7 @@ export const LoginPage = () => {
 
   const { mutate: login, isLoading, isError, error } = useLogin();
 
-  const handleLoginSubmit = async (formData) => {
+  const handleLoginSubmit = (formData) => {
     login({ email: formData.Email, password: formData.Password });
     console.log(formData);
   };

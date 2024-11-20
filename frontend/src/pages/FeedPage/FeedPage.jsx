@@ -32,3 +32,50 @@ export const FeedPage = () => {
     </div>
   );
 };
+
+// import { useEffect } from "react";
+// import { useGetTestAll } from "../../core/hooks/useFeed";
+// import { useInView } from "react-intersection-observer";
+
+// export const FeedPage = () => {
+//   const {
+//     data,
+//     isLoading,
+//     error,
+//     fetchNextPage,
+//     hasNextPage,
+//     isFetchNextPage,
+//   } = useGetTestAll();
+//   console.log("ddd", data);
+//   const { ref, inView } = useInView();
+//   useEffect(() => {
+//     if (inView && hasNextPage && !isFetchNextPage) {
+//       fetchNextPage();
+//     }
+//   }, [inView]);
+
+//   return (
+//     <div>
+//       {data?.pages?.map((page, pageIndex) => (
+//         <div key={pageIndex}>
+//           {page.results.map((item, index) => (
+//             <div key={index}>
+//               <h3>{item.title}</h3>
+//             </div>
+//           ))}
+//         </div>
+//       ))}
+//       {data?.pages?.map((page, pageIndex) => (
+//         <div key={pageIndex}>
+//           {page.results.map((item, index) => (
+//             <div key={index}>
+//               <h3>{item.title}</h3>
+//             </div>
+//           ))}
+//         </div>
+//       ))}
+
+//       <h1 ref={ref}>확인</h1>
+//     </div>
+//   );
+// };

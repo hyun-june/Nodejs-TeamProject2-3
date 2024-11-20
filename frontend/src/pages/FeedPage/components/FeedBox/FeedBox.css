@@ -2,15 +2,13 @@
   border-bottom: 1px solid var(--sub-color);
 }
 
-.feed-imgbox {
-  & img {
-    width: 100%;
-    height: auto;
-    max-height: 500px;
-    border-top: 1px solid var(--sub-color);
-    border-bottom: 1px solid var(--sub-color);
-    object-fit: contain;
-  }
+.feed-imgbox img {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  border-top: 1px solid var(--sub-color);
+  border-bottom: 1px solid var(--sub-color);
+  object-fit: contain;
 }
 
 .feed-inner {

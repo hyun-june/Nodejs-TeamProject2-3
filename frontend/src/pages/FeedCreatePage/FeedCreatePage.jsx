@@ -3,8 +3,7 @@ import { Header } from "../../components/shared/Header/Header";
 import { AuthButton } from "../../components/shared/AuthButton/AuthButton";
 import { FaPlus } from "react-icons/fa6";
 import { IoCloseSharp } from "react-icons/io5";
-import { FaHashtag } from "react-icons/fa";
-("");
+import { useCreateFeed } from "../../core/hooks/useFeed";
 import "./css/FeedCreatePage.css";
 
 export const FeedCreatePage = () => {
@@ -13,6 +12,8 @@ export const FeedCreatePage = () => {
   const [feedText, setFeedText] = useState("");
   const [tags, setTags] = useState([]);
   const [newTag, setNewTag] = useState("");
+
+  const { mutate: createFeed, isLoading, isError, error } = useCreateFeed();
 
   const handleImageChange = (e) => {
     if (!e.target.files) return;
@@ -28,6 +29,11 @@ export const FeedCreatePage = () => {
     console.log("뿌숑");
     console.log("tags", tags);
     console.log("text", feedText);
+    createFeed({
+      fileUrl: mainImageFile,
+      description: feedText,
+      hashtags: tags,
+    });
   };
 
   const handleImageDelete = () => {

@@ -116,6 +116,7 @@ export const FeedDetailPage = () => {
             </li>
           );
         })}
+        <div className="feed-end-comment">더 이상 댓글이 없습니다.</div>
       </ul>
     </div>
   );

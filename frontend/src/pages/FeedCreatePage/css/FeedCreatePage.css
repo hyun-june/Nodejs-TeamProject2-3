@@ -53,6 +53,7 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  justify-content: space-around;
 
   & textarea {
     resize: none;
@@ -65,42 +66,46 @@
 }
 
 .feed-create-tag {
-  flex-grow: 1;
   display: flex;
-  flex-direction: column;
+  gap: 1em;
+  min-height: 2em;
 
-  & ul {
+  & div {
+    width: 5.5em;
     display: flex;
-    gap: 1em;
-    flex-wrap: wrap;
+    background-color: var(--sub-color);
+    padding: 0.3em;
+    border-radius: 5px;
 
-    & li {
+    & span {
       display: flex;
       align-items: center;
     }
 
-    & div {
-      background-color: var(--sub-color);
-      font-size: 1em;
-      border-radius: 5px;
-      border: none;
-      padding: 0.2em 0.5em;
-      white-space: nowrap;
-      display: flex;
-
-      & span {
-        width: 100%;
-      }
+    & input {
+      width: 100%;
+      padding-left: 0.3em;
     }
   }
-}
 
-.tag-title {
-  display: flex;
-  align-items: center;
-  flex-grow: 0.1;
+  & ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
 
-  & button {
-    background-color: none;
+    & li {
+      display: flex;
+      align-items: center;
+      background-color: var(--sub-color);
+      border-radius: 5px;
+      padding: 0.3em;
+
+      & span {
+        padding-left: 0.3em;
+      }
+    }
   }
 }

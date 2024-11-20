@@ -3,6 +3,8 @@ import { Header } from "../../components/shared/Header/Header";
 import { AuthButton } from "../../components/shared/AuthButton/AuthButton";
 import { FaPlus } from "react-icons/fa6";
 import { IoCloseSharp } from "react-icons/io5";
+import { FaHashtag } from "react-icons/fa";
+("");
 import "./css/FeedCreatePage.css";
 
 export const FeedCreatePage = () => {
@@ -35,10 +37,10 @@ export const FeedCreatePage = () => {
 
   const handleAddTag = () => {
     const inputTag = newTag.trim();
-    const addTag = `#${newTag.trim()}`;
+
     if (!inputTag) return;
-    if (!tags.includes(addTag)) {
-      setTags([...tags, addTag]);
+    if (!tags.includes(inputTag)) {
+      setTags([...tags, inputTag]);
       setNewTag("");
     }
   };
@@ -77,28 +79,29 @@ export const FeedCreatePage = () => {
           onChange={(e) => setFeedText(e.target.value)}
         />
         <div className="feed-create-tag">
-          <div className="tag-title">
-            <input
-              type="text"
-              value={newTag}
-              placeholder="#태그 입력"
-              onChange={(e) => setNewTag(e.target.value)}
-            />
-            <button onClick={handleAddTag}>
-              <FaPlus />
-            </button>
-          </div>
           <ul>
             {tags.map((tag, index) => (
               <li key={index}>
-                <div>
-                  <span>{tag}</span>
-                  <button onClick={() => handleDeleteTag(index)}>
-                    <IoCloseSharp />
-                  </button>
-                </div>
+                <p>#</p>
+                <span>{tag}</span>
+                <button onClick={() => handleDeleteTag(index)}>
+                  <IoCloseSharp />
+                </button>
               </li>
             ))}
+            <div>
+              <span>#</span>
+              <input
+                type="text"
+                value={newTag}
+                placeholder="태그"
+                onChange={(e) => setNewTag(e.target.value)}
+                onKeyPress={(e) => e.key === "Enter" && handleAddTag()}
+              />
+              <button onClick={handleAddTag}>
+                <FaPlus />
+              </button>
+            </div>
           </ul>
         </div>
         <AuthButton onClick={handleFeedSubmit} className="button-color_blue">

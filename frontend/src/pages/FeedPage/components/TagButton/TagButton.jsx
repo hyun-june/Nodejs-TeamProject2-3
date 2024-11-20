@@ -1,9 +1,9 @@
 import "./TagButton.css";
 
-export const TagButton = () => {
+export const TagButton = ({ ...props }) => {
   return (
     <div>
-      <button className="tag-button">#뿌숑</button>
+      <button className="tag-button">#{props.tagName}</button>
     </div>
   );
 };

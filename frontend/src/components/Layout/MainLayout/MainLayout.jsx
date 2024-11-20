@@ -31,12 +31,11 @@ const items = [
 ];
 
 export const MainLayout = () => {
-  return (
-    <>
-      <div className="layout-main">
-        <Outlet />
-      </div>
-      <NavBar items={items} />
+    return <>
+        <div className="layout">
+            <Outlet/>
+        </div>
+        <NavBar items={items}/>
     </>
   );
 };

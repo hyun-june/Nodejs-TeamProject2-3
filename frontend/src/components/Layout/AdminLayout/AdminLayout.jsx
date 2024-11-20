@@ -29,7 +29,7 @@ const items = [
 export const AdminLayout = () => {
 
     return <>
-        <div className="layout-main admin-layout-main">
+        <div className="admin-layout-main layout">
             <Header backTo='/' title='Admin' />
             <main>
                 <Outlet/>

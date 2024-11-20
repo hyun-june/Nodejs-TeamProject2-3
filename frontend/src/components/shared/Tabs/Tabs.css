@@ -5,7 +5,7 @@
     color: var(--light-gray-color);
     li {
         text-align: center;
-        flex-grow: 1;
+        width: 100%;
         padding: .8em 0 1.4em;
         cursor: pointer;
         span {

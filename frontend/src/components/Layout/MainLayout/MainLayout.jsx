@@ -23,7 +23,7 @@ const items = [
     text: "피드",
   },
   {
-    path: "/my",
+    path: "/user/me",
     icon: <BsPerson />,
     activeIcon: <BsPersonFill />,
     text: "내정보",
@@ -31,11 +31,12 @@ const items = [
 ];
 
 export const MainLayout = () => {
-    return <>
-        <div className="layout">
-            <Outlet/>
-        </div>
-        <NavBar items={items}/>
+  return (
+    <>
+      <div className="layout">
+        <Outlet />
+      </div>
+      <NavBar items={items} />
     </>
   );
 };

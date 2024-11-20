@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router";
 import { MainPage } from "../pages/MainPage/MainPage";
 import { FeedPage } from "../pages/FeedPage/FeedPage";
-import { MyPage } from "../pages/MyPage/MyPage";
+import { UserPage } from "../pages/UserPage/UserPage";
 import { LoginPage } from "../pages/LoginPage/LoginPage";
 import { SignUpPage } from "../pages/SignUpPage/SignUpPage";
 import { UserDetailPage } from "../pages/UserDetailPage/UserDetailPage";
@@ -23,7 +23,7 @@ export const AppRouter = () => {
       <Route path="/" element={<MainLayout />}>
         <Route path="" element={<MainPage />} />
         <Route path="feed" element={<FeedPage />} />
-        <Route path="my" element={<MyPage />} />
+        <Route path="/user/me" element={<UserPage />} />
       </Route>
       <Route path="/feed-create" element={<FeedCreatePage />} />
       <Route element={<AuthLayout />}>

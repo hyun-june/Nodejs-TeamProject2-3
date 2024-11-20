@@ -22,10 +22,16 @@
 
 .feed-text {
   line-height: 1.4;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.closeText {
-  padding-left: 1em;
+.feed-detail-text {
+  line-height: 1.4;
 }
 
 .feed-top {
@@ -34,6 +40,7 @@
   align-items: center;
   justify-content: space-between;
 }
+
 .feed-top-text {
   display: flex;
   gap: 10px;

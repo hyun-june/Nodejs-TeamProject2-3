@@ -13,21 +13,12 @@ const feedtext = `라이언 귀엽다. 라이언 귀엽다.라이언 귀엽다. 
     귀엽다.라이언 귀엽다. 라이언 귀엽다.라이언 귀엽다. 라이언
     귀엽다.라이언 귀엽다. 라이언 귀엽다.`;
 
-const maxLength = 80;
-
 export const FeedBox = ({ src }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [isShowMore, setIsShowMore] = useState(false);
-
-  const handleShowMoreClick = () => {
-    setIsShowMore(!isShowMore);
-  };
-
   const handleMoveFeed = (feedId) => [navigate(`/feed/${feedId}`)];
 
-  const displayedText = isShowMore ? feedtext : feedtext.slice(0, maxLength);
   return (
     <article className={location.pathname === "/feed" ? "feed-container" : ""}>
       <div className="feed-top">
@@ -40,23 +31,19 @@ export const FeedBox = ({ src }) => {
         </div>
         <FaEllipsisVertical />
       </div>
-      <picture className="feed-imgbox" onClick={handleMoveFeed}>
+      <picture className="feed-imgbox">
         <img src={src} alt="" />
       </picture>
 
       <div className="feed-inner">
         <LikeButton />
-        <div className={`feed-text ${isShowMore ? "show-more" : ""}`}>
-          <span>
-            {displayedText}
-            {feedtext.length > maxLength && !isShowMore && ""}
-          </span>
-          <span
-            onClick={handleShowMoreClick}
-            className={isShowMore && "closeText"}
-          >
-            {isShowMore ? "[접기]" : "...[더보기]"}
-          </span>
+        <div
+          onClick={handleMoveFeed}
+          className={
+            location.pathname === "/feed" ? "feed-text" : "feed-detail-text"
+          }
+        >
+          <div>{feedtext}</div>
         </div>
       </div>
       <div className="feed-tag-info">

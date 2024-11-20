@@ -1,12 +1,24 @@
 .feed-detail-container {
   overflow-y: auto;
-}
 
-.feed-comment-input {
-  width: 85%;
-  background-color: var(--sub-color);
-  border-radius: 30px;
-  padding-left: 1em;
+  & input {
+    width: 85%;
+    background-color: var(--sub-color);
+    border-radius: 30px;
+    padding-left: 1em;
+    padding-right: 2.5em;
+  }
+
+  & ul {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+  }
+
+  & li {
+    padding: 0 0.8em;
+    margin-bottom: 1em;
+  }
 }
 
 .feed-comment-section {
@@ -17,23 +29,29 @@
   position: relative;
 }
 
+#addComment-icon {
+  position: absolute;
+  right: 2.2em;
+  top: 20%;
+  width: 1.5em;
+}
+
 .feed-comment {
   display: flex;
-  flex-direction: column;
-  padding: 1em;
 }
 
-.feed-test {
-  display: flex;
-}
-
-.feed-feed {
+.feed-comment-top {
   display: flex;
   justify-content: space-between;
   width: 100%;
+
+  & p {
+    display: flex;
+    gap: 0.6em;
+  }
 }
 
-.feed-another-comment {
+.feed-comment-inner {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -42,25 +60,8 @@
   padding-left: 1em;
 }
 
-.feed-nickname {
-  display: flex;
-  gap: 0.6em;
-}
-
 .feed-content-inner {
   padding-right: 1em;
   padding-top: 0.3em;
   width: 100%;
-}
-
-.feed-another-section {
-  padding: 0 0.8em;
-  margin-bottom: 2em;
-}
-
-#addComment-icon {
-  position: absolute;
-  right: 2.2em;
-  top: 20%;
-  width: 1.5em;
 }

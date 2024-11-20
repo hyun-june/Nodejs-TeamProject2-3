@@ -47,65 +47,58 @@
 .feed-icon {
   width: 3em;
 }
+
 .create-feed-inner {
   padding: 1em;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-}
 
-.feed-textarea {
-  resize: none;
-  border: none;
-  border-radius: 10px;
-  padding: 1em;
-  flex-grow: 0.7;
-  background-color: var(--sub-color);
+  & textarea {
+    resize: none;
+    border: none;
+    border-radius: 10px;
+    padding: 1em;
+    flex-grow: 0.7;
+    background-color: var(--sub-color);
+  }
 }
 
 .feed-create-tag {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-}
 
-.tags-section {
-  display: flex;
-  align-items: center;
-  width: 5.3em;
-  position: relative;
+  & ul {
+    display: flex;
+    gap: 1em;
+    flex-wrap: wrap;
 
-  & button {
-    position: absolute;
-    right: 0;
-    padding-right: 0.2em;
+    & li {
+      display: flex;
+      align-items: center;
+    }
+
+    & div {
+      background-color: var(--sub-color);
+      font-size: 1em;
+      border-radius: 5px;
+      border: none;
+      padding: 0.2em 0.5em;
+      white-space: nowrap;
+      display: flex;
+
+      & span {
+        width: 100%;
+      }
+    }
   }
-}
-
-.tags-textarea {
-  content: "#";
-  background-color: var(--sub-color);
-  font-size: 1em;
-  border-radius: 5px;
-  border: none;
-  height: 2.5em;
-  padding-left: 0.5em;
-  resize: none;
-  overflow: hidden;
-  line-height: 2.5em;
-  white-space: nowrap;
-}
-
-.tags-list {
-  display: flex;
-  gap: 1em;
-  flex-wrap: wrap;
 }
 
 .tag-title {
   display: flex;
   align-items: center;
-  flex-grow: 0.4;
+  flex-grow: 0.1;
 
   & button {
     background-color: none;

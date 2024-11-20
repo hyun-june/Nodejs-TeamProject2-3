@@ -5,21 +5,26 @@ import "./DailyFoodPage.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { DailyFoodFeed } from "./components/DailyFoodFeed/DailyFoodFeed";
+import { Header } from "../../components/shared/Header/Header";
 
 export const DailyFoodPage = () => {
   const setting = {
     dots: false,
     infinite: false,
     slidesToShow: 1.3,
-    slidesToScroll: 1,
+    slidesToScroll: 0.75,
     arrows: false,
     swipe: true,
   };
 
+  const mealTypes = ["아침", "점심", "저녁", "간식"];
+
   return (
     <>
-      {/* <Header/> */}
-      <main>
+      <header>
+        <Header backTo={-1} title={"식단"} />
+      </header>
+      <main className="DailyFood">
         <DailyFoodCalender />
 
         <div className="DailyFood__total-calorie">
@@ -32,10 +37,9 @@ export const DailyFoodPage = () => {
           </div>
         </div>
         <Slider {...setting}>
-          <DailyFoodFeed />
-          <DailyFoodFeed />
-          <DailyFoodFeed />
-          <DailyFoodFeed />
+          {mealTypes.map((mealType) => (
+            <DailyFoodFeed key={mealType} mealType={mealType} />
+          ))}
         </Slider>
       </main>
     </>

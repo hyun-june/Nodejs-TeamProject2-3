@@ -12,6 +12,8 @@ import { AdminFoodPage } from "../pages/AdminFoodPage/AdminFoodPage";
 import { AdminLayout } from "../components/Layout/AdminLayout/AdminLayout";
 import { AuthLayout } from "../components/Layout/AuthLayout/AuthLayout";
 import { DailyFoodPage } from "../pages/DailyFoodPage/DailyFoodPage";
+import { FoodLayout } from "../components/Layout/FoodLayout/FoodLayout";
+import { FoodSearchPage } from "../pages/FoodSearchPage/FoodSearchPage";
 import { MainLayout } from "../components/Layout/MainLayout/MainLayout";
 import { FeedCreatePage } from "../pages/FeedCreatePage/FeedCreatePage";
 
@@ -37,7 +39,12 @@ export const AppRouter = () => {
         <Route path="feed" element={<AdminFeedPage />} />
       </Route>
 
-      <Route path="/food" element={<DailyFoodPage />} />
+      <Route path="/food" element={<FoodLayout />}>
+        <Route index element={<DailyFoodPage />} />
+        <Route path="search" element={<FoodSearchPage />} />
+      </Route>
+
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 };

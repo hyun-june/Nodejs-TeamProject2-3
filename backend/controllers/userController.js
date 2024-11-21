@@ -22,7 +22,6 @@ export const createUser = async (req, res) => {
     });
     await newUser.save();
     return res.status(200).json({ status: "success", user });
-
   } catch (error) {
     res.status(400).json({ status: "fail", error: error.message });
   }
@@ -31,14 +30,14 @@ export const createUser = async (req, res) => {
 //내 정보 가져오기
 export const getUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
-    let user = await User.findOne({ email });
-    if (!user) {
-      throw new Error("이메일 또는 비밀번호가 일치하지 않습니다.");
+    const { userId } = req;
+    const user = await User.findById(userId);
+    if (user) {
+      return res.status(200).json({ status: "success", user });
     }
-    return res.status(200).json({ status: "success", user, token });
+    throw new Error("Invalid Token");
   } catch (error) {
-    return res.status(400).json({ status: "fail", error: error.message });
+    res.status(400).json({ status: "fail", error: error.message });
   }
 };
 
@@ -111,7 +110,6 @@ export const getOtherUser = async (req, res) => {
       throw new Error("해당 유저를 찾을 수 없습니다.");
     }
     return res.status(200).json({ status: "success", user, token });
-
   } catch (error) {
     return res.status(400).json({ status: "fail", error: error.message });
   }

@@ -1,4 +1,5 @@
 import { useLocation, useParams } from "react-router-dom";
+import { Header } from "../../components/shared/Header/Header.jsx";
 import { Avatar } from "../../components/shared/Avatar/Avatar.jsx";
 import { Tabs } from "../../components/shared/Tabs/Tabs.jsx";
 import { FeedContainer } from "./components/FeedContainer/FeedContainer.jsx";
@@ -36,37 +37,42 @@ export const UserPage = () => {
   if (error) return <>에러 발생: {error.message}</>;
 
   return (
-    <div className="userpage-container">
-      <div
-        className={`userpage-wrapper ${isMyPage ? "has-button" : "no-button"}`}
-      >
-        <div className="profile-container">
-          <Avatar isOnline={true} size="100" />
-          <p className="info-content">{userdata.name}</p>
-          <p className="useremail">{userdata.email}</p>
+    <>
+      {!isMyPage && <Header backTo={-1} />}
+      <div className="userpage-container">
+        <div
+          className={`userpage-wrapper ${
+            isMyPage ? "has-button" : "no-button"
+          }`}
+        >
+          <div className="profile-container">
+            <Avatar isOnline={true} size="100" />
+            <p className="info-content">{userdata.name}</p>
+            <p className="useremail">{userdata.email}</p>
+          </div>
+          <div className="info-container">
+            <div className="detail-info-container">
+              <p className="info-content">{userdata.feed.length}</p>
+              <p className="detail-info-text">FEED</p>
+            </div>
+            <div className="seperator"></div>
+            <div className="detail-info-container">
+              <p className="info-content">3KG</p>
+              <p className="detail-info-text">목표까지</p>
+            </div>
+          </div>
+          {isMyPage && (
+            <div className="button-container">
+              <button className="edit-userinfo-button">
+                <p>내 정보 수정하기</p> <BiSolidPencil size="20" />
+              </button>
+            </div>
+          )}
         </div>
-        <div className="info-container">
-          <div className="detail-info-container">
-            <p className="info-content">{userdata.feed.length}</p>
-            <p className="detail-info-text">FEED</p>
-          </div>
-          <div className="seperator"></div>
-          <div className="detail-info-container">
-            <p className="info-content">3KG</p>
-            <p className="detail-info-text">목표까지</p>
-          </div>
+        <div className="feed-container">
+          <Tabs items={items} />
         </div>
-        {isMyPage && (
-          <div className="button-container">
-            <button className="edit-userinfo-button">
-              <p>내 정보 수정하기</p> <BiSolidPencil size="20" />
-            </button>
-          </div>
-        )}
       </div>
-      <div className="feed-container">
-        <Tabs items={items} />
-      </div>
-    </div>
+    </>
   );
 };

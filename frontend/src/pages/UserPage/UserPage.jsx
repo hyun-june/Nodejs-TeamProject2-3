@@ -1,8 +1,8 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { Avatar } from "../../components/shared/Avatar/Avatar.jsx";
 import { Tabs } from "../../components/shared/Tabs/Tabs.jsx";
 import { FeedContainer } from "./components/FeedContainer/FeedContainer.jsx";
-import { useGetMyInfo } from "../../core/query/user.js";
+import { useGetMyInfo, useGetOtherInfo } from "../../core/query/user.js";
 import { BiSolidPencil } from "react-icons/bi";
 import "./UserPage.css";
 
@@ -11,10 +11,14 @@ const TabContent2 = () => <div>탭 2의 내용입니다.</div>;
 
 export const UserPage = () => {
   const { pathname } = useLocation();
-  const { data, error, isPending } = useGetMyInfo();
+  const { userId } = useParams();
   const isMyPage = pathname === "/user/me";
 
-  console.log("쿼리데이터", data);
+  const useGetInfo = (isMyPage) => {
+    return isMyPage ? useGetMyInfo() : useGetOtherInfo(userId);
+  };
+  const { data, error, isPending } = useGetInfo(isMyPage);
+
   const userdata = data?.user;
 
   const items = [

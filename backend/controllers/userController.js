@@ -41,6 +41,20 @@ export const getUser = async (req, res) => {
   }
 };
 
+// 다른 유저 정보 가져오기
+export const getOtherUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new Error("해당 유저를 찾을 수 없습니다.");
+    }
+    return res.status(200).json({ status: "success", user });
+  } catch (error) {
+    res.status(400).json({ status: "fail", error: error.message });
+  }
+};
+
 //유저 디테일 페이지 저장하기
 export const postUserDetail = async (req, res) => {
   try {
@@ -98,19 +112,5 @@ export const updateUserDetail = async (req, res) => {
     res.status(200).json({ status: "success", data: userDetail });
   } catch (error) {
     return res.status(400).json({ status: "fail", message: error.message });
-  }
-};
-
-//다른 유저 디테일
-export const getOtherUser = async (req, res) => {
-  try {
-    const { id } = req.params;
-    let user = await User.findOne({ id });
-    if (!user) {
-      throw new Error("해당 유저를 찾을 수 없습니다.");
-    }
-    return res.status(200).json({ status: "success", user, token });
-  } catch (error) {
-    return res.status(400).json({ status: "fail", error: error.message });
   }
 };

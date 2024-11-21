@@ -1,5 +1,4 @@
 .main-page{
-    background-color: var(--main-color);
     --progress-value : 40%;
     .긴박스{
         width: 100%;
@@ -13,7 +12,7 @@
             margin: 1em 0;
         }
         .circle-progress-bar {
-            margin: 0 auto;
+            margin: 0 auto 3em;
             width: 90%;
             aspect-ratio: 1/1;
             border-radius: 50%;
@@ -121,13 +120,14 @@
 }
 
 .weight-section{
+    margin-top: 3em;
     .weight{
         font-weight: bold;
         font-size: 2.4em;
     }
     .weight-decription{
         font-weight: bold;
-        margin: 2em 0 1em;
+        margin: 1em 0 2em;
         span:nth-child(2){
             color: var(--point-color);
 

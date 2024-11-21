@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Header } from "../../components/shared/Header/Header";
-import { IoIosArrowForward } from "react-icons/io";
 import { Button } from "../../components/shared/Button/Button";
+import { IoIosArrowForward } from "react-icons/io";
 import "./MainPage.css";
 
 export const MainPage = () => {
@@ -23,7 +23,6 @@ export const MainPage = () => {
             </div>
         </div>
       </section>
-
       <section>
         <div className="straght-progress sky-thema">
             <div className="straght-progress-head">
@@ -34,10 +33,10 @@ export const MainPage = () => {
               </div>
             </div>
             <div className="straght-progress-bar"><div/></div>
-            <div className="straght-progress-bottom">
-                <Link to={''} className="center">식단페이지</Link>
+            <Link to='/food' className="straght-progress-bottom">
+                <div className="center">식단페이지</div>
                 <IoIosArrowForward/>
-            </div>
+            </Link>
         </div>
         <div className="straght-progress semired-thema">
             <div className="straght-progress-head">
@@ -48,23 +47,23 @@ export const MainPage = () => {
               </div>
             </div>
             <div className="straght-progress-bar"><div/></div>
-            <div className="straght-progress-bottom">
-                <Link to={''} className="center">운동페이지</Link>
+            <Link to='/exercise' className="straght-progress-bottom">
+                <div className="center">운동페이지</div>
                 <IoIosArrowForward/>
-            </div>
+            </Link>
         </div>
       </section>
-      
       <section className="weight-section">
         <h3 className="small-title">몸무게</h3>
         <span className="weight">71kg</span>
-
         <div className="weight-decription">
           <span>저번달보다 </span>
           <span>3.5kg</span>
           <span>만큼 줄었어요</span>
         </div>
-        <Button thema='point' round='sm'>몸무게 기록하기</Button>
+        <Link to='/weight'>
+          <Button thema='point' round='sm'>몸무게 기록하기</Button>
+        </Link>
       </section>
     </main>
   </div>;

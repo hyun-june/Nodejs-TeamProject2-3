@@ -8,12 +8,12 @@ const userSchema = new mongoose.Schema(
     name: { type: String, required: true },
     password: { type: String, required: true },
     level: { type: String, default: "customer" },
-    feed: { type: mongoose.Schema.Types.ObjectId, ref: "Feed" },
+    feed: [{ type: mongoose.Schema.Types.ObjectId, ref: "Feed" }],
   },
   { timestamps: true }
 );
 
-userSchema.method.toJSON = function () {
+userSchema.methods.toJSON = function () {
   const obj = this._doc;
   delete obj.password;
   delete obj.__v;
@@ -25,7 +25,7 @@ userSchema.method.toJSON = function () {
 userSchema.methods.generateToken = function () {
   try {
     const token = jwt.sign({ _id: this._id }, process.env.JWT_SECRET_KEY, {
-      expiresIn: "1h",
+      expiresIn: "1d",
     });
     return token;
   } catch (error) {

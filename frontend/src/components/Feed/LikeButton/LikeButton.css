@@ -8,6 +8,11 @@
   }
 }
 
-#like-icon {
+.like-icon {
   width: 1.5em;
+  color: var(--sub-color);
+}
+
+.liked {
+  color: var(--warn-color);
 }

@@ -81,21 +81,3 @@ export const deleteFood = async (req, res) => {
     res.status(400).json({ status: "fail", message: error.message });
   }
 };
-
-export const getSearchFood = async (req, res) => {
-  try {
-    const { q } = req.query;
-    const search = {
-      name: { $regex: q, $options: "i" },
-    };
-    const food = await Food.find(search);
-
-    if (food.length === 0) {
-      return res.status(404).json({
-        status: "fail",
-        message: "검색결과가 없습니다.",
-      });
-    }
-    res.status(200).json({ status: "success", data: food });
-  } catch (error) {}
-};

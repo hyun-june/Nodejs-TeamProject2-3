@@ -4,11 +4,15 @@
   align-items: center;
 }
 
+.daily-food__search {
+  padding: 0 1rem;
+}
+
 /* 달력 관련 css */
 .food-calender {
   display: flex;
   align-items: center;
-  background-color: white;
+  background-color: var(--main-color);
   padding: 20px;
   margin-top: 25px;
   width: 90%;
@@ -19,6 +23,10 @@
   font-size: 19px;
   margin-right: 15px;
   color: #2563eb;
+}
+
+.daily-food__search-header {
+  background-color: var(--main-color);
 }
 
 .food-calender__downBtn-icon {
@@ -33,30 +41,15 @@
   height: 70%; /* 높이를 원하는 대로 조절 */
   max-height: 600px; /* 최대 높이 */
   margin: auto;
-  background: white;
+  background: none;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.modal-content {
-  width: 80%; /* 너비를 원하는 대로 조절 */
-  max-width: 400px; /* 최대 너비 */
-  height: auto; /* 높이를 내용에 맞게 조절 */
-  max-height: 80%; /* 최대 높이 */
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
 /* 총 칼로리 위쪽 */
 .DailyFood__total-calorie {
   display: flex;
@@ -74,7 +67,7 @@
 
 .slick-slider {
   width: 100%;
-  height: 300px;
+  height: 100%;
   display: flex;
   padding-left: 20px;
 }
@@ -84,15 +77,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 500px;
+  height: auto;
   margin-right: 5px;
 }
 
 .DailyFood__Feed {
   width: 253px;
-  background-color: white;
+  background-color: var(--main-color);
   padding: 20px;
-  height: 313px;
+  height: 25rem;
   border-radius: 10px;
 }
 
@@ -102,10 +95,16 @@
   font-weight: 600;
   margin-bottom: 45px;
 }
+
+.DailyFood__Feed-content {
+  overflow-y: auto;
+  height: 13rem;
+}
+
 .DailyFood__Feed-content-box {
   height: 55px;
-  background-color: white;
-  margin-top: 3px;
+  background-color: var(--main-color);
+  margin-top: 10px;
   padding: 10px;
   border: 1px solid #b8b3af;
   border-radius: 10px;
@@ -144,4 +143,51 @@
     font-size: 24px;
     font-weight: 700;
   }
+}
+
+.DailyFoodPage__footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.DailyFoodPage__footer-title {
+  span {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  margin-top: 2rem;
+}
+
+.DailyFoodPage__footer-main {
+  display: flex;
+  justify-content: space-around;
+  width: 90%;
+  margin-top: 3rem;
+}
+
+.DailyFoodPage__footer-main__text-part {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.DailyFoodPage__footer-main__text-part div:first-child {
+  border-left: 0.5rem solid rgba(255, 99, 132, 0.2);
+  padding: 0.3rem;
+}
+
+.DailyFoodPage__footer-main__text-part div:nth-child(2) {
+  border-left: 0.5rem solid rgba(54, 162, 235, 0.2);
+  padding: 0.3rem;
+}
+
+.DailyFoodPage__footer-main__text-part div:last-child {
+  border-left: 0.5rem solid rgba(255, 206, 86, 0.2);
+  padding: 0.3rem;
+}
+
+.DailyFoodPage-chart {
+  width: 150px;
 }

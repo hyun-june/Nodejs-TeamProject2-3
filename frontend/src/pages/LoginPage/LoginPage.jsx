@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { api } from "../../utils/api";
 import { AuthInput } from "../../components/shared/AuthInput/AuthInput";
 import { AuthButton } from "../../components/shared/AuthButton/AuthButton";
-import { useLogin } from "../../core/hooks/useAuth";
+import { useLogin } from "../../core/query/auth";
 import "./css/LoginPage.css";
 
 export const LoginPage = () => {
@@ -17,7 +16,7 @@ export const LoginPage = () => {
 
   const { mutate: login, isLoading, isError, error } = useLogin();
 
-  const handleLoginSubmit = async (formData) => {
+  const handleLoginSubmit = (formData) => {
     login({ email: formData.Email, password: formData.Password });
     console.log(formData);
   };

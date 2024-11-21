@@ -26,9 +26,9 @@ export const addDailyFood = async (food, mealtype, quantity) => {
   try {
     const { data } = await api.post(`/food/add/${mealtype}`, {
       food,
+      mealtype,
       quantity,
     });
-    console.log("addDailyFood 응답 데이터:", data); // 응답 데이터 확인
     return data;
   } catch (error) {
     console.error("음식 추가 중 에러:", error);

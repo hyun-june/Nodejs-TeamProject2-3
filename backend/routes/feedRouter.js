@@ -14,7 +14,7 @@ export const feedRouter = express.Router();
 feedRouter
   .route("/")
   .get(getAllFeed)
-  .post(uploadFeedFile.single("file"), postFeed);
+  .post(authenticate, uploadFeedFile.single("file"), postFeed);
 feedRouter
   .route("/:feedId")
   .get(authenticate, getFeed)

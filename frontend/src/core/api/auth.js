@@ -1,4 +1,4 @@
-import { api } from "../../utils/api";
+import { api } from "./api";
 
 export const postLogin = async ({ email, password }) => {
   console.log("Login arguments:", { email, password }); // 확인 로그
@@ -8,6 +8,9 @@ export const postLogin = async ({ email, password }) => {
 };
 
 export const createUser = async ({ name, email, password }) => {
+  if (!name || !email || !password) {
+    throw new Error("필수 정보가 누락되었습니다.");
+  }
   const { data } = await api.post("/signup", { name, email, password });
   return data;
 };

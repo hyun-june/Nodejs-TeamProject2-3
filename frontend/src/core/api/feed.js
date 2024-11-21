@@ -1,4 +1,4 @@
-import { api } from "../../utils/api";
+import { api } from "./api";
 
 export const createFeed = async ({ fileUrl, description, hashtags, user }) => {
   const feedFormData = new FormData();

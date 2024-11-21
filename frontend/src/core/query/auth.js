@@ -22,11 +22,12 @@ export const useSignUp = () => {
   const navigate = useNavigate();
 
   return useMutation({
-    mutationFn: ({ name, email, password }) =>
-      createUser({ name, email, password }),
+    mutationFn: ({ name, email, password }) => {
+      return createUser({ name, email, password });
+    },
     onSuccess: (data) => {
-      navigate("/user/detail");
-      console.log("회원가입", data);
+      navigate("/login");
+      console.log("회원가입 성공:", data);
     },
     onError: (error) => {
       console.log("회원가입 실패:", error);

@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { useSignUp } from "../../core/hooks/useAuth";
 import { AuthInput } from "../../components/shared/AuthInput/AuthInput";
 import { AuthButton } from "../../components/shared/AuthButton/AuthButton";
+import { useSignUp } from "../../core/query/auth";
 import "./css/SignUpPage.css";
 
 export const SignUpPage = () => {

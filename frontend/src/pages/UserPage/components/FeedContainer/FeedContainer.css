@@ -1,0 +1,15 @@
+.feed-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.feed-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ddd;
+  img {
+    width: 100%;
+    aspect-ratio: 1/1;
+  }
+}

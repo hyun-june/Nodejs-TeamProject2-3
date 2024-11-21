@@ -1,4 +1,4 @@
-import { api } from "../../utils/api";
+import { api } from "./api";
 
 export const postLogin = async ({ email, password }) => {
   console.log("Login arguments:", { email, password }); // 확인 로그

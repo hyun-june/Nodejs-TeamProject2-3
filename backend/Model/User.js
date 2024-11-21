@@ -8,12 +8,12 @@ const userSchema = new mongoose.Schema(
     name: { type: String, required: true },
     password: { type: String, required: true },
     level: { type: String, default: "customer" },
-    feed: { type: mongoose.Schema.Types.ObjectId, ref: "Feed" },
+    feed: [{ type: mongoose.Schema.Types.ObjectId, ref: "Feed" }],
   },
   { timestamps: true }
 );
 
-userSchema.method.toJSON = function () {
+userSchema.methods.toJSON = function () {
   const obj = this._doc;
   delete obj.password;
   delete obj.__v;

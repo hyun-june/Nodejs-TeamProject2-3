@@ -1,6 +1,6 @@
-import { api } from "../../utils/api";
-export const getFoodSearchResult = async (query, mealtype) => {
-  if (!query) return []; // 쿼리 값이 없으면 빈 배열 반환
+import { api } from "./api";
+export const getFoodSearchResult = async (query) => {
+  if (!query) return [];
   try {
     // URL 경로는 '/food/search/${mealtype}'이고, q와 date는 쿼리 파라미터로 전달
     const { data } = await api.get(`/food/search/${mealtype}`, {

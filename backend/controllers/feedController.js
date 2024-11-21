@@ -17,8 +17,9 @@ export const getAllFeed = async (req, res) => {
 //피드를 새로 등록함
 export const postFeed = async (req, res) => {
   try {
-    const { fileUrl, description, hashtags, views, likes } = req.body;
+    const { description, hashtags, views, likes } = req.body;
     const { userId } = req;
+    const fileUrl = req.file.path;
 
     const newFeed = await Feed.create({
       fileUrl,

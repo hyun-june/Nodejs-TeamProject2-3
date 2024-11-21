@@ -28,4 +28,4 @@ feedSchema.static("formatHashtags", function (hashtags) {
     .map((word) => (word.startsWith("#") ? word : `#${word}`));
 });
 
-export const Feed = mongoose.model("Model", feedSchema);
+export const Feed = mongoose.model("Feed", feedSchema);

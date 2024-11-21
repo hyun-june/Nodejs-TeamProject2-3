@@ -13,10 +13,15 @@ const dailyFoodSchema = new mongoose.Schema(
       ref: "Food",
       required: true,
     },
+    mealtype: {
+      type: String,
+      enum: ["아침", "점심", "저녁", "간식"],
+      required: true,
+    },
     quantity: {
       type: Number,
       required: true,
-      min: 1, //1회, 2회로 작성
+      min: 0, //g 표기
     },
     totalCalories: { type: Number, required: true, min: 0 },
     nutrition: {

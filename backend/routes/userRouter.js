@@ -8,6 +8,7 @@ import {
   updateUserDetail,
 } from "../controllers/userController.js";
 import { authenticate } from "../controllers/authController.js";
+import { uploadProfileFile } from "../utils/uploadFile.js";
 export const userRouter = express.Router();
 
 userRouter.route("/").post(createUser);
@@ -21,5 +22,5 @@ userRouter
   .route("/detail")
   .all(authenticate)
   .get(getUserDetail)
-  .post(postUserDetail)
+  .post(uploadProfileFile.single("profileImg"), postUserDetail)
   .put(updateUserDetail);

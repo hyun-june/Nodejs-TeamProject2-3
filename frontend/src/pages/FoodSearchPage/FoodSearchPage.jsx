@@ -23,7 +23,6 @@ export const FoodSearchPage = () => {
     isLoading,
     error,
   } = useFoodSearch(query, mealtype, date);
-  console.log("foods", foods);
 
   const handleFoodClick = (food) => {
     setSelectedFood(food);

@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import { getDailyFood, getFoodSearchResult } from "../api/food";
 import { addDailyFood } from "../api/food";
 export const useFoodSearch = (query, mealtype) => {
@@ -30,15 +31,13 @@ export const useFoodPage = (query) => {
 };
 
 export const useAddFood = () => {
+  const navigate = useNavigate();
   return useMutation({
     mutationFn: async ({ food, mealtype, quantity }) => {
-      console.log("food-mutation", food);
-      console.log("mealtype-mutation", mealtype);
-      console.log("quantity-mutation", quantity);
-
-      return await addDailyFood(mealtype, food, quantity);
+      return await addDailyFood(food, mealtype, quantity);
     },
     onSuccess: (data) => {
+      navigate("/food");
       console.log("음식 추가 성공", data);
     },
     onError: (error) => {

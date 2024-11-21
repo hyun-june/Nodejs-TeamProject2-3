@@ -23,8 +23,10 @@ export const DailyFoodPage = () => {
   //   : 0;
 
   const onDateChange = (newDate) => {
-    const formattedDate = newDate.toISOString().split("T")[0]; // "YYYY-MM-DD" 형식
-    setSelectedDate(formattedDate); // 날짜를 형식에 맞게 업데이트
+    console.log("푸드페이지", newDate);
+    const formattedDate = newDate.toLocaleDateString("en-CA"); // "YYYY-MM-DD" 형식
+    setSelectedDate(formattedDate); // 날짜를 형식에 맞게 업데이트    setSelectedDate(formattedDate); // 날짜를 형식에 맞게 업데이트
+    console.log("선택된 날짜", formattedDate);
     navigate(`/food?date=${formattedDate}`); // URL을 쿼리 파라미터와 함께 업데이트
   };
 
@@ -40,6 +42,9 @@ export const DailyFoodPage = () => {
 
   if (isLoading) return <div>Loading....</div>;
   if (isError) return <div>데이터를 불러오는 데 실패했습니다.</div>;
+
+  console.log("data:", data); // data의 구조를 확인
+
   return (
     <>
       <header>
@@ -62,7 +67,7 @@ export const DailyFoodPage = () => {
             <DailyFoodFeed
               key={mealType}
               mealType={mealType}
-              // foods={data ? data[mealType] : []}  {/* data가 있을 때만 전달 */}
+              foods={data ? data.data[mealType] : []} // 실제 음식 데이터를 전달
             />
           ))}
         </Slider>

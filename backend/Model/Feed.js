@@ -18,7 +18,7 @@ const feedSchema = new mongoose.Schema({
       ref: "Comment",
     },
   ],
-  user: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
+  // user: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
 });
 
 //해시 태그를 그냥 입력해도 앞에 # 붙도록 하는 기능

@@ -25,10 +25,12 @@ export const FeedCreatePage = () => {
     }
   };
 
-  const handleFeedSubmit = async () => {
+  const handleFeedSubmit = () => {
     console.log("뿌숑");
     console.log("tags", tags);
     console.log("text", feedText);
+    console.log("fileUrl", mainImageFile);
+
     createFeed({
       fileUrl: mainImageFile,
       description: feedText,

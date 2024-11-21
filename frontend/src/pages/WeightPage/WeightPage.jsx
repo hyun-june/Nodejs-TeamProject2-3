@@ -1,15 +1,7 @@
 import "./WeightPage.css";
 import { Header } from "../../components/shared/Header/Header";
-import { useGetMy } from "../../core/query/user";
-
 
 export const WeightPage = () => {
-    const { data, error , isPending } = useGetMy()
-
-    if (isPending) return <>로딩중</>
-
-
-
   return (
     <div className="weight-page">
         <Header backTo={'/'} title='몸무게'></Header>

@@ -16,6 +16,7 @@ import { FoodLayout } from "../components/Layout/FoodLayout/FoodLayout";
 import { FoodSearchPage } from "../pages/FoodSearchPage/FoodSearchPage";
 import { MainLayout } from "../components/Layout/MainLayout/MainLayout";
 import { FeedCreatePage } from "../pages/FeedCreatePage/FeedCreatePage";
+import { WeightPage } from "../pages/WeightPage/WeightPage";
 
 export const AppRouter = () => {
   return (
@@ -44,6 +45,8 @@ export const AppRouter = () => {
         <Route index element={<DailyFoodPage />} />
         <Route path="search" element={<FoodSearchPage />} />
       </Route>
+
+      <Route path="/weight" element={<WeightPage/>} />
 
       <Route path="*" element={<NotFoundPage />} />
     </Routes>

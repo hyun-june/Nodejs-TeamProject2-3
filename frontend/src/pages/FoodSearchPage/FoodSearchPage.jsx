@@ -6,7 +6,7 @@ import { useBottomSheet } from "../../components/shared/BottomSheet/components/u
 import { Header } from "../../components/shared/Header/Header";
 import { SearchBar } from "../../components/shared/SearchBar/SearchBar";
 import { FoodSearchResultDetail } from "./components/FoodSearchResultDetail";
-import { useFoodSearch } from "../../core/hooks/useFood";
+import { useFoodSearch } from "../../core/query/food";
 import "./FoodSearchPage.css";
 
 export const FoodSearchPage = () => {

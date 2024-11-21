@@ -25,6 +25,7 @@ export const AppRouter = () => {
         <Route path="feed" element={<FeedPage />} />
         <Route path="/user/me" element={<UserPage />} />
       </Route>
+      <Route path="/user/:userId" element={<UserPage />} />
       <Route path="/feed-create" element={<FeedCreatePage />} />
       <Route element={<AuthLayout />}>
         <Route path="/login" element={<LoginPage />} />

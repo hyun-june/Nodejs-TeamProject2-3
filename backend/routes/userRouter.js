@@ -16,7 +16,6 @@ userRouter.route("/").post(createUser);
 userRouter.route("/me").all(authenticate).get(getUser);
 //다른 사람 정보
 userRouter.route("/other").get(getOtherUser);
-
 //유저 디테일 정보
 userRouter
   .route("/detail")

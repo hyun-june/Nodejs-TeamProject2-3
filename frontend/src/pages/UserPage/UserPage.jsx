@@ -83,12 +83,14 @@ const items = [
 ];
 
 export const UserPage = () => {
-  const location = useLocation();
-  console.log(location.pathname);
+  const { pathname } = useLocation();
+  const isMyPage = pathname === "/user/me";
 
   return (
     <div className="userpage-container">
-      <div className="userpage-wrapper">
+      <div
+        className={`userpage-wrapper ${isMyPage ? "has-button" : "no-button"}`}
+      >
         <div className="profile-container">
           <Avatar isOnline={true} size="100" />
           <p className="info-content">{userdata.name}</p>
@@ -105,11 +107,13 @@ export const UserPage = () => {
             <p className="detail-info-text">목표까지</p>
           </div>
         </div>
-        <div className="button-container">
-          <button className="edit-userinfo-button">
-            <p>내 정보 수정하기</p> <BiSolidPencil size="20" />
-          </button>
-        </div>
+        {isMyPage && (
+          <div className="button-container">
+            <button className="edit-userinfo-button">
+              <p>내 정보 수정하기</p> <BiSolidPencil size="20" />
+            </button>
+          </div>
+        )}
       </div>
       <div className="feed-container">
         <Tabs items={items} />

@@ -13,9 +13,16 @@
 .userpage-wrapper {
   display: grid;
   grid-template-rows: auto auto auto 1fr;
-  row-gap: 20px;
   width: 87%;
   justify-self: center;
+}
+
+.has-button {
+  row-gap: 20px;
+}
+
+.no-button {
+  row-gap: 0px;
 }
 
 .profile-container {
@@ -59,6 +66,8 @@
 .button-container {
   display: flex;
   justify-content: center;
+  has-button {
+  }
 }
 
 .edit-userinfo-button {

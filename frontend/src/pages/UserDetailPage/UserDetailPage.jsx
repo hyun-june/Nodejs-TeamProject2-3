@@ -6,6 +6,7 @@ import { Header } from "../../components/shared/Header/Header";
 import { FaPlus } from "react-icons/fa6";
 import { IoCloseSharp } from "react-icons/io5";
 import { inputUserDetail } from "../../core/api/auth";
+import { useInputDetail } from "../../core/query/auth";
 import "./css/UserDetailPage.css";
 
 export const UserDetailPage = () => {
@@ -13,8 +14,14 @@ export const UserDetailPage = () => {
   const [profileImgUrl, setProfileImgUrl] = useState("");
   const [profileImgfile, setProfileImgfile] = useState(null);
 
+  const {
+    mutate: inputUserDetail,
+    isLoading,
+    isError,
+    error,
+  } = useInputDetail();
+
   const onUserSubmit = async (formData) => {
-    console.log("Form Data:", formData);
     const { nickname, age, height, weight, purpose } = formData;
     inputUserDetail({
       nickname,
@@ -69,32 +76,30 @@ export const UserDetailPage = () => {
           onSubmit={handleSubmit(onUserSubmit)}
           className="profileInfo-form"
         >
-          <AuthInput id="nickname" title="닉네임" register={register} />
+          <AuthInput id="nickname" title="nickname" register={register} />
           <section className="detail-first-section">
-            <AuthInput
-              id="age"
-              title="나이"
-              type="number"
-              register={register}
-            />
+            <AuthInput id="age" title="age" type="number" register={register} />
             <AuthInput
               id="height"
-              title="키"
+              title="height"
               type="number"
+              step="0.1"
               register={register}
             />
           </section>
           <section className="detail-second-section">
             <AuthInput
               id="weight"
-              title="체중"
+              title="weight"
               type="number"
+              step="0.1"
               register={register}
             />
             <AuthInput
               id="purpose"
-              title="목표 체중"
+              title="purpose"
               type="number"
+              step="0.1"
               register={register}
             />
             <AuthButton type="submit" className="button-color_blue">

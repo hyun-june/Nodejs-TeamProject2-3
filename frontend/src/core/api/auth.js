@@ -25,7 +25,7 @@ export const inputUserDetail = async ({
 }) => {
   const profileInfoData = new FormData();
   if (profileUrl) {
-    profileInfoData.append("profileImg", profileImgfile);
+    profileInfoData.append("profileImg", profileUrl);
   } else {
     profileInfoData.append("profileImg", "/basic-profile.png");
   }
@@ -41,6 +41,5 @@ export const inputUserDetail = async ({
     },
   };
   const { data } = await api.post("/user/detail", profileInfoData, config);
-  console.log(data);
   return data;
 };

@@ -3,7 +3,7 @@ import { Header } from "../../components/shared/Header/Header";
 import { AuthButton } from "../../components/shared/AuthButton/AuthButton";
 import { FaPlus } from "react-icons/fa6";
 import { IoCloseSharp } from "react-icons/io5";
-import { useCreateFeed } from "../../core/hooks/useFeed";
+import { useCreateFeed } from "../../core/query/feed";
 import "./css/FeedCreatePage.css";
 
 export const FeedCreatePage = () => {

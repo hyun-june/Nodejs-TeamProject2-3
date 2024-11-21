@@ -7,7 +7,7 @@ const userDetailSchema = new mongoose.Schema({
   height: { type: Number, required: true },
   weight: { type: Number, required: true },
   purpose: { type: Number, required: true },
-  profileImg: { type: String, trim: true },
+  profileImg: { type: String, required: true, trim: true },
 });
 
 export const UserDetail = mongoose.model("UserDetail", userDetailSchema);

@@ -1,5 +1,6 @@
 .main-page{
     --progress-value : 40%;
+    padding-bottom: 2em;
     .긴박스{
         width: 100%;
         height: 1000px;
@@ -130,7 +131,6 @@
         margin: 1em 0 2em;
         span:nth-child(2){
             color: var(--point-color);
-
         }
     }
 }

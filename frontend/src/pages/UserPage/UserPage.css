@@ -67,8 +67,6 @@
 .button-container {
   display: flex;
   justify-content: center;
-  has-button {
-  }
 }
 
 .edit-userinfo-button {

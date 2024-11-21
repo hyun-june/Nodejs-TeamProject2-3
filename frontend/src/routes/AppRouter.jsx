@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router";
 import { MainPage } from "../pages/MainPage/MainPage";
 import { FeedPage } from "../pages/FeedPage/FeedPage";
-import { MyPage } from "../pages/MyPage/MyPage";
+import { UserPage } from "../pages/UserPage/UserPage";
 import { LoginPage } from "../pages/LoginPage/LoginPage";
 import { SignUpPage } from "../pages/SignUpPage/SignUpPage";
 import { UserDetailPage } from "../pages/UserDetailPage/UserDetailPage";
@@ -15,7 +15,7 @@ import { DailyFoodPage } from "../pages/DailyFoodPage/DailyFoodPage";
 import { FoodLayout } from "../components/Layout/FoodLayout/FoodLayout";
 import { FoodSearchPage } from "../pages/FoodSearchPage/FoodSearchPage";
 import { MainLayout } from "../components/Layout/MainLayout/MainLayout";
-import { FeedCreate } from "../pages/FeedPage/components/FeedCreate/FeedCreate";
+import { FeedCreatePage } from "../pages/FeedCreatePage/FeedCreatePage";
 
 export const AppRouter = () => {
   return (
@@ -23,9 +23,10 @@ export const AppRouter = () => {
       <Route path="/" element={<MainLayout />}>
         <Route path="" element={<MainPage />} />
         <Route path="feed" element={<FeedPage />} />
-        <Route path="my" element={<MyPage />} />
+        <Route path="/user/me" element={<UserPage />} />
       </Route>
-      <Route path="/feed-create" element={<FeedCreate />} />
+      <Route path="/user/:userId" element={<UserPage />} />
+      <Route path="/feed-create" element={<FeedCreatePage />} />
       <Route element={<AuthLayout />}>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/sign-up" element={<SignUpPage />} />

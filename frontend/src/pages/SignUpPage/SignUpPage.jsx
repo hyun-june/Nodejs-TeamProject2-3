@@ -15,7 +15,6 @@ export const SignUpPage = () => {
     formState: { errors },
   } = useForm({ mode: "onChange" });
 
-
   const { mutate: signUp, isLoading, isError, error } = useSignUp();
 
   const handleSingUpSubmit = async (formData) => {
@@ -34,7 +33,6 @@ export const SignUpPage = () => {
       email: formData.Email,
       password: formData.Password,
     });
-
   };
 
   return (

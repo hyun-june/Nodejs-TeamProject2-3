@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { Header } from "../../../../components/shared/Header/Header";
+import { Header } from "../../components/shared/Header/Header";
+import { AuthButton } from "../../components/shared/AuthButton/AuthButton";
 import { FaPlus } from "react-icons/fa6";
-import { AuthButton } from "../../../../components/shared/AuthButton/AuthButton";
 import { IoCloseSharp } from "react-icons/io5";
-import { TagButton } from "../TagButton/TagButton";
-import "./FeedCreate.css";
+import "./css/FeedCreatePage.css";
 
-export const FeedCreate = () => {
+export const FeedCreatePage = () => {
   const [mainImageUrl, setMainImageUrl] = useState();
   const [mainImageFile, setMainImageFile] = useState(null);
   const [feedText, setFeedText] = useState("");

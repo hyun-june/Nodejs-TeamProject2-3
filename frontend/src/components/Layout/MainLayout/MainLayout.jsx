@@ -23,7 +23,7 @@ const items = [
     text: "피드",
   },
   {
-    path: "/my",
+    path: "/user/me",
     icon: <BsPerson />,
     activeIcon: <BsPersonFill />,
     text: "내정보",

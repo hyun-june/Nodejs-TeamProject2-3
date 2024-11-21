@@ -1,7 +1,6 @@
-.mypage-container {
+.userpage-container {
   display: grid;
   grid-template-rows: auto auto auto 1fr;
-  height: 700px;
   overflow-y: auto;
   /* ::-webkit-scrollbar {
     display: none;
@@ -11,12 +10,19 @@
   padding-top: 5%;
 }
 
-.mypage-wrapper {
+.userpage-wrapper {
   display: grid;
   grid-template-rows: auto auto auto 1fr;
-  row-gap: 20px;
   width: 87%;
   justify-self: center;
+}
+
+.has-button {
+  row-gap: 20px;
+}
+
+.no-button {
+  row-gap: 10px;
 }
 
 .profile-container {
@@ -24,7 +30,7 @@
   grid-template-rows: auto auto auto 1fr;
   row-gap: 9px;
   justify-items: center;
-  .myemail {
+  .useremail {
     font-size: 1em;
     color: var(--light-gray-color);
   }
@@ -44,6 +50,7 @@
   display: grid;
   grid-template-rows: auto auto auto;
   row-gap: 8px;
+  width: 100%;
 }
 
 .info-content {
@@ -60,9 +67,11 @@
 .button-container {
   display: flex;
   justify-content: center;
+  has-button {
+  }
 }
 
-.edit-myinfo-button {
+.edit-userinfo-button {
   display: flex;
   justify-content: center;
   align-items: center;

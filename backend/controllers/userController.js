@@ -45,18 +45,21 @@ export const getUser = async (req, res) => {
 export const postUserDetail = async (req, res) => {
   try {
     const { userId } = req;
-    const { age, height, weight, purpose } = req.body;
+    const { age, height, weight, purpose, nickname } = req.body;
+    const profileImg = req.file ? req.file.path : req.body.profileImg;
 
     const newUserDetail = await UserDetail.create({
       user: userId,
+      nickname,
       age,
       height,
       weight,
       purpose,
+      profileImg,
     });
 
     res.status(201).json({ status: "success", data: newUserDetail });
-  } catch {
+  } catch (error) {
     return res.status(400).json({ status: "fail", message: error.message });
   }
 };

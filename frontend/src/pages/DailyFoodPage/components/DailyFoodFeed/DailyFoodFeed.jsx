@@ -18,7 +18,7 @@ export const DailyFoodFeed = ({ mealType }) => {
       </section>
       <section className="DailyFood__Feed-content-box">
         <button aria-label="음식 추가">
-          <Link to="/food/search">
+          <Link to={`/food/search/${mealType}`}>
             <GoPlus />
           </Link>
         </button>

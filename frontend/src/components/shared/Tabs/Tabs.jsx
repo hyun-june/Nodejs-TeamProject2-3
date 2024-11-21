@@ -9,7 +9,7 @@ export const Tabs = ({ defaultIdx = 0, items = [] }) => {
         {items?.map(({ title }, i) => (
           <li
             key={title}
-            className={idx === i && "active"}
+            className={idx === i ? "active" : ""}
             onClick={() => setIdx(i)}
           >
             <span>{title}</span>

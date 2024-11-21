@@ -6,7 +6,7 @@ import { FaCaretDown } from "react-icons/fa";
 import { IoMdCloseCircle } from "react-icons/io";
 import "react-calendar/dist/Calendar.css"; // Calendar 스타일을 위해 추가
 
-export const DailyFoodCalender = () => {
+export const DailyFoodCalender = ({ onDateChange }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [date, setDate] = useState(new Date());
 
@@ -22,6 +22,7 @@ export const DailyFoodCalender = () => {
 
   const handleDateChange = (newDate) => {
     setDate(newDate);
+    onDateChange(newDate);
     setIsModalOpen(false);
   };
 

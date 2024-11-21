@@ -1,8 +1,12 @@
+import { useState } from "react";
 import { FoodSearchResultDonutChart } from "./FoodSearchResultDonutChart";
 import { Tabs } from "../../../components/shared/Tabs/Tabs";
+import { useAddFood } from "../../../core/hooks/useFood";
 
-export const FoodSearchResultDetail = ({ selectedFood }) => {
-  console.log("selectedFood", selectedFood);
+export const FoodSearchResultDetail = ({ selectedFood, mealtype }) => {
+  const { mutate: addFood, isLoading } = useAddFood();
+  const [quantity, setQuantity] = useState(0);
+
   const {
     name = "알 수 없음",
     nutrient = [{}],
@@ -15,6 +19,9 @@ export const FoodSearchResultDetail = ({ selectedFood }) => {
         <input
           className="tab-input"
           placeholder="인분 or 개수를 적어주세요."
+          type="number"
+          value={quantity}
+          onChange={(e) => setQuantity(e.target.value)}
         ></input>
       </div>
     );
@@ -23,7 +30,13 @@ export const FoodSearchResultDetail = ({ selectedFood }) => {
   const Tabs2 = () => {
     return (
       <div className="tab-input-container">
-        <input className="tab-input" placeholder="g수를 적어주세요."></input>
+        <input
+          className="tab-input"
+          type="number"
+          value={quantity}
+          onChange={(e) => setQuantity(e.target.value)}
+          placeholder="g수를 적어주세요."
+        ></input>
       </div>
     );
   };
@@ -38,6 +51,15 @@ export const FoodSearchResultDetail = ({ selectedFood }) => {
       comp: <Tabs2 />,
     },
   ];
+
+  const handleAddFood = () => {
+    if (isLoading) return; // 중복 클릭 방지
+    addFood({
+      food: selectedFood,
+      mealtype,
+      quantity: Number(quantity),
+    });
+  };
 
   return (
     <>
@@ -71,7 +93,7 @@ export const FoodSearchResultDetail = ({ selectedFood }) => {
           <Tabs items={items} className="FoodDetailTabs" />
         </div>
         <div className="FoodDetail-addButton">
-          <button>추가</button>
+          <button onClick={handleAddFood}>추가</button>
         </div>
       </section>
     </>

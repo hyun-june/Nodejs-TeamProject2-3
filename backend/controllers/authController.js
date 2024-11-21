@@ -1,6 +1,8 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { User } from "../Model/User.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
@@ -32,6 +34,7 @@ export const loginWithEmail = async (req, res) => {
 export const authenticate = async (req, res, next) => {
   try {
     const tokenString = req.headers.authorization;
+    console.log("Ttttt", tokenString);
     if (!tokenString) {
       throw new Error("토큰이 존재하지 않습니다.");
     }
@@ -41,6 +44,8 @@ export const authenticate = async (req, res, next) => {
     req.userId = payload._id;
     next();
   } catch (error) {
+    console.log("인증 오류", error); // 오류 로그 확인
+
     return res.status(400).json({
       status: "fail",
       message: error.message || "토큰이 유효하지 않습니다",

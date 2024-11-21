@@ -7,9 +7,8 @@ const dailyFoodSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    food: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Food",
+    name: {
+      type: String,
       required: true,
     },
     mealtype: {
@@ -17,6 +16,7 @@ const dailyFoodSchema = new mongoose.Schema(
       enum: ["아침", "점심", "저녁", "간식"],
       required: true,
     },
+    defaultGram: { type: Number },
     quantity: {
       type: Number,
       required: true,

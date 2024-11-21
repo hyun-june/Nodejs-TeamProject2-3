@@ -15,12 +15,11 @@ export const getAllExercise = async (req, res) => {
 
 export const postExercise = async (req, res) => {
   try {
-    const { name, category, calorieBurnCriteria, mets, description } = req.body;
+    const { name, category, mets, description } = req.body;
 
     const newExercise = await Exercise.create({
       name,
       category,
-      calorieBurnCriteria,
       mets,
       description,
     });

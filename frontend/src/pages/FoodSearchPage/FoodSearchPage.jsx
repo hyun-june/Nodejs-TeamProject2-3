@@ -30,12 +30,12 @@ export const FoodSearchPage = () => {
   };
   return (
     <>
-      <header>
-        <Header>
+      <header className="daily-food__search-header">
+        <Header backTo={-1} className="daily-food__search-header">
           <SearchBar />
         </Header>
       </header>
-      <main>
+      <main className="daily-food__search">
         {isLoading && <p>Loading...</p>}
         {error && <p>Error fetching data</p>}
         {foods?.data && foods.data.length > 0 ? (

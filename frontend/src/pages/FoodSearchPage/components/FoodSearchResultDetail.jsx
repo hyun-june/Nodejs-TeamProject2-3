@@ -1,22 +1,28 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { FoodSearchResultDonutChart } from "./FoodSearchResultDonutChart";
 import { Tabs } from "../../../components/shared/Tabs/Tabs";
 import { useAddFood } from "../../../core/hooks/useFood";
 
 export const FoodSearchResultDetail = ({ selectedFood, mealtype }) => {
   const { mutate: addFood, isLoading } = useAddFood();
+
   const [quantity, setQuantity] = useState(0);
+  const [gramQuantity, setGramQuantity] = useState(0);
+
+  const quantityInputRef = useRef(null); // input을 참조하는 ref
+  const gramQuantityInputRef = useRef(null); // 다른 input을 참조하는 ref
 
   const {
     name = "알 수 없음",
     nutrient = [{}],
     defaultGram = 100,
   } = selectedFood;
-  console.log("selectedFood11", selectedFood);
+
   const Tabs1 = () => {
     return (
       <div className="tab-input-container">
         <input
+          ref={quantityInputRef} // ref를 사용하여 input을 참조
           className="tab-input"
           placeholder="인분 or 개수를 적어주세요."
           type="number"
@@ -31,10 +37,11 @@ export const FoodSearchResultDetail = ({ selectedFood, mealtype }) => {
     return (
       <div className="tab-input-container">
         <input
+          ref={gramQuantityInputRef} // ref를 사용하여 input을 참조
           className="tab-input"
           type="number"
-          value={quantity}
-          onChange={(e) => setQuantity(e.target.value)}
+          value={gramQuantity}
+          onChange={(e) => setGramQuantity(e.target.value)}
           placeholder="g수를 적어주세요."
         ></input>
       </div>
@@ -59,7 +66,29 @@ export const FoodSearchResultDetail = ({ selectedFood, mealtype }) => {
       mealtype,
       quantity: Number(quantity),
     });
+
+    // food 추가 후 포커스 유지
+    // ref가 null이 아닌 경우에만 focus 호출
+    if (quantityInputRef.current) {
+      quantityInputRef.current.focus(); // 포커스 유지
+    }
+    if (gramQuantityInputRef.current) {
+      gramQuantityInputRef.current.focus(); // 포커스 유지
+    }
   };
+
+  // useEffect로 포커스 유지할 수 있도록 함
+  useEffect(() => {
+    if (quantityInputRef.current) {
+      quantityInputRef.current.focus(); // 처음 렌더링 후 포커스
+    }
+  }, [quantity]);
+
+  useEffect(() => {
+    if (gramQuantityInputRef.current) {
+      gramQuantityInputRef.current.focus(); // 처음 렌더링 후 포커스
+    }
+  }, [gramQuantity]);
 
   return (
     <>

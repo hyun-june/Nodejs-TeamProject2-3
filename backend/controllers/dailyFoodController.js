@@ -21,7 +21,7 @@ export const getDailyFood = async (req, res) => {
     const dailyFood = await DailyFood.find({
       user: userId,
       date: { $gte: startOfDay, $lte: endOfDay },
-    }).populate("food");
+    });
 
     const result = {
       아침: [],
@@ -31,15 +31,19 @@ export const getDailyFood = async (req, res) => {
     };
 
     dailyFood.forEach((food) => {
+      console.log("food", food);
       if (result[food.mealtype]) {
         result[food.mealtype].push({
-          food: food.food.name,
+          food: food.name,
           quantity: food.quantity,
-          calories: food.totalCalories,
+          calories: food.Calories,
+          defaultGram: food.defaultGram,
+          nutrition: food.nutrition,
         });
       }
     });
     res.status(200).json({ status: "success", data: result });
+    console.log(result);
   } catch (error) {
     res.status(500).json({ status: "fail", message: "서버 오류" });
   }
@@ -76,17 +80,14 @@ export const postDailyFood = async (req, res) => {
   try {
     const { userId } = req;
     const { food, mealtype, quantity } = req.body;
-    const { name, category, nutrient, calorie } = food;
-
-    console.log("req.body:", req.body);
-    console.log("food:", food);
+    const { name, category, nutrient, calorie, defaultGram } = food;
+    console.log("ggggg", defaultGram);
 
     if (!userId) {
       return res
         .status(400)
         .json({ status: "fail", message: "로그인이 필요합니다." });
     }
-
     // 유효성 검사
     if (!food || !mealtype || !quantity) {
       return res.status(400).json({
@@ -106,7 +107,9 @@ export const postDailyFood = async (req, res) => {
       name,
       category,
       mealtype,
+      quantity,
       Calories: totalCalories,
+      defaultGram,
       nutrition: {
         carbs: totalCarbs,
         protein: totalProtein,
@@ -114,12 +117,15 @@ export const postDailyFood = async (req, res) => {
       },
     });
 
+    console.log(meal);
+
     res.status(200).json({
       status: "success",
       message: `${mealtype}에 음식이 추가되었습니다.`,
       data: meal,
     });
   } catch (error) {
+    console.error("Server Error:", error); // 에러 내용을 로그로 출력
     res
       .status(500)
       .json({ status: "fail", message: "음식 추가에 실패했습니다." });

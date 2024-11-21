@@ -34,7 +34,6 @@ export const loginWithEmail = async (req, res) => {
 export const authenticate = async (req, res, next) => {
   try {
     const tokenString = req.headers.authorization;
-    console.log("Ttttt", tokenString);
     if (!tokenString) {
       throw new Error("토큰이 존재하지 않습니다.");
     }

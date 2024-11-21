@@ -16,7 +16,7 @@ import { authenticate } from "../controllers/authController.js";
 export const foodRouter = express.Router();
 
 // foodRouter.route("/").get(getAllFood).post(postFood);
-foodRouter.route("/").get(getDailyFood);
+foodRouter.route("/").get(authenticate, getDailyFood);
 foodRouter.get("/search/:mealtype", getSearchFood);
 foodRouter.route("/add/:mealtype").post(authenticate, postDailyFood);
 // foodRouter.route("/:foodId").get(getFood).put(updateFood).delete(deleteFood);

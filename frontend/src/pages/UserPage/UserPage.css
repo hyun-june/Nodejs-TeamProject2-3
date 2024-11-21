@@ -22,7 +22,7 @@
 }
 
 .no-button {
-  row-gap: 0px;
+  row-gap: 10px;
 }
 
 .profile-container {
@@ -50,6 +50,7 @@
   display: grid;
   grid-template-rows: auto auto auto;
   row-gap: 8px;
+  width: 100%;
 }
 
 .info-content {

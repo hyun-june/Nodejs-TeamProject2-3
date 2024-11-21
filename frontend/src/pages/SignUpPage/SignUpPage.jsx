@@ -1,13 +1,11 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { api } from "../../utils/api";
+import { useSignUp } from "../../core/hooks/useAuth";
 import { AuthInput } from "../../components/shared/AuthInput/AuthInput";
 import { AuthButton } from "../../components/shared/AuthButton/AuthButton";
 import "./css/SignUpPage.css";
-import { useSignUp } from "../../core/hooks/useAuth";
 
 export const SignUpPage = () => {
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -19,7 +17,6 @@ export const SignUpPage = () => {
 
   const handleSingUpSubmit = async (formData) => {
     const { Password, ConfirmPassword, Email, Name } = formData;
-    console.log("formData", formData);
 
     if (Password !== ConfirmPassword) {
       setError("ConfirmPassword", {

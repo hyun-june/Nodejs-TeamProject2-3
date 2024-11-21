@@ -22,7 +22,6 @@ export const createUser = async (req, res) => {
     });
     await newUser.save();
     return res.status(200).json({ status: "success", user });
-
   } catch (error) {
     res.status(400).json({ status: "fail", error: error.message });
   }
@@ -46,10 +45,11 @@ export const getUser = async (req, res) => {
 export const postUserDetail = async (req, res) => {
   try {
     const { userId } = req;
-    const { age, height, weight, purpose } = req.body;
+    const { age, height, weight, purpose, nickname } = req.body;
 
     const newUserDetail = await UserDetail.create({
       user: userId,
+      username,
       age,
       height,
       weight,
@@ -57,7 +57,7 @@ export const postUserDetail = async (req, res) => {
     });
 
     res.status(201).json({ status: "success", data: newUserDetail });
-  } catch {
+  } catch (error) {
     return res.status(400).json({ status: "fail", message: error.message });
   }
 };
@@ -111,7 +111,6 @@ export const getOtherUser = async (req, res) => {
       throw new Error("해당 유저를 찾을 수 없습니다.");
     }
     return res.status(200).json({ status: "success", user, token });
-
   } catch (error) {
     return res.status(400).json({ status: "fail", error: error.message });
   }

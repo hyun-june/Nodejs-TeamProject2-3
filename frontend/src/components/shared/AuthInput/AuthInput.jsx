@@ -8,7 +8,7 @@ export const AuthInput = ({ id = "", title, register, error, ...props }) => {
       <input
         id={id}
         {...(register &&
-          register(title, {
+          register(id, {
             required: `필수 입력 항목입니다.`,
             pattern: validationPatterns[title],
           }))}

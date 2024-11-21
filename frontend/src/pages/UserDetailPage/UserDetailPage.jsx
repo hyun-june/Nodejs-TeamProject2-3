@@ -5,6 +5,7 @@ import { AuthButton } from "../../components/shared/AuthButton/AuthButton";
 import { Header } from "../../components/shared/Header/Header";
 import { FaPlus } from "react-icons/fa6";
 import { IoCloseSharp } from "react-icons/io5";
+import { inputUserDetail } from "../../core/api/auth";
 import "./css/UserDetailPage.css";
 
 export const UserDetailPage = () => {
@@ -14,26 +15,15 @@ export const UserDetailPage = () => {
 
   const onUserSubmit = async (formData) => {
     console.log("Form Data:", formData);
-    const profileInfoData = new FormData();
-    if (profileImgfile) {
-      profileInfoData.append("profileImg", profileImgfile);
-    } else {
-      profileInfoData.append("profileImg", "/basic-profile.png");
-    }
-
-    // try {
-    //   const response = await fetch("/profile-upload", {
-    //     method: "POST",
-    //     body: profileInfoData,
-    //   });
-    //   if (!response.ok) {
-    //     throw new Error("이미지 업로드 실패");
-    //   }
-    //   const data = await response.json();
-    //   console.log("서버 데이터", data);
-    // } catch (error) {
-    //   console.log("이미지 업로드 실패", error);
-    // }
+    const { nickname, age, height, weight, purpose } = formData;
+    inputUserDetail({
+      nickname,
+      age,
+      height,
+      weight,
+      purpose,
+      profileUrl: profileImgfile,
+    });
   };
 
   const handleProfileDelete = () => {
@@ -102,7 +92,7 @@ export const UserDetailPage = () => {
               register={register}
             />
             <AuthInput
-              id="purpose weight"
+              id="purpose"
               title="목표 체중"
               type="number"
               register={register}

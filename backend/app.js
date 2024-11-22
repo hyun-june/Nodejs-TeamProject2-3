@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import { apiRouter } from "./routes/apiRouter.js";
+
 dotenv.config();
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use("/api", apiRouter);
 
 const mongoURI = process.env.LOCAL_DB_ADDRESS;
+// const mongoURI = process.env.MONGODB_URI_PROD;
 
 const connectDB = async () => {
   try {

@@ -3,28 +3,49 @@ import { Link } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-export const DailyFoodFeed = ({ mealType }) => {
+export const DailyFoodFeed = ({
+  mealType,
+  foods,
+  mealCalories,
+  onFoodClick,
+  selectedDate,
+}) => {
   return (
     <article className="DailyFood__Feed">
       <header className="DailyFood__Feed-title">{mealType}</header>
-      <section className="DailyFood__Feed-content-box">
-        <div className="DailyFood__Feed-content-box-inner">
-          <h3>사과</h3>
-          <div className="DailyFood_Feed-content-box__explain">
-            <p>1개 평균 크기 100g</p>
-            <p>57Kcal</p>
-          </div>
-        </div>
-      </section>
-      <section className="DailyFood__Feed-content-box">
-        <button aria-label="음식 추가">
-          <Link to="/food/search">
-            <GoPlus />
-          </Link>
-        </button>
-      </section>
+      <div className="DailyFood__Feed-content">
+        {foods && foods.length > 0 ? (
+          foods.map((food, index) => (
+            <section
+              key={index}
+              className="DailyFood__Feed-content-box"
+              onClick={() => onFoodClick(food)}
+            >
+              <div className="DailyFood__Feed-content-box-inner">
+                <h3>{food.food}</h3>
+                <div className="DailyFood_Feed-content-box__explain">
+                  <p>{food.quantity * food.defaultGram} g</p>
+                  <p>{food.calories * food.quantity}Kcal</p>
+                </div>
+              </div>
+            </section>
+          ))
+        ) : (
+          <div></div>
+        )}
+
+        <section className="DailyFood__Feed-content-box">
+          <button aria-label="음식 추가">
+            <Link to={`/food/search/${mealType}?date=${selectedDate}`}>
+              <GoPlus />
+            </Link>
+          </button>
+        </section>
+      </div>
       <footer className="DailyFood__Feed-footer">
-        <p className="DailyFood__Feed-totalCalorie-Num">57</p>
+        <p className="DailyFood__Feed-totalCalorie-Num">
+          {mealCalories} {/* 각 식사별 칼로리 */}
+        </p>
         <p>Kcal</p>
       </footer>
     </article>

@@ -110,3 +110,7 @@
   display: flex;
   justify-content: center;
 }
+
+.FoodDetail-deleteButton button {
+  background-color: var(--warn-color);
+}

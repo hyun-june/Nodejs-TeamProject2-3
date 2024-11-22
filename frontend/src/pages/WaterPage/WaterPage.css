@@ -1,0 +1,124 @@
+.water-container {
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--sub-color);
+}
+
+/* 달력 관련 css */
+.water-calender {
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  background-color: var(--main-color);
+  padding: 20px;
+  margin-top: 25px;
+  width: 90%;
+  border-radius: 10px;
+}
+
+.water-calender__calender-icon {
+  font-size: 19px;
+  margin-right: 15px;
+  color: var(--point-color);
+}
+
+.water-calender__downBtn-icon {
+  margin-left: 20px;
+}
+
+/* 물 관련 css */
+.container {
+  margin: 10% 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  .waterHeight {
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 7px;
+  }
+}
+
+.bottle-neck {
+  width: 40%;
+  height: 50px; /* 병의 목 부분 높이 */
+  background: var(--dark-gray-color);
+  border: 3px solid black;
+  border-radius: 8px 8px 0 0;
+  position: relative;
+  top: 3px;
+  opacity: 0.3;
+}
+
+.bottle {
+  width: 80%; /* 병의 전체 너비 */
+  height: 300px; /* 병의 전체 높이 */
+  background: linear-gradient(
+    to bottom,
+    var(--sub-color),
+    var(--light-gray-color)
+  );
+  border: 3px solid var(--light-gray-color);
+  position: relative;
+  margin-bottom: 10%;
+  border-radius: 50px 50px 10px 10px; /* 병 몸통의 둥근 모서리 */
+  overflow: hidden;
+}
+
+.water {
+  width: 100%;
+  height: 0;
+  background: linear-gradient(to bottom, #7dabd2, #378fdc);
+  position: absolute;
+  bottom: 0;
+  transition: height 0.3s ease-in-out;
+  border-top: 1px solid #005b99;
+  border-radius: 0;
+}
+
+.buttonContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 10%;
+}
+
+.controlButton {
+  width: 100%;
+  background: var(--text-color);
+  color: var(--main-color);
+  border: none;
+  padding: 15px 0;
+  font-size: 16px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.controlButton:hover {
+  background: black;
+}
+
+.controlButton:nth-child(2) {
+  background: none;
+  color: var(--light-gray-color);
+  border: 1px solid var(--light-gray-color);
+}
+
+.controlButton:nth-child(2):hover {
+  background: #d6d8d8;
+}
+
+.disabledButton {
+  background: none;
+  color: var(--light-gray-color);
+  border: 1px solid var(--light-gray-color);
+  cursor: not-allowed;
+}
+
+.disabledButton:disabled:hover {
+  background: none;
+  color: none;
+}

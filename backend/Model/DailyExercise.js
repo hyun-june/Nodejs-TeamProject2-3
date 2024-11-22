@@ -11,11 +11,12 @@ const dailyExerciseSchema = new mongoose.Schema(
     mets: { type: Number, required: true },
     durationOrDistance: { type: Number, required: true },
     date: { type: Date, default: Date.now },
+    weight: { type: Number, required: true },
   },
   { timestamps: true }
 );
 
-export const dailyExercise = mongoose.model(
+export const DailyExercise = mongoose.model(
   "dailyExercise",
   dailyExerciseSchema
 );

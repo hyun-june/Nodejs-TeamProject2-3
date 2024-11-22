@@ -1,5 +1,6 @@
 import { api } from "./api";
 
+
 export const getAllFoodApi = async (query) => {
   try {
     const { data } = await api.get(`/food`, { params : { ...query }});
@@ -48,57 +49,67 @@ export const deleteFoodApi = async (id) => {
 export const getFoodSearchResult = async (query, mealtype) => {
   if (!query) return [];
   try {
-    // URL 경로는 '/food/search/${mealtype}'이고, q와 date는 쿼리 파라미터로 전달
     const { data } = await api.get(`/food/search/${mealtype}`, {
-      params: { q: query }, // 쿼리 파라미터로 q와 date 전달
+      params: { q: query },
     });
-    return data; // 응답 데이터 반환
+    return data;
   } catch (error) {
-    console.error("Error fetching food data:", error); // 오류 처리
+    console.error("음식 검색 중 에러:", error);
     return []; // 오류 발생 시 빈 배열 반환
   }
 };
 
-export const getDailyFood = async (query) => {
+// 특정 날짜의 음식 데이터 가져오기
+export const getDailyFood = async (date) => {
   try {
-    const { data } = await api.get(`/food?date=${query}`);
-    console.log("데이터", data);
+    const { data } = await api.get(`/food`, {
+      params: { date },
+    });
+    console.log("음식 데이터:", data);
     return data;
   } catch (error) {
-    console.error("Error fetching daily food data:", error);
-    throw error; // 필요한 경우 상위로 에러 전달
+    console.error("음식 데이터 가져오는 중 에러:", error);
   }
 };
+
+// 특정 날짜의 음식 추가하기
 export const addDailyFood = async (food, mealtype, quantity, date) => {
   try {
-    const { data } = await api.post(`/food/add/${mealtype}?date=${date}`, {
-      food,
-      mealtype,
-      quantity,
-    });
+    const { data } = await api.post(
+      `/food/add/${mealtype}`,
+      { food, mealtype, quantity },
+      { params: { date } }
+    );
     return data;
   } catch (error) {
     console.error("음식 추가 중 에러:", error);
     if (error.response) {
       console.error("응답 에러 내용:", error.response.data);
     }
+    throw error;
   }
 };
 
+// 데일리 음식 데이터 업데이트
 export const updateDailyFood = async (quantity, foodId) => {
   try {
-    const { data } = await api.put("/food", { quantity, foodId });
+    const { data } = await api.put(`/food`, { quantity, foodId });
     return data;
   } catch (error) {
-    console.error("음식 수정 중 에러", error);
+    console.error("음식 수정 중 에러:", error);
+    throw error;
   }
 };
 
+// 데일리 음식 데이터 삭제
 export const deleteDailyFood = async (foodId) => {
   try {
-    const { data } = await api.delete("/food", { data: { foodId } });
+    const { data } = await api.delete(`/food`, {
+      data: { foodId }, // body에 foodId 전달
+    });
     return data;
   } catch (error) {
-    console.error("음식 삭제 중 에러", error);
+    console.error("데일리 음식 삭제 중 에러:", error);
+    throw error;
   }
 };

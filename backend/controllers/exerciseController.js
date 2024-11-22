@@ -2,8 +2,22 @@ import { Exercise } from "../Model/Exercise.js";
 
 export const getAllExercise = async (req, res) => {
   try {
-    const exercise = await Exercise.find();
-    res.status(200).json({ status: "success", data: exercise });
+    const { page, q, size, } = req.query
+    const cond = q ? { name:{ $regex:q, $options:'i' } } : {}
+            
+    let query = Exercise.find(cond).sort({ createdAt: -1 })
+    let response = { status : 'success' }
+            
+    if(page && size){
+          query.skip((page-1)*size).limit(size)
+          const totalItemNum = await Exercise.countDocuments(cond);
+          response.totalPageNum = Math.ceil(totalItemNum / size)
+    }
+
+    const exercise = await query.exec()
+    response.data = exercise
+          
+    res.status(200).json(response)
   } catch (error) {
     res.status(500).json({
       status: "fail",
@@ -13,22 +27,23 @@ export const getAllExercise = async (req, res) => {
   }
 };
 
+
 export const postExercise = async (req, res) => {
   try {
-    const { name, category, calorieBurnCriteria, mets, description } = req.body;
-
+    const { name, category, mets, description } = req.body;
+    
     const newExercise = await Exercise.create({
       name,
       category,
-      calorieBurnCriteria,
       mets,
       description,
     });
+
     res.status(200).json({ status: "success", data: newExercise });
   } catch (error) {
     return res.status(500).json({
       status: "fail",
-      message: "운동을 추가하는 데 오류가 발생했습니다",
+      message: "운동을 추가하는 데 오류가 발생했습니다" ,
       error,
     });
   }
@@ -51,14 +66,13 @@ export const getExercise = async (req, res) => {
 export const updateExercise = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, category, calorieBurnCriteria, mets, description } = req.body;
-
+    const { name, category, mets, description } = req.body;
+    console.log(id, req.body)
     const exercise = await Exercise.findByIdAndUpdate(
       id,
       {
         name,
         category,
-        calorieBurnCriteria,
         mets,
         description,
       },

@@ -6,10 +6,15 @@ import {
   postExercise,
   updateExercise,
 } from "../controllers/exerciseController.js";
+import { authenticate, checkAdminPermission } from "../controllers/authController.js";
 
 export const exerciseRouter = express.Router();
 
-exerciseRouter.route("/").get(getAllExercise).post(postExercise);
+exerciseRouter
+  .route("/")
+  .get( getAllExercise)
+  .post(postExercise);
+
 exerciseRouter
   .route("/:id")
   .get(getExercise)

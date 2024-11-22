@@ -7,13 +7,10 @@ import { timeText } from "../../../../core/constants/DateTimeFormat";
 import "./FeedBox.css";
 
 export const FeedBox = ({ feed }) => {
-  // console.log("datail", feed);
   const location = useLocation();
   const navigate = useNavigate();
 
   const feedDate = new Date(feed.createdAt);
-  console.log("f1111111", feed.createdAt);
-  console.log("ffffffff", feedDate);
   const feedId = feed._id;
 
   const handleMoveFeed = (feedId) => {

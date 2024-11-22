@@ -1,6 +1,16 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { useMutation } from "@tanstack/react-query";
-import { createFeed, getFeed } from "../api/feed";
+
+import {
+  createFeed,
+  getDetailFeed,
+  getFeed,
+  updateComments,
+} from "../api/feed";
 import { useNavigate } from "react-router-dom";
 
 export const useCreateFeed = () => {
@@ -38,6 +48,28 @@ export const useGetAllFeed = () => {
     },
     onError: (error) => {
       console.log("피드 로드 실패", error);
+    },
+  });
+};
+
+export const useGetDetailFeed = (id) => {
+  return useQuery({
+    queryKey: ["DetailFeed", id],
+    queryFn: () => getDetailFeed(id),
+  });
+};
+
+export const useUpdateComment = ({ id }) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, newCommentText }) =>
+      updateComments({ id, newCommentText }),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries("DetailFeed");
+      console.log("댓글 생성 성공", data);
+    },
+    onError: (error) => {
+      console.log("댓글 생성 실패", error);
     },
   });
 };

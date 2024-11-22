@@ -47,3 +47,12 @@ export const updateDailyFood = async (quantity, foodId) => {
     console.error("음식 수정 중 에러", error);
   }
 };
+
+export const deleteDailyFood = async (foodId) => {
+  try {
+    const { data } = await api.delete("/food", { data: { foodId } });
+    return data;
+  } catch (error) {
+    console.error("음식 삭제 중 에러", error);
+  }
+};

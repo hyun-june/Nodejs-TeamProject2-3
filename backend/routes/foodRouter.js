@@ -7,6 +7,7 @@ import {
   updateFood,
 } from "../controllers/foodController.js";
 import {
+  deleteDailyFood,
   getDailyFood,
   getSearchFood,
   postDailyFood,
@@ -17,7 +18,12 @@ import { authenticate } from "../controllers/authController.js";
 export const foodRouter = express.Router();
 
 // foodRouter.route("/").get(getAllFood).post(postFood);
-foodRouter.route("/").all(authenticate).get(getDailyFood).put(updateDailyFood);
+foodRouter
+  .route("/")
+  .all(authenticate)
+  .get(getDailyFood)
+  .put(updateDailyFood)
+  .delete(deleteDailyFood);
 foodRouter.get("/search/:mealtype", getSearchFood);
 foodRouter.route("/add/:mealtype").post(authenticate, postDailyFood);
 // foodRouter.route("/:foodId").get(getFood).put(updateFood).delete(deleteFood);

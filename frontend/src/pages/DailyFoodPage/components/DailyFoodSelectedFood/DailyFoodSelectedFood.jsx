@@ -2,9 +2,8 @@ import { useState } from "react";
 
 import { FoodSearchResultDonutChart } from "../../../FoodSearchPage/components/FoodSearchResultDonutChart";
 import { useUpdateFood } from "../../../../core/query/food";
-
-export const DailyFoodSelectedFood = ({ nutrient }) => {
-  console.log("영양야양ㅇ", nutrient);
+import { useDeleteFood } from "../../../../core/query/food";
+export const DailyFoodSelectedFood = ({ nutrient, close }) => {
   const {
     food,
     defaultGram,
@@ -13,6 +12,7 @@ export const DailyFoodSelectedFood = ({ nutrient }) => {
     foodId,
   } = nutrient;
   const { mutate: updateFood, isPending, error } = useUpdateFood();
+  const { mutate: deleteFood } = useDeleteFood();
 
   const [quantity, setQuantity] = useState(initialQuantity || 1);
 
@@ -23,6 +23,12 @@ export const DailyFoodSelectedFood = ({ nutrient }) => {
 
   const handleUpdateFood = () => {
     updateFood({ quantity, foodId });
+    close();
+  };
+
+  const handleDeleteFood = () => {
+    deleteFood({ foodId });
+    close();
   };
   return (
     <>
@@ -61,7 +67,7 @@ export const DailyFoodSelectedFood = ({ nutrient }) => {
           className="FoodDetail-input"
         ></input>
         <div className="FoodDetail-addButton FoodDetail-deleteButton">
-          <button>삭제</button>
+          <button onClick={handleDeleteFood}>삭제</button>
         </div>
         <div className="FoodDetail-addButton">
           <button onClick={handleUpdateFood}>수정</button>

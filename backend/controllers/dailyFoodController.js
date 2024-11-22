@@ -151,3 +151,21 @@ export const updateDailyFood = async (req, res) => {
       .json({ status: "fail", message: "음식상태 수정에 실패했습니다", error });
   }
 };
+
+export const deleteDailyFood = async (req, res) => {
+  try {
+    const { foodId } = req.body; // 정상적으로 foodId를 받을 수 있음
+    const food = await DailyFood.findByIdAndDelete(foodId);
+
+    if (!food) {
+      return res
+        .status(404)
+        .json({ status: "fail", message: "해당 음식을 찾을 수 없습니다." });
+    }
+    res.status(200).json({ status: "success" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ status: "fail", message: "음식 삭제에 실패했습니다.", error });
+  }
+};

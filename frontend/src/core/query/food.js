@@ -1,6 +1,7 @@
 import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import {
+  deleteDailyFood,
   getDailyFood,
   getFoodSearchResult,
   updateDailyFood,
@@ -49,15 +50,35 @@ export const useAddFood = () => {
 };
 
 export const useUpdateFood = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: async ({ quantity, foodId }) => {
       return await updateDailyFood(quantity, foodId);
     },
     onSuccess: (data) => {
       console.log("음식 수정 성공", data);
+      queryClient.invalidateQueries(["dailyFood"]);
     },
     onError: (error) => {
       console.log("음식 수정 실패", error);
+    },
+  });
+};
+
+export const useDeleteFood = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ foodId }) => {
+      return await deleteDailyFood(foodId);
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(["dailyFood"]);
+      console.log("음식 삭제 성공", data);
+    },
+    onError: (error) => {
+      console.log("음식 삭제 실패", error);
     },
   });
 };

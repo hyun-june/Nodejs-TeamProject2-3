@@ -79,7 +79,6 @@ export const DailyFoodPage = () => {
 
   // 영양소 계산
   const totalNutrients = data?.data ? calculateNutrientsByMeal(data.data) : {};
-  console.log("tttt", totalNutrients);
 
   const setting = {
     dots: false,
@@ -90,8 +89,6 @@ export const DailyFoodPage = () => {
     swipe: true,
   };
   const mealTypes = ["아침", "점심", "저녁", "간식"];
-
-  console.log("sssss", selectedFood);
 
   if (isLoading) return <div>Loading....</div>;
   if (isError) return <div>데이터를 불러오는 데 실패했습니다.</div>;
@@ -158,9 +155,16 @@ export const DailyFoodPage = () => {
         </footer>
       </main>
       {selectedFood && (
-        <BottomSheet {...bottomSheetProps} className="Food-bottomSheet">
+        <BottomSheet
+          {...bottomSheetProps}
+          className="Food-bottomSheet"
+          close={bottomSheetProps.close}
+        >
           <div>
-            <DailyFoodSelectedFood nutrient={selectedFood} />
+            <DailyFoodSelectedFood
+              nutrient={selectedFood}
+              close={bottomSheetProps.close}
+            />
           </div>
         </BottomSheet>
       )}

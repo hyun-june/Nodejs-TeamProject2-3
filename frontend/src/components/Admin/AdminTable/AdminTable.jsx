@@ -30,7 +30,7 @@ export const AdminTable = ({handleOpenManager, list, theads , buttonOption = ini
 
                                 { 
                                     buttonOption.map(({name, title})=> 
-                                        <button key={name} className={name} onClick={()=> handleOpenManager(name)}>{title}</button>) 
+                                        <button key={name} className={name} onClick={()=> handleOpenManager(name, listItem._id)}>{title}</button>) 
                                 }
                             </div>
                         </td>

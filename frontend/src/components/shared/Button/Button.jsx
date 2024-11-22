@@ -13,9 +13,9 @@ const buttonOption = {
 }
 
 
-export const Button = ({ children, thema, round , style = {}, ...props }) => {
+export const Button = ({ children, thema, round , className, style = {}, ...props }) => {
     return (
-        <button className={`button ${thema}`} style={
+        <button className={`button ${className}`} style={
             {
                 borderRadius : buttonOption.round[round] ,
                 backgroundColor : buttonOption.thema[thema],

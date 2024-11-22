@@ -1,8 +1,7 @@
 import { useState } from "react";
-
 import { FoodSearchResultDonutChart } from "../../../FoodSearchPage/components/FoodSearchResultDonutChart";
-import { useUpdateFood } from "../../../../core/query/food";
-import { useDeleteFood } from "../../../../core/query/food";
+import { useUpdateDailyFood, useDeleteDailyFood } from "../../../../core/query/food";
+
 export const DailyFoodSelectedFood = ({ nutrient, close }) => {
   const {
     food,
@@ -11,8 +10,8 @@ export const DailyFoodSelectedFood = ({ nutrient, close }) => {
     quantity: initialQuantity,
     foodId,
   } = nutrient;
-  const { mutate: updateFood, isPending, error } = useUpdateFood();
-  const { mutate: deleteFood } = useDeleteFood();
+  const { mutate: updateFood, isPending, error } = useUpdateDailyFood();
+  const { mutate: deleteFood } = useDeleteDailyFood();
 
   const [quantity, setQuantity] = useState(initialQuantity || 1);
 

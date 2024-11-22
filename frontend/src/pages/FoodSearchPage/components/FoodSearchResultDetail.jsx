@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import { FoodSearchResultDonutChart } from "./FoodSearchResultDonutChart";
 import { Tabs } from "../../../components/shared/Tabs/Tabs";
-import { useAddFood } from "../../../core/query/food/";
+import { useAddDailyFood } from "../../../core/query/food/";
 
 export const FoodSearchResultDetail = ({ selectedFood, mealtype, date }) => {
-  const { mutate: addFood, isLoading } = useAddFood();
+  const { mutate: addFood, isLoading } = useAddDailyFood();
 
   const [quantity, setQuantity] = useState(0);
   const [gramQuantity, setGramQuantity] = useState(0);

@@ -6,6 +6,7 @@ import {
   getAllExerciseApi,
   getExerciseApi,
 } from "../api/exercise";
+
 export const useGetAllExercise = (query, date) => {
   console.log("query:", query);
   console.log("date:", date);

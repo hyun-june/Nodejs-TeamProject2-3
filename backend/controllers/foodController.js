@@ -2,14 +2,42 @@ import { Food } from "../Model/Food.js";
 
 export const getAllFood = async (req, res) => {
   try {
-    const food = await Food.find();
-    res.status(200).json({ status: "success", data: food });
+    const { page, q, size, } = req.query
+    const cond = q ? { name:{ $regex:q, $options:'i' } } : {}
+            
+    let query = Food.find(cond).sort({ createdAt: -1 })
+    let response = { status : 'success' }
+            
+    if(page && size){
+          query.skip((page-1)*size).limit(size)
+          const totalItemNum = await Food.countDocuments(cond);
+          response.totalPageNum = Math.ceil(totalItemNum / size)
+    }
+
+    const food = await query.exec()
+    response.data = food
+          
+    res.status(200).json(response)
   } catch (error) {
     res.status(500).json({
       status: "fail",
       message: "음식 데이터를 가져오는 데 오류가 발생했습니다.",
       error,
     });
+  }
+};
+
+export const getFood = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const food = await Food.findById(id);
+
+    if (!food) {
+      throw new Error("해당 음식을 찾을 수 없습니다.");
+    }
+    res.status(200).json({ status: "success", data: food });
+  } catch (error) {
+    res.status(404).json({ status: "fail", message: error.message });
   }
 };
 
@@ -31,20 +59,6 @@ export const postFood = async (req, res) => {
       message: "음식을 추가하는 데 오류가 발생했습니다",
       error,
     });
-  }
-};
-
-export const getFood = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const food = await Food.findById(id);
-
-    if (!food) {
-      throw new Error("해당 음식을 찾을 수 없습니다.");
-    }
-    res.status(200).json({ status: "success", data: food });
-  } catch (error) {
-    res.status(404).json({ status: "fail", message: error.message });
   }
 };
 

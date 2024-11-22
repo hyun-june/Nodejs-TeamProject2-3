@@ -66,3 +66,4 @@ export const addDailyExercise = async (exercise, time, date) => {
     console.error("운동 추가 실패 에러 :", error);
   }
 };
+

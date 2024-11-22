@@ -29,6 +29,21 @@ export const getAllExercise = async (req, res) => {
   }
 };
 
+export const getExercise = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const exercise = await Exercise.findById(id);
+
+    if (!exercise) {
+      throw new Error("해당 운동을 찾을 수 없습니다.");
+    }
+    res.status(200).json({ status: "success", data: exercise });
+  } catch (error) {
+    res.status(404).json({ status: "fail", message: error.message });
+  }
+};
+
+
 export const postExercise = async (req, res) => {
   try {
     const { name, category, mets, description } = req.body;
@@ -46,20 +61,6 @@ export const postExercise = async (req, res) => {
       message: "운동을 추가하는 데 오류가 발생했습니다",
       error,
     });
-  }
-};
-
-export const getExercise = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const exercise = await Exercise.findById(id);
-
-    if (!exercise) {
-      throw new Error("해당 운동을 찾을 수 없습니다.");
-    }
-    res.status(200).json({ status: "success", data: exercise });
-  } catch (error) {
-    res.status(404).json({ status: "fail", message: error.message });
   }
 };
 

@@ -1,6 +1,51 @@
 import { api } from "./api";
 
-// 음식 검색 결과 가져오기
+
+export const getAllFoodApi = async (query) => {
+  try {
+    const { data } = await api.get(`/food`, { params : { ...query }});
+    return data;
+  } catch (error) {
+    console.error("Error fetching food data:", error);
+  }
+};
+
+export const getFoodApi = async (id) => {
+  try {
+    const { data } = await api.get(`/food/${id}`);
+    return data;
+  } catch (error) {
+    console.error("Error fetching food data:", error);
+  }
+};
+
+export const createFoodApi = async (formData) => {
+  try {
+      const { data } = await api.post(`/food`, formData)
+      return data
+  } catch (error) {
+    console.error("Error create food data:", error);
+  }
+};
+
+export const updateFoodApi = async (formData) => {
+  try {
+      const { data } = await api.put(`/food/${formData.id}`, formData)
+      return data
+  } catch (error) {
+    console.error("Error update food data:", error);
+  }
+};
+
+export const deleteFoodApi = async (id) => {
+  try {
+      const { data } = await api.delete(`/food/${id}`)
+      return data
+  } catch (error) {
+      console.error("Error delete food data:", error);
+  }
+};
+
 export const getFoodSearchResult = async (query, mealtype) => {
   if (!query) return [];
   try {
@@ -20,11 +65,10 @@ export const getDailyFood = async (date) => {
     const { data } = await api.get(`/food`, {
       params: { date },
     });
-    console.log("데일리 음식 데이터:", data);
+    console.log("음식 데이터:", data);
     return data;
   } catch (error) {
-    console.error("데일리 음식 데이터 가져오는 중 에러:", error);
-    throw error; // 에러를 상위로 전달
+    console.error("음식 데이터 가져오는 중 에러:", error);
   }
 };
 
@@ -38,7 +82,7 @@ export const addDailyFood = async (food, mealtype, quantity, date) => {
     );
     return data;
   } catch (error) {
-    console.error("데일리 음식 추가 중 에러:", error);
+    console.error("음식 추가 중 에러:", error);
     if (error.response) {
       console.error("응답 에러 내용:", error.response.data);
     }
@@ -52,7 +96,7 @@ export const updateDailyFood = async (quantity, foodId) => {
     const { data } = await api.put(`/food`, { quantity, foodId });
     return data;
   } catch (error) {
-    console.error("데일리 음식 수정 중 에러:", error);
+    console.error("음식 수정 중 에러:", error);
     throw error;
   }
 };

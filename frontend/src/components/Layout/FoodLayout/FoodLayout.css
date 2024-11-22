@@ -1,4 +1,5 @@
 #food-layout {
   background-color: var(--sub-color);
   height: 100dvh;
+  overflow-y: auto;
 }

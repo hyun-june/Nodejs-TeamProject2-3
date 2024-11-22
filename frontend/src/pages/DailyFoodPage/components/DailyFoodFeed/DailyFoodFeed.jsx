@@ -9,8 +9,6 @@ export const DailyFoodFeed = ({
   mealCalories,
   onFoodClick,
 }) => {
-  console.log("mealType", mealType);
-  console.log("foods", foods);
   return (
     <article className="DailyFood__Feed">
       <header className="DailyFood__Feed-title">{mealType}</header>
@@ -26,7 +24,7 @@ export const DailyFoodFeed = ({
                 <h3>{food.food}</h3>
                 <div className="DailyFood_Feed-content-box__explain">
                   <p>{food.quantity * food.defaultGram} g</p>
-                  <p>{food.calories}Kcal</p>
+                  <p>{food.calories * food.quantity}Kcal</p>
                 </div>
               </div>
             </section>

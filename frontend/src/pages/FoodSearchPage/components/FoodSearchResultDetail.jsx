@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { FoodSearchResultDonutChart } from "./FoodSearchResultDonutChart";
 import { Tabs } from "../../../components/shared/Tabs/Tabs";
-import { useAddFood } from "../../../core/hooks/useFood";
+import { useAddFood } from "../../../core/query/food/";
 
 export const FoodSearchResultDetail = ({ selectedFood, mealtype }) => {
   const { mutate: addFood, isLoading } = useAddFood();

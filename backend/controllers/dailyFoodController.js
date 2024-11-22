@@ -31,9 +31,9 @@ export const getDailyFood = async (req, res) => {
     };
 
     dailyFood.forEach((food) => {
-      console.log("food", food);
       if (result[food.mealtype]) {
         result[food.mealtype].push({
+          foodId: food._id,
           food: food.name,
           quantity: food.quantity,
           calories: food.Calories,
@@ -42,8 +42,8 @@ export const getDailyFood = async (req, res) => {
         });
       }
     });
+    console.log("결과", result);
     res.status(200).json({ status: "success", data: result });
-    console.log(result);
   } catch (error) {
     res.status(500).json({ status: "fail", message: "서버 오류" });
   }
@@ -81,7 +81,6 @@ export const postDailyFood = async (req, res) => {
     const { userId } = req;
     const { food, mealtype, quantity } = req.body;
     const { name, category, nutrient, calorie, defaultGram } = food;
-    console.log("ggggg", defaultGram);
 
     if (!userId) {
       return res
@@ -96,11 +95,11 @@ export const postDailyFood = async (req, res) => {
       });
     }
 
-    // quantity에 맞게 칼로리와 영양소 계산 (기본량에 비례해서 곱하기)
-    const totalCalories = calorie * quantity; // 음식의 기본 칼로리와 quantity에 맞게 조정된 칼로리
-    const totalCarbs = nutrient[0]?.Carbohydrate * quantity; // 음식의 기본 탄수화물과 quantity에 맞게 조정
-    const totalProtein = nutrient[0]?.Protein * quantity; // 음식의 기본 단백질과 quantity에 맞게 조정
-    const totalFat = nutrient[0]?.Fat * quantity; // 음식의 기본 지방과
+    // // quantity에 맞게 칼로리와 영양소 계산 (기본량에 비례해서 곱하기)
+    // const totalCalories = calorie * quantity; // 음식의 기본 칼로리와 quantity에 맞게 조정된 칼로리
+    // const totalCarbs = nutrient[0]?.Carbohydrate * quantity; // 음식의 기본 탄수화물과 quantity에 맞게 조정
+    // const totalProtein = nutrient[0]?.Protein * quantity; // 음식의 기본 단백질과 quantity에 맞게 조정
+    // const totalFat = nutrient[0]?.Fat * quantity; // 음식의 기본 지방과
 
     const meal = await DailyFood.create({
       user: userId,
@@ -108,16 +107,14 @@ export const postDailyFood = async (req, res) => {
       category,
       mealtype,
       quantity,
-      Calories: totalCalories,
+      Calories: calorie,
       defaultGram,
       nutrition: {
-        carbs: totalCarbs,
-        protein: totalProtein,
-        fat: totalFat,
+        Carbohydrate: nutrient[0]?.Carbohydrate,
+        Protein: nutrient[0]?.Protein,
+        Fat: nutrient[0]?.Fat,
       },
     });
-
-    console.log(meal);
 
     res.status(200).json({
       status: "success",
@@ -129,5 +126,28 @@ export const postDailyFood = async (req, res) => {
     res
       .status(500)
       .json({ status: "fail", message: "음식 추가에 실패했습니다." });
+  }
+};
+
+export const updateDailyFood = async (req, res) => {
+  try {
+    const { quantity, foodId } = req.body;
+
+    const updateFood = await DailyFood.findByIdAndUpdate(
+      foodId,
+      { quantity },
+      { new: true }
+    );
+
+    if (!updateFood) {
+      return res
+        .status(404)
+        .json({ status: "fail", message: "해당 음식을 찾을 수 없습니다" });
+    }
+    res.status(200).json({ status: "success", data: updateFood });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ status: "fail", message: "음식상태 수정에 실패했습니다", error });
   }
 };

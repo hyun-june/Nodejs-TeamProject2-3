@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useState } from "react";
 
 import { BottomSheet } from "../../components/shared/BottomSheet/BottomSheet";
@@ -10,12 +10,19 @@ import { useFoodSearch } from "../../core/query/food";
 import "./FoodSearchPage.css";
 
 export const FoodSearchPage = () => {
-  const { search } = useLocation();
+  const { search } = useLocation(); //쿼리 파라미터 가져오기
+  const { mealtype } = useParams();
   const { bottomSheetProps, open } = useBottomSheet();
   const [selectedFood, setSelectedFood] = useState(null); // 선택된 food 데이터를 로컬에서 관리
 
   const query = new URLSearchParams(search).get("q"); // q에 해당하는 검색어 값을 추출하는 코드
-  const { data: foods, isLoading, error } = useFoodSearch(query);
+  const date = new URLSearchParams(search).get("date");
+
+  const {
+    data: foods,
+    isLoading,
+    error,
+  } = useFoodSearch(query, mealtype, date);
 
   const handleFoodClick = (food) => {
     setSelectedFood(food);
@@ -23,12 +30,12 @@ export const FoodSearchPage = () => {
   };
   return (
     <>
-      <header>
-        <Header>
+      <header className="daily-food__search-header">
+        <Header backTo={-1} className="daily-food__search-header">
           <SearchBar />
         </Header>
       </header>
-      <main>
+      <main className="daily-food__search">
         {isLoading && <p>Loading...</p>}
         {error && <p>Error fetching data</p>}
         {foods?.data && foods.data.length > 0 ? (
@@ -54,7 +61,10 @@ export const FoodSearchPage = () => {
         <section>
           {selectedFood && (
             <BottomSheet {...bottomSheetProps} className="Food-bottomSheet">
-              <FoodSearchResultDetail selectedFood={selectedFood} />
+              <FoodSearchResultDetail
+                selectedFood={selectedFood}
+                mealtype={mealtype}
+              />
             </BottomSheet>
           )}
         </section>

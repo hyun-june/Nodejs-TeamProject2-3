@@ -46,7 +46,7 @@ export const AppRouter = () => {
 
       <Route path="/food" element={<FoodLayout />}>
         <Route index element={<DailyFoodPage />} />
-        <Route path="search" element={<FoodSearchPage />} />
+        <Route path="search/:mealtype" element={<FoodSearchPage />} />
       </Route>
 
       <Route path="/weight" element={<WeightPage />} />

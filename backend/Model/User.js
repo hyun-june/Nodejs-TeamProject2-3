@@ -25,7 +25,7 @@ userSchema.methods.toJSON = function () {
 userSchema.methods.generateToken = function () {
   try {
     const token = jwt.sign({ _id: this._id }, process.env.JWT_SECRET_KEY, {
-      expiresIn: "1h",
+      expiresIn: "1d",
     });
     return token;
   } catch (error) {

@@ -14,8 +14,9 @@ export const userRouter = express.Router();
 userRouter.route("/").post(createUser);
 //내 정보
 userRouter.route("/me").all(authenticate).get(getUser);
+
 //다른 사람 정보
-userRouter.route("/other").get(getOtherUser);
+userRouter.route("/other/:id").get(getOtherUser);
 
 //유저 디테일 정보
 userRouter

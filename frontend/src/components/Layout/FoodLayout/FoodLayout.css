@@ -1,4 +1,4 @@
 #food-layout {
-  background-color: #f5f5f4;
+  background-color: var(--sub-color);
   height: 100dvh;
 }

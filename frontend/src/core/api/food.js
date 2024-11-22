@@ -1,5 +1,5 @@
 import { api } from "./api";
-export const getFoodSearchResult = async (query) => {
+export const getFoodSearchResult = async (query, mealtype) => {
   if (!query) return [];
   try {
     // URL 경로는 '/food/search/${mealtype}'이고, q와 date는 쿼리 파라미터로 전달
@@ -16,6 +16,7 @@ export const getFoodSearchResult = async (query) => {
 export const getDailyFood = async (query) => {
   try {
     const { data } = await api.get(`/food?date=${query}`);
+    console.log("데이터", data);
     return data;
   } catch (error) {
     console.error("Error fetching daily food data:", error);
@@ -34,10 +35,24 @@ export const addDailyFood = async (food, mealtype, quantity) => {
     console.error("음식 추가 중 에러:", error);
     if (error.response) {
       console.error("응답 에러 내용:", error.response.data);
-    } else if (error.request) {
-      console.error("요청이 보내졌으나 응답을 받지 못함:", error.request);
-    } else {
-      console.error("요청 설정 중 에러:", error.message);
     }
+  }
+};
+
+export const updateDailyFood = async (quantity, foodId) => {
+  try {
+    const { data } = await api.put("/food", { quantity, foodId });
+    return data;
+  } catch (error) {
+    console.error("음식 수정 중 에러", error);
+  }
+};
+
+export const deleteDailyFood = async (foodId) => {
+  try {
+    const { data } = await api.delete("/food", { data: { foodId } });
+    return data;
+  } catch (error) {
+    console.error("음식 삭제 중 에러", error);
   }
 };

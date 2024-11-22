@@ -5,14 +5,15 @@ import { useNavigate } from "react-router-dom";
 import { DailyFoodCalender } from "./components/DailyFoodCalender/DailyFoodCalender";
 import { DailyFoodFeed } from "./components/DailyFoodFeed/DailyFoodFeed";
 import { Header } from "../../components/shared/Header/Header";
-import { useFoodPage } from "../../core/hooks/useFood";
 import { DailyFoodChart } from "./components/DailyFoodChart/DailyFoodChart";
 import { BottomSheet } from "../../components/shared/BottomSheet/BottomSheet";
 import { useBottomSheet } from "../../components/shared/BottomSheet/components/useBottomSheet";
+import { useFoodPage } from "../../core/query/food";
 
 import "./DailyFoodPage.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { DailyFoodSelectedFood } from "./components/DailyFoodSelectedFood/DailyFoodSelectedFood";
 
 export const DailyFoodPage = () => {
   const [selectedDate, setSelectedDate] = useState(null); // 선택된 날짜 상태 추가
@@ -39,7 +40,7 @@ export const DailyFoodPage = () => {
     const result = {};
     for (const [mealType, foods] of Object.entries(data)) {
       result[mealType] = foods.reduce(
-        (sum, food) => sum + (food.calories || 0),
+        (sum, food) => sum + (food.calories || 0) * (food.quantity || 1), // quantity 곱하기
         0
       );
     }
@@ -65,10 +66,11 @@ export const DailyFoodPage = () => {
 
     for (const [mealType, foods] of Object.entries(data)) {
       foods.forEach((food) => {
+        const quantity = food.quantity;
         // 각 음식의 영양소 합산
-        result.carbohydrate += food.nutrition?.carbs || 0;
-        result.protein += food.nutrition?.protein || 0;
-        result.fat += food.nutrition?.fat || 0;
+        result.carbohydrate += (food.nutrition?.Carbohydrate || 0) * quantity;
+        result.protein += (food.nutrition?.Protein || 0) * quantity;
+        result.fat += (food.nutrition?.Fat || 0) * quantity;
       });
     }
 
@@ -77,7 +79,6 @@ export const DailyFoodPage = () => {
 
   // 영양소 계산
   const totalNutrients = data?.data ? calculateNutrientsByMeal(data.data) : {};
-  console.log("영양소", totalNutrients);
 
   const setting = {
     dots: false,
@@ -154,11 +155,16 @@ export const DailyFoodPage = () => {
         </footer>
       </main>
       {selectedFood && (
-        <BottomSheet {...bottomSheetProps} className="Food-bottomSheet">
+        <BottomSheet
+          {...bottomSheetProps}
+          className="Food-bottomSheet"
+          close={bottomSheetProps.close}
+        >
           <div>
-            <h3>{selectedFood.food}</h3>
-            <p>{selectedFood.calories} kcal</p>
-            <p>{selectedFood.defaultGram} g</p>
+            <DailyFoodSelectedFood
+              nutrient={selectedFood}
+              close={bottomSheetProps.close}
+            />
           </div>
         </BottomSheet>
       )}

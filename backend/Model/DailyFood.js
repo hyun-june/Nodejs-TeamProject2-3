@@ -24,9 +24,9 @@ const dailyFoodSchema = new mongoose.Schema(
     },
     Calories: { type: Number, required: true, min: 0 },
     nutrition: {
-      carbs: { type: Number, required: true, min: 0 },
-      protein: { type: Number, required: true, min: 0 },
-      fat: { type: Number, required: true, min: 0 },
+      Carbohydrate: { type: Number, required: true, min: 0 },
+      Protein: { type: Number, required: true, min: 0 },
+      Fat: { type: Number, required: true, min: 0 },
     },
     date: { type: Date, default: Date.now },
   },

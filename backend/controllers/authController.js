@@ -1,8 +1,8 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { User } from "../Model/User.js";
-import dotenv from "dotenv";
-dotenv.config();
+import { UserDetail } from "../Model/UserDetail.js";
+
 
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
@@ -16,13 +16,15 @@ export const loginWithEmail = async (req, res) => {
         password.trim(),
         user.password.trim()
       );
-      console.log(isMatch);
-      console.log("password", password);
-      console.log("user", user.password);
+
+      const userDetail = await UserDetail.findOne({ user: user._id });
+
       if (isMatch) {
         const token = await user.generateToken();
         console.log("token", token);
-        return res.status(200).json({ status: "success", user, token });
+        return res
+          .status(200)
+          .json({ status: "success", user, token, userInfo: !!userDetail });
       }
     }
     throw new Error("email or password");

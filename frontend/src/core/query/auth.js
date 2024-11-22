@@ -8,8 +8,13 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: ({ email, password }) => postLogin({ email, password }),
     onSuccess: (data) => {
+      const { userInfo } = data;
+      if (userInfo) {
+        navigate("/");
+      } else {
+        navigate("/user/detail");
+      }
       sessionStorage.setItem("token", data.token);
-      navigate("/user/detail");
       console.log("로그인 성공:", data);
     },
     onError: (error) => {

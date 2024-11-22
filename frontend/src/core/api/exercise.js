@@ -32,7 +32,7 @@ export const updateExerciseApi = async (formData) => {
         const { data } = await api.put(`/exercise/${formData.id}`, formData)
         return data
     } catch (error) {
-      console.error("Error create exercise data:", error);
+      console.error("Error update exercise data:", error);
     }
 };
 
@@ -41,6 +41,6 @@ export const deleteExerciseApi = async (id) => {
         const { data } = await api.delete(`/exercise/${id}`)
         return data
     } catch (error) {
-        console.error("Error create exercise data:", error);
+        console.error("Error delete exercise data:", error);
     }
 };

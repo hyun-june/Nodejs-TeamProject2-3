@@ -6,6 +6,7 @@ import {
     getAllExerciseApi,
     getExerciseApi
 } from "../api/exercise";
+
 export const useGetAllExercise = (query) => {
     return useQuery({
         queryKey : [ 'exercise', query ],

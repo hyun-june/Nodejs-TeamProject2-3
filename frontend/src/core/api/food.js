@@ -1,4 +1,50 @@
 import { api } from "./api";
+
+export const getAllFoodApi = async (query) => {
+  try {
+    const { data } = await api.get(`/food`, { params : { ...query }});
+    return data;
+  } catch (error) {
+    console.error("Error fetching food data:", error);
+  }
+};
+
+export const getFoodApi = async (id) => {
+  try {
+    const { data } = await api.get(`/food/${id}`);
+    return data;
+  } catch (error) {
+    console.error("Error fetching food data:", error);
+  }
+};
+
+export const createFoodApi = async (formData) => {
+  try {
+      const { data } = await api.post(`/food`, formData)
+      return data
+  } catch (error) {
+    console.error("Error create food data:", error);
+  }
+};
+
+export const updateFoodApi = async (formData) => {
+  try {
+      const { data } = await api.put(`/food/${formData.id}`, formData)
+      return data
+  } catch (error) {
+    console.error("Error update food data:", error);
+  }
+};
+
+export const deleteFoodApi = async (id) => {
+  try {
+      const { data } = await api.delete(`/food/${id}`)
+      return data
+  } catch (error) {
+      console.error("Error delete food data:", error);
+  }
+};
+
 export const getFoodSearchResult = async (query, mealtype) => {
   if (!query) return [];
   try {

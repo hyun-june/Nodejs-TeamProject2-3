@@ -5,8 +5,58 @@ import {
   getDailyFood,
   getFoodSearchResult,
   updateDailyFood,
+  getAllFoodApi,
+  getFoodApi,
+  createFoodApi,
+  updateFoodApi,
+  deleteFoodApi
 } from "../api/food";
 import { addDailyFood } from "../api/food";
+
+export const useGetAllFood = (query) => {
+  return useQuery({
+      queryKey : [ 'food', query ],
+      queryFn : () => getAllFoodApi(query)
+  });
+};
+
+export const useGetFood = (id) => {
+  return useQuery({
+      queryKey : [ 'food', id ],
+      queryFn : () => getFoodApi(id)
+  });
+};
+
+export const useCreateFood = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+      mutationFn: createFoodApi,
+      onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['food'] });
+      },
+  });
+};
+
+export const useUpdateFood = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+      mutationFn: updateFoodApi,
+      onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['food'] });
+      },
+  });
+};
+
+export const useDeleteFood = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+      mutationFn: deleteFoodApi,
+      onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['food'] });
+      },
+  });
+};
+
 
 export const useFoodSearch = (query, mealtype) => {
   return useQuery({
@@ -30,7 +80,7 @@ export const useFoodPage = (query) => {
   });
 };
 
-export const useAddFood = () => {
+export const useAddDailyFood = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient(); // useQueryClient로 QueryClient 인스턴스 가져오기
 
@@ -49,7 +99,7 @@ export const useAddFood = () => {
   });
 };
 
-export const useUpdateFood = () => {
+export const useUpdateDailyFood = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -66,7 +116,7 @@ export const useUpdateFood = () => {
   });
 };
 
-export const useDeleteFood = () => {
+export const useDeleteDailyFood = () => {
   const queryClient = useQueryClient();
 
   return useMutation({

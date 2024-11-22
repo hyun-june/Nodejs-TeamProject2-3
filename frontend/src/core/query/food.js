@@ -35,8 +35,8 @@ export const useAddFood = () => {
   const queryClient = useQueryClient(); // useQueryClient로 QueryClient 인스턴스 가져오기
 
   return useMutation({
-    mutationFn: async ({ food, mealtype, quantity }) => {
-      return await addDailyFood(food, mealtype, quantity);
+    mutationFn: async ({ food, mealtype, quantity, date }) => {
+      return await addDailyFood(food, mealtype, quantity, date);
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries("dailyFood");

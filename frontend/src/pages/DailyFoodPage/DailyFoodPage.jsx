@@ -117,6 +117,7 @@ export const DailyFoodPage = () => {
               mealType={mealType}
               foods={data ? data.data[mealType] : []} // 실제 음식 데이터를 전달
               mealCalories={mealCalories[mealType] || 0} // 각 식사별 칼로리 전달
+              selectedDate={selectedDate}
               onFoodClick={handleFoodClick}
             />
           ))}

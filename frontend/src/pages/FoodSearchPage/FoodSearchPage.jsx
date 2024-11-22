@@ -18,6 +18,8 @@ export const FoodSearchPage = () => {
   const query = new URLSearchParams(search).get("q"); // q에 해당하는 검색어 값을 추출하는 코드
   const date = new URLSearchParams(search).get("date");
 
+  console.log("Dddd", date);
+
   const {
     data: foods,
     isLoading,
@@ -31,7 +33,7 @@ export const FoodSearchPage = () => {
   return (
     <>
       <header className="daily-food__search-header">
-        <Header backTo={-1} className="daily-food__search-header">
+        <Header backTo={"/food"} className="daily-food__search-header">
           <SearchBar />
         </Header>
       </header>
@@ -64,6 +66,7 @@ export const FoodSearchPage = () => {
               <FoodSearchResultDetail
                 selectedFood={selectedFood}
                 mealtype={mealtype}
+                date={date}
               />
             </BottomSheet>
           )}

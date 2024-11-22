@@ -23,9 +23,9 @@ export const getDailyFood = async (query) => {
     throw error; // 필요한 경우 상위로 에러 전달
   }
 };
-export const addDailyFood = async (food, mealtype, quantity) => {
+export const addDailyFood = async (food, mealtype, quantity, date) => {
   try {
-    const { data } = await api.post(`/food/add/${mealtype}`, {
+    const { data } = await api.post(`/food/add/${mealtype}?date=${date}`, {
       food,
       mealtype,
       quantity,

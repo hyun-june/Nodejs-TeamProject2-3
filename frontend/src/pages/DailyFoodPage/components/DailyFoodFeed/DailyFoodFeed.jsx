@@ -8,6 +8,7 @@ export const DailyFoodFeed = ({
   foods,
   mealCalories,
   onFoodClick,
+  selectedDate,
 }) => {
   return (
     <article className="DailyFood__Feed">
@@ -35,7 +36,7 @@ export const DailyFoodFeed = ({
 
         <section className="DailyFood__Feed-content-box">
           <button aria-label="음식 추가">
-            <Link to={`/food/search/${mealType}`}>
+            <Link to={`/food/search/${mealType}?date=${selectedDate}`}>
               <GoPlus />
             </Link>
           </button>

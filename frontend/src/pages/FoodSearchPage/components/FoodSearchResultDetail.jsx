@@ -3,7 +3,7 @@ import { FoodSearchResultDonutChart } from "./FoodSearchResultDonutChart";
 import { Tabs } from "../../../components/shared/Tabs/Tabs";
 import { useAddFood } from "../../../core/query/food/";
 
-export const FoodSearchResultDetail = ({ selectedFood, mealtype }) => {
+export const FoodSearchResultDetail = ({ selectedFood, mealtype, date }) => {
   const { mutate: addFood, isLoading } = useAddFood();
 
   const [quantity, setQuantity] = useState(0);
@@ -65,6 +65,7 @@ export const FoodSearchResultDetail = ({ selectedFood, mealtype }) => {
       food: selectedFood,
       mealtype,
       quantity: Number(quantity),
+      date,
     });
 
     // food 추가 후 포커스 유지

@@ -41,7 +41,6 @@ export const UserDetailPage = () => {
   const handleProfileChange = (e) => {
     if (!e.target.files) return;
     const file = e.target.files[0];
-    console.log("dd", file);
     if (file) {
       let profile = window.URL.createObjectURL(file);
       setProfileImgUrl(profile);

@@ -18,6 +18,8 @@ import { MainLayout } from "../components/Layout/MainLayout/MainLayout";
 import { FeedCreatePage } from "../pages/FeedCreatePage/FeedCreatePage";
 import { FeedDetailPage } from "../pages/FeedDetailPage/FeedDetailPage";
 import { WeightPage } from "../pages/WeightPage/WeightPage";
+import { DailyExercisePage } from "../pages/DailyExercisePage/DailyExercisePage";
+import { DailyExerciseSearchPage } from "../pages/DailyExerciseSearchPage/DailyExerciseSearchPage";
 
 export const AppRouter = () => {
   return (
@@ -47,6 +49,11 @@ export const AppRouter = () => {
       <Route path="/food" element={<FoodLayout />}>
         <Route index element={<DailyFoodPage />} />
         <Route path="search/:mealtype" element={<FoodSearchPage />} />
+      </Route>
+
+      <Route path="/exercise" element={<FoodLayout />}>
+        <Route index element={<DailyExercisePage />} />
+        <Route path="search" element={<DailyExerciseSearchPage />} />
       </Route>
 
       <Route path="/weight" element={<WeightPage />} />

@@ -1,0 +1,61 @@
+#daily-exercise-category {
+  color: var(--light-gray-color);
+}
+
+.FoodDetail-title {
+  margin-bottom: 1.5rem;
+}
+
+.ExerciseDetail-main {
+  display: flex;
+
+  flex-direction: column;
+}
+
+.ExerciseDetail-main__category {
+  display: flex;
+  margin: 1rem 0;
+  p {
+    background-color: var(--sub-color);
+    margin: 0 0.5rem;
+    padding: 0.5rem;
+    border-radius: 15px;
+  }
+}
+
+.ExerciseDetail-main__description {
+  margin-bottom: 2.5rem;
+  color: var(--light-gray-color);
+}
+
+.ExerciseDetail-footer__title {
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.ExerciseDetail-footer__btnAndInput {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  div {
+    width: 100%;
+  }
+  input {
+    text-align: center;
+    width: 95%;
+    border: 1px solid black;
+    background-color: var(--sub-color);
+    height: 36px;
+    border-radius: 20px;
+  }
+  button {
+    width: 95%;
+    margin-top: 10px;
+    border: 1px solid black;
+    height: 36px;
+    border-radius: 20px;
+    background-color: var(--point-color);
+    color: var(--main-color);
+  }
+}

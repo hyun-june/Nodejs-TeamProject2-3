@@ -1,0 +1,51 @@
+.DailyExercise {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.DailyExercise__total-calorie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  margin: 0.8rem 0px;
+  span {
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+}
+
+.DailyExercise__content {
+  width: 90%;
+}
+
+.DailyExercise__content-box {
+  width: 100%;
+  height: 4rem;
+  background-color: var(--main-color);
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  h1 {
+    font-weight: 600;
+  }
+}
+
+.DailyExercise__content-box__Num {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+  span:first-child {
+    font-size: 0.9rem;
+    color: var(--point-color);
+  }
+  span:last-child {
+    font-size: 0.9rem;
+    color: var(--light-gray-color);
+  }
+}

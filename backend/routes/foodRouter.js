@@ -18,6 +18,18 @@ import { authenticate } from "../controllers/authController.js";
 export const foodRouter = express.Router();
 
 // foodRouter.route("/").get(getAllFood).post(postFood);
+
+foodRouter
+  .route("/")
+  .get( getAllFood)
+  .post(postFood);
+
+foodRouter
+  .route("/:id")
+  .get(getFood)
+  .put(updateFood)
+  .delete(deleteFood);
+
 foodRouter
   .route("/")
   .all(authenticate)

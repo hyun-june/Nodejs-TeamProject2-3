@@ -10,7 +10,7 @@ const categoryOptions = [
     '유산소', '무산소', '팔', '다리', '정신'
 ]
 
-export const AdminExerciseAddForm = ({close}) => {
+export const AdminExerciseAddForm = ({ close }) => {
     const { register, handleSubmit, formState : { errors } } = useForm()
     const [ category, setCategory ] = useState([])
     const { mutate, isPending } = useCreateExercise()

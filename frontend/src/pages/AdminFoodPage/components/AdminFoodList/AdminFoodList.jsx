@@ -7,50 +7,40 @@ import { AdminFoodAddForm } from "../AdminFoodAddForm/AdminFoodAddForm"
 import { AdminFoodUpdateForm } from "../AdminFoodUpdateForm/AdminFoodUpdateForm"
 import { AdminFoodDeleteForm } from "../AdminFoodDeleteForm/AdminFoodDeleteForm"
 import { AddButton } from "../../../../components/shared/AddButton/AddButton"
-
-const mocks = [
-    {
-        _id : '1',
-        date : '24-11-12',
-        name : '사과',
-    },
-    {
-        _id : '2',
-        date : '24-11-12',
-        name : '배',
-    },
-    {
-        _id : '3',
-        date : '24-11-12',
-        name : '포도',
-    },
-]
+import { useSearchParams } from "react-router-dom"
+import { useGetAllFood } from "../../../../core/query/food"
 
 const manageOptions = {
-    'add' : <AdminFoodAddForm/>,
-    'update' : <AdminFoodUpdateForm/>,
-    'delete' : <AdminFoodDeleteForm/>,
+    add: (props) => <AdminFoodAddForm {...props} />,
+    update: (props) => <AdminFoodUpdateForm {...props} />,
+    delete: (props) => <AdminFoodDeleteForm {...props} />,
 }
 
 export const AdminFoodList = () => {
-    const { bottomSheetProps , open } = useBottomSheet()
-    const [manageMode, setManagerMode] = useState(null)
+    const [ searchParams ] = useSearchParams()
+    const page = +searchParams.get('page') || 1
+    const q = searchParams.get('q')
+    const { bottomSheetProps , open, close } = useBottomSheet()
+    const [ manageMode, setManagerMode ] = useState(null)
+    const [selectedId, setSelectedId] = useState(null)
+    const { data } = useGetAllFood({ page , q, size : 10 })
 
-    const handleOpenManager = (mode) => {
+    const handleOpenManager = (mode, id = null) => {
         setManagerMode(mode)
+        setSelectedId(id) 
         open()
     }
 
     return <>
         <AddButton onClick={()=> handleOpenManager('add')}/>
         <AdminTable 
-            list={mocks} 
+            list={data?.data} 
             handleOpenManager={handleOpenManager} 
-            theads={['date', 'name']}
+            theads={['name']}
         />
-        <PageNationBar totalPageNum={3} />
+        <PageNationBar totalPageNum={data?.totalPageNum} />
         <BottomSheet {...bottomSheetProps}>
-            { manageMode && manageOptions[manageMode] }
+            {manageMode && manageOptions[manageMode]({ id: selectedId , close})}
         </BottomSheet>
     </>
 }

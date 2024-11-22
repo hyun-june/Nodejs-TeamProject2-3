@@ -7,50 +7,40 @@ import { AdminExerciseAddForm } from "../AdminExerciseAddForm/AdminExerciseAddFo
 import { AdminExerciseUpdateForm } from "../AdminExerciseUpdateForm/AdminExerciseUpdateForm"
 import { AdminExerciseDeleteForm } from "../AdminExerciseDeleteForm/AdminExerciseDeleteForm"
 import { AddButton } from "../../../../components/shared/AddButton/AddButton"
-
-const mocks = [
-    {
-        _id : '1',
-        date : '24-11-12',
-        name : '팔굽혀펴기',
-    },
-    {
-        _id : '2',
-        date : '24-11-12',
-        name : '달리기',
-    },
-    {
-        _id : '3',
-        date : '24-11-12',
-        name : '철봉',
-    },
-]
+import { useGetAllExercise } from "../../../../core/query/exercise"
+import { useSearchParams } from "react-router-dom"
 
 const manageOptions = {
-    'add' : <AdminExerciseAddForm/>,
-    'update' : <AdminExerciseUpdateForm/>,
-    'delete' : <AdminExerciseDeleteForm/>,
+    add: (props) => <AdminExerciseAddForm {...props} />,
+    update: (props) => <AdminExerciseUpdateForm {...props} />,
+    delete: (props) => <AdminExerciseDeleteForm {...props} />,
 }
 
 export const AdminExerciseList = () => {
-    const { bottomSheetProps , open } = useBottomSheet()
-    const [manageMode, setManagerMode] = useState(null)
+    const [ searchParams ] = useSearchParams()
+    const page = +searchParams.get('page') || 1
+    const q = searchParams.get('q')
+    const { bottomSheetProps , open, close } = useBottomSheet()
+    const [ manageMode, setManagerMode ] = useState(null)
+    const [selectedId, setSelectedId] = useState(null)
+    const { data } = useGetAllExercise({ page , q, size : 10 })
 
-    const handleOpenManager = (mode) => {
+    const handleOpenManager = (mode, id = null) => {
         setManagerMode(mode)
+        setSelectedId(id) 
         open()
     }
 
     return <>
         <AddButton onClick={()=> handleOpenManager('add')}/>
         <AdminTable 
-            list={mocks} 
+            list={data?.data} 
             handleOpenManager={handleOpenManager} 
-            theads={['date', 'name']}
+            theads={['name']}
         />
-        <PageNationBar totalPageNum={3} />
+        <PageNationBar totalPageNum={data?.totalPageNum} />
         <BottomSheet {...bottomSheetProps}>
-            { manageMode && manageOptions[manageMode] }
+            {manageMode && manageOptions[manageMode]({ id: selectedId , close})}
         </BottomSheet>
     </>
 }

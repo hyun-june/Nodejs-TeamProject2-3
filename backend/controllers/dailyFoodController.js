@@ -79,6 +79,7 @@ export const getSearchFood = async (req, res) => {
 export const postDailyFood = async (req, res) => {
   try {
     const { userId } = req;
+    const { date } = req.query;
     const { food, mealtype, quantity } = req.body;
     const { name, category, nutrient, calorie, defaultGram } = food;
 
@@ -95,12 +96,6 @@ export const postDailyFood = async (req, res) => {
       });
     }
 
-    // // quantity에 맞게 칼로리와 영양소 계산 (기본량에 비례해서 곱하기)
-    // const totalCalories = calorie * quantity; // 음식의 기본 칼로리와 quantity에 맞게 조정된 칼로리
-    // const totalCarbs = nutrient[0]?.Carbohydrate * quantity; // 음식의 기본 탄수화물과 quantity에 맞게 조정
-    // const totalProtein = nutrient[0]?.Protein * quantity; // 음식의 기본 단백질과 quantity에 맞게 조정
-    // const totalFat = nutrient[0]?.Fat * quantity; // 음식의 기본 지방과
-
     const meal = await DailyFood.create({
       user: userId,
       name,
@@ -109,6 +104,7 @@ export const postDailyFood = async (req, res) => {
       quantity,
       Calories: calorie,
       defaultGram,
+      date,
       nutrition: {
         Carbohydrate: nutrient[0]?.Carbohydrate,
         Protein: nutrient[0]?.Protein,

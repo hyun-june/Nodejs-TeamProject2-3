@@ -5,6 +5,7 @@ import { FaEllipsisVertical } from "react-icons/fa6";
 import { TagButton } from "../TagButton/TagButton";
 import { Avatar } from "../../../../components/shared/Avatar/Avatar";
 import "./FeedBox.css";
+import { timeText } from "../../../../core/constants/DateTimeFormat";
 
 const feedtext = `라이언 귀엽다. 라이언 귀엽다.라이언 귀엽다. 라이언 귀엽다.라이언
     귀엽다. 라이언 귀엽다.라이언 귀엽다. 라이언 귀엽다.라이언 귀엽다.
@@ -13,9 +14,12 @@ const feedtext = `라이언 귀엽다. 라이언 귀엽다.라이언 귀엽다. 
     귀엽다.라이언 귀엽다. 라이언 귀엽다.라이언 귀엽다. 라이언
     귀엽다.라이언 귀엽다. 라이언 귀엽다.`;
 
-export const FeedBox = ({ src }) => {
+export const FeedBox = ({ feed }) => {
+  console.log("222", feed);
   const location = useLocation();
   const navigate = useNavigate();
+
+  const feedDate = new Date(feed.createdAt);
 
   const handleMoveFeed = (feedId) => [navigate(`/feed/${feedId}`)];
 
@@ -23,16 +27,16 @@ export const FeedBox = ({ src }) => {
     <article className={location.pathname === "/feed" ? "feed-container" : ""}>
       <div className="feed-top">
         <div className="feed-top-text">
-          <Avatar />
+          <Avatar src={feed.userInfo.profileImg} isOnline />
           <div>
-            <div>유저 닉네임</div>
+            <div>{feed.userInfo.nickname}</div>
             <span>Lv 0</span>
           </div>
         </div>
         <FaEllipsisVertical />
       </div>
-      <picture className="feed-imgbox">
-        <img src={src} alt="" />
+      <picture className="feed-imgbox" onClick={handleMoveFeed}>
+        <img src={feed?.fileUrl} alt="" />
       </picture>
 
       <div className="feed-inner">
@@ -43,17 +47,17 @@ export const FeedBox = ({ src }) => {
             location.pathname === "/feed" ? "feed-text" : "feed-detail-text"
           }
         >
-          <div>{feedtext}</div>
+          <div>{feed?.description}</div>
         </div>
       </div>
       <div className="feed-tag-info">
         <div className="feed-tags-list">
-          <TagButton tagName="뿌숑" />
-          <TagButton tagName="뿌숑" />
-          <TagButton tagName="뿌우우우우" />
+          {feed?.hashtags.map((tag, index) => (
+            <TagButton tagName={tag} key={index} />
+          ))}
         </div>
 
-        <span>몇 시간전</span>
+        <span>{timeText(feedDate)}</span>
       </div>
     </article>
   );

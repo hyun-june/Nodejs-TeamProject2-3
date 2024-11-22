@@ -5,7 +5,6 @@ import { SearchBar } from "../../components/shared/SearchBar/SearchBar";
 import { FeedBox } from "./components/FeedBox/FeedBox";
 import { useGetAllFeed } from "../../core/query/feed";
 import { useInView } from "react-intersection-observer";
-import { FaArrowDown } from "react-icons/fa";
 import "./css/FeedPage.css";
 
 export const FeedPage = () => {
@@ -45,9 +44,7 @@ export const FeedPage = () => {
           <AddButton />
         </Link>
       </div>
-      <div ref={ref}>
-        <FaArrowDown />
-      </div>
+      <span ref={ref}></span>
     </div>
   );
 };

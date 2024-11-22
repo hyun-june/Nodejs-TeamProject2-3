@@ -1,27 +1,24 @@
-import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { LikeButton } from "../../../../components/Feed/LikeButton/LikeButton";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { TagButton } from "../TagButton/TagButton";
 import { Avatar } from "../../../../components/shared/Avatar/Avatar";
-import "./FeedBox.css";
 import { timeText } from "../../../../core/constants/DateTimeFormat";
-
-const feedtext = `라이언 귀엽다. 라이언 귀엽다.라이언 귀엽다. 라이언 귀엽다.라이언
-    귀엽다. 라이언 귀엽다.라이언 귀엽다. 라이언 귀엽다.라이언 귀엽다.
-    라이언 귀엽다.라이언 귀엽다. 라이언 귀엽다.라이언 귀엽다. 라이언
-    귀엽다. 라이언 귀엽다. 라이언 귀엽다.라이언 귀엽다. 라이언
-    귀엽다.라이언 귀엽다. 라이언 귀엽다.라이언 귀엽다. 라이언
-    귀엽다.라이언 귀엽다. 라이언 귀엽다.`;
+import "./FeedBox.css";
 
 export const FeedBox = ({ feed }) => {
-  console.log("222", feed);
+  // console.log("datail", feed);
   const location = useLocation();
   const navigate = useNavigate();
 
   const feedDate = new Date(feed.createdAt);
+  console.log("f1111111", feed.createdAt);
+  console.log("ffffffff", feedDate);
+  const feedId = feed._id;
 
-  const handleMoveFeed = (feedId) => [navigate(`/feed/${feedId}`)];
+  const handleMoveFeed = (feedId) => {
+    navigate(`/feed/${feedId}`);
+  };
 
   return (
     <article className={location.pathname === "/feed" ? "feed-container" : ""}>
@@ -35,14 +32,14 @@ export const FeedBox = ({ feed }) => {
         </div>
         <FaEllipsisVertical />
       </div>
-      <picture className="feed-imgbox" onClick={handleMoveFeed}>
+      <picture className="feed-imgbox" onClick={() => handleMoveFeed(feedId)}>
         <img src={feed?.fileUrl} alt="" />
       </picture>
 
       <div className="feed-inner">
         <LikeButton />
         <div
-          onClick={handleMoveFeed}
+          onClick={() => handleMoveFeed(feedId)}
           className={
             location.pathname === "/feed" ? "feed-text" : "feed-detail-text"
           }

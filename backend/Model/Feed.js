@@ -15,8 +15,13 @@ const feedSchema = new mongoose.Schema(
     ],
     comments: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Comment",
+        userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+        content: { type: String, required: true },
+        createdAt: { type: Date, default: Date.now },
+        userInfo: {
+          nickname: { type: String },
+          profileImg: { type: String },
+        },
       },
     ],
     user: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },

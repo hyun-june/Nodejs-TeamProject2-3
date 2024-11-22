@@ -58,9 +58,11 @@ export const postFeed = async (req, res) => {
 // 개별 피드를 가져옴
 export const getFeed = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { feedId } = req.params;
+
     const { userId } = req;
-    const feed = await Feed.findById(id);
+    const feed = await Feed.findById(feedId);
+    const userInfo = await UserDetail.findOne({ user: userId });
 
     if (!feed) {
       throw new Error("해당 피드을 찾을 수 없습니다.");
@@ -68,9 +70,10 @@ export const getFeed = async (req, res) => {
 
     const isLiked = feed.likedBy.includes(userId);
 
-    res
-      .status(200)
-      .json({ status: "success", data: { ...feed.toObject(), isLiked } });
+    res.status(200).json({
+      status: "success",
+      data: { ...feed.toObject(), isLiked, userInfo },
+    });
   } catch (error) {
     res.status(404).json({ status: "fail", message: error.message });
   }
@@ -91,7 +94,7 @@ export const updateFeed = async (req, res) => {
       },
       { new: true }
     );
-    if (!feed) throw new Error("수정하려는 음식이 존재하지 않습니다.");
+    if (!feed) throw new Error("수정하려는 피드가 존재하지 않습니다.");
     res.status(200).json({ status: "success", data: feed });
   } catch (error) {
     res.status(404).json({ status: "fail", message: error.message });
@@ -107,6 +110,34 @@ export const deleteFeed = async (req, res) => {
     res.status(200).json({ status: "success", data: feed });
   } catch (error) {
     res.status(400).json({ status: "fail", message: error.message });
+  }
+};
+
+// 댓글을 추가함
+export const updateComments = async (req, res) => {
+  try {
+    const { feedId } = req.params;
+    const { userId } = req;
+    const userDetail = await UserDetail.findOne({ user: userId });
+    const contentText = req.body.content.content;
+    const feed = await Feed.findById(feedId);
+
+    const newComment = {
+      userId: req.userId,
+      content: contentText,
+      createdAt: new Date(),
+      userInfo: {
+        nickname: userDetail.nickname,
+        profileImg: userDetail.profileImg,
+      },
+    };
+
+    feed.comments.push(newComment);
+    const updatedFeed = await Feed.findById(feedId);
+    await feed.save();
+    return res.status(200).json({ status: "success", data: updatedFeed });
+  } catch (error) {
+    return res.status(400).json({ status: "fail", message: error.message });
   }
 };
 

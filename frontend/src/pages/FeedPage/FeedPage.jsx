@@ -24,7 +24,6 @@ export const FeedPage = () => {
     hasNextPage,
     isFetchingNextPage,
   } = useGetAllFeedInfinite({ limit: 3 });
-  console.log("data", data);
 
   const {
     data: feeds,
@@ -34,7 +33,6 @@ export const FeedPage = () => {
     hasNextPage: hasNextFeedPage,
     isFetchingNextPage: isFetchNextFeedPage,
   } = useFeedSearchInfinite({ query, limit: 3 });
-  console.log("feeds", feeds);
 
   const { ref, inView } = useInView();
 

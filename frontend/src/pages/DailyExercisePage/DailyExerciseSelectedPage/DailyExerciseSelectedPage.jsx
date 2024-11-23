@@ -1,25 +1,28 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
+import {
+  useDeleteDailyExercise,
+  useUpdateDailyExercise,
+} from "../../../core/query/exercise";
 
-import { useAddDailyExercise } from "../../../../core/query/exercise";
-
-export const ExerciseSearchResult = ({ selectedExercise, date }) => {
+export const DailyExerciseSelectedPage = ({ selectedExercise, close }) => {
   const [quantity, setQuantity] = useState("");
-  const { mutate: addExercise, isPending, error } = useAddDailyExercise();
+  const { mutate: updateExercise, isPending, error } = useUpdateDailyExercise();
+  const { mutate: deleteFood } = useDeleteDailyExercise();
+  const { _id } = selectedExercise;
 
-  const handleAddExercise = () => {
-    if (isPending) return;
-
-    // 양수 값만 허용
-    if (!quantity || Number(quantity) <= 0) {
-      alert("운동 시간을 올바르게 입력해주세요.");
-      return;
-    }
-
-    addExercise({
-      exercise: selectedExercise,
-      quantity: Number(quantity),
-      date,
+  const handleUpdateExercise = () => {
+    updateExercise({
+      quantity,
+      exerciseId: _id,
     });
+    close();
+  };
+
+  const handleDeleteExercise = () => {
+    deleteFood({
+      exerciseId: _id,
+    });
+    close();
   };
 
   return (
@@ -49,8 +52,11 @@ export const ExerciseSearchResult = ({ selectedExercise, date }) => {
             onChange={(e) => setQuantity(e.target.value)}
             placeholder="운동 시간 입력 (분)"
           ></input>
-          <div className="FoodDetail-addButton">
-            <button onClick={handleAddExercise}>추가</button>
+          <div className="FoodDetail-addButton ">
+            <button onClick={handleUpdateExercise}>수정</button>
+          </div>
+          <div className="FoodDetail-addButton ExerciseDetail-deleteButton">
+            <button onClick={handleDeleteExercise}>삭제</button>
           </div>
         </section>
       </footer>

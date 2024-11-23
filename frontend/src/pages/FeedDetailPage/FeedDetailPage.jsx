@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Avatar } from "../../components/shared/Avatar/Avatar";
 import { Header } from "../../components/shared/Header/Header";
-import { FeedBox } from "../FeedPage/components/FeedBox/FeedBox";
+import { FeedDetailBox } from "./components/FeedDetailBox";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { FaArrowAltCircleUp } from "react-icons/fa";
 import { useGetDetailFeed, useUpdateComment } from "../../core/query/feed";
@@ -17,6 +17,7 @@ export const FeedDetailPage = () => {
   const { id } = useParams();
 
   const { data, isLoading, isError, error } = useGetDetailFeed(id);
+  console.log("ddd", data);
 
   const recentComments = data?.comments
     ? [...data.comments].sort(
@@ -73,7 +74,7 @@ export const FeedDetailPage = () => {
   return (
     <div className="feed-detail-container">
       <Header backTo="/feed" title="게시물" />
-      <FeedBox feed={data} />
+      <FeedDetailBox feed={data} />
       <div className="feed-comment-section">
         <Avatar src={profileImg} isOnline={true} />
         <input

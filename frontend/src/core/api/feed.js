@@ -32,6 +32,15 @@ export const getFeed = async (page = 1, limit) => {
   }
 };
 
+export const getAllFeedApi = async (query) => {
+  try {
+    const { data } = await api.get(`/feed/all`, { params: { ...query } });
+    return data;
+  } catch (error) {
+    console.error("Error fetching food data:", error);
+  }
+};
+
 export const getDetailFeed = async (id) => {
   try {
     const { data } = await api.get(`/feed/${id}`);
@@ -59,6 +68,16 @@ export const getFeedSearchResult = async ({ query, limit, page }) => {
     return [];
   }
 };
+export const deleteFeedApi = async (id) => {
+  try {
+    const { data } = await api.delete(`/feed/${id}`);
+    return data;
+  } catch (error) {
+    console.error("Error delete food data:", error);
+  }
+};
+
+// export const getFeedSearchResult = async(query);
 
 export const updateComments = async ({ id, newCommentText }) => {
   try {

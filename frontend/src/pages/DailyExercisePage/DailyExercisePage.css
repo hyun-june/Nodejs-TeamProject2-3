@@ -49,3 +49,18 @@
     color: var(--light-gray-color);
   }
 }
+.ExerciseDetail-deleteButton {
+  button {
+    width: 95%;
+    margin-top: 10px;
+    border: 1px solid black;
+    height: 36px;
+    border-radius: 20px;
+    color: var(--main-color);
+    background-color: var(--warn-color);
+  }
+}
+
+.DailyExercise__BottomSheet {
+  padding: 1.5rem 1.5rem;
+}

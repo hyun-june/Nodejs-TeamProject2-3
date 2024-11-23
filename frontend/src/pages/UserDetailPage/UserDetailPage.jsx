@@ -39,7 +39,6 @@ export const UserDetailPage = () => {
       ...formData,
     };
 
-
     if (userDetails?.data) {
       return updateUserDetail(userData);
     }

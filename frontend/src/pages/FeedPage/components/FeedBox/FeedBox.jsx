@@ -5,7 +5,7 @@ import { FaEllipsisVertical } from "react-icons/fa6";
 import { TagButton } from "../TagButton/TagButton";
 import { Avatar } from "../../../../components/shared/Avatar/Avatar";
 import { timeText } from "../../../../core/constants/DateTimeFormat";
-import { useDeleteFeed } from "../../../../core/query/feed.js";
+
 import "./FeedBox.css";
 
 export const FeedBox = ({ feed }) => {
@@ -16,8 +16,6 @@ export const FeedBox = ({ feed }) => {
   const handleMoveFeed = (feedId) => {
     navigate(`/feed/${feedId}`);
   };
-
-  const { mutate: deleteFeed } = useDeleteFeed({ feedId });
 
   const handleFeedDelete = () => {
     console.log("삭제가능?");

@@ -9,54 +9,53 @@ import {
   getFoodApi,
   createFoodApi,
   updateFoodApi,
-  deleteFoodApi
+  deleteFoodApi,
 } from "../api/food";
 import { addDailyFood } from "../api/food";
 
 export const useGetAllFood = (query) => {
   return useQuery({
-      queryKey : [ 'food', query ],
-      queryFn : () => getAllFoodApi(query)
+    queryKey: ["food", query],
+    queryFn: () => getAllFoodApi(query),
   });
 };
 
 export const useGetFood = (id) => {
   return useQuery({
-      queryKey : [ 'food', id ],
-      queryFn : () => getFoodApi(id)
+    queryKey: ["food", id],
+    queryFn: () => getFoodApi(id),
   });
 };
 
 export const useCreateFood = () => {
   const queryClient = useQueryClient();
   return useMutation({
-      mutationFn: createFoodApi,
-      onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['food'] });
-      },
+    mutationFn: createFoodApi,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["food"] });
+    },
   });
 };
 
 export const useUpdateFood = () => {
   const queryClient = useQueryClient();
   return useMutation({
-      mutationFn: updateFoodApi,
-      onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['food'] });
-      },
+    mutationFn: updateFoodApi,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["food"] });
+    },
   });
 };
 
 export const useDeleteFood = () => {
   const queryClient = useQueryClient();
   return useMutation({
-      mutationFn: deleteFoodApi,
-      onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['food'] });
-      },
+    mutationFn: deleteFoodApi,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["food"] });
+    },
   });
 };
-
 
 export const useFoodSearch = (query, mealtype) => {
   return useQuery({

@@ -41,7 +41,24 @@ export const getDetailFeed = async (id) => {
   }
 };
 
-// export const getFeedSearchResult = async(query);
+export const getFeedSearchResult = async ({ query, limit, page }) => {
+  console.log("page", page);
+  if (!query) return [];
+  try {
+    const { data } = await api.get(
+      `/feed?page=${page}&limit=${limit}&q=${query}`
+    );
+
+    return {
+      data: data.data,
+      page: data.page,
+      total_pages: data.total_pages,
+    };
+  } catch (error) {
+    console.error("피드 검색 중 에러:", error);
+    return [];
+  }
+};
 
 export const updateComments = async ({ id, newCommentText }) => {
   try {

@@ -3,6 +3,7 @@ import {
   deleteFeed,
   getAllFeed,
   getFeed,
+  getSearchFeed,
   postFeed,
   updateComments,
   updateFeed,
@@ -14,7 +15,7 @@ export const feedRouter = express.Router();
 
 feedRouter
   .route("/")
-  .get(getAllFeed)
+
   .post(authenticate, uploadFeedFile.single("file"), postFeed);
 feedRouter
   .route("/:feedId")
@@ -24,3 +25,12 @@ feedRouter
 
 // feedRouter.put("/:feedId", updateComments);
 feedRouter.post("/:feedId", authenticate, updateComments);
+feedRouter.route("/").get((req, res) => {
+  const query = req.query.q;
+
+  if (query) {
+    getSearchFeed(req, res);
+  } else {
+    getAllFeed(req, res);
+  }
+});

@@ -30,10 +30,14 @@ export const getAllFeed = async (req, res) => {
 };
 
 export const getAllFeed2 = async (req, res) => {
-  console.log(1)
   try {
-    const { page, q, size, } = req.query
-    const cond = q ? { name:{ $regex:q, $options:'i' } } : {}
+    const { page, q, size, userId } = req.query
+
+    const cond = {};
+
+    if (q) cond.description = { $regex: q, $options: 'i' }
+    
+    if (userId) cond.user = userId; 
             
     let query = Feed.find(cond).sort({ createdAt: -1 })
     let response = { status : 'success' }

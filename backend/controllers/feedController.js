@@ -1,4 +1,5 @@
 import { Feed } from "../Model/Feed.js";
+import { User } from "../Model/User.js";
 import { UserDetail } from "../Model/UserDetail.js";
 
 // 무한 스크롤 피드 데이터
@@ -168,9 +169,18 @@ export const updateFeed = async (req, res) => {
 export const deleteFeed = async (req, res) => {
   try {
     const { feedId } = req.params;
+    const { userId } = req;
 
-    const feed = await Feed.findByIdAndDelete(feedId);
+    const user = await User.findById(userId);
+
+    const feed = await Feed.findById(feedId);
     if (!feed) throw new Error("삭제할 피드가 없습니다");
+
+    if (user?.level !== 'admin' && !feed.user.equals(userId)) 
+      throw new Error("권한이 없습니다");
+
+    await feed.deleteOne();
+
     res.status(200).json({ status: "success", data: feed });
   } catch (error) {
     res.status(400).json({ status: "fail", message: error.message });

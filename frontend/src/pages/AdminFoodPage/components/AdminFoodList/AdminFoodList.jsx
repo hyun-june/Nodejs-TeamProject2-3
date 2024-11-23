@@ -9,6 +9,7 @@ import { AdminFoodDeleteForm } from "../AdminFoodDeleteForm/AdminFoodDeleteForm"
 import { AddButton } from "../../../../components/shared/AddButton/AddButton"
 import { useSearchParams } from "react-router-dom"
 import { useGetAllFood } from "../../../../core/query/food"
+import { PendingContainer } from "../../../../components/shared/PendingContainer/PendingContainer"
 
 const manageOptions = {
     add: (props) => <AdminFoodAddForm {...props} />,
@@ -23,13 +24,15 @@ export const AdminFoodList = () => {
     const { bottomSheetProps , open, close } = useBottomSheet()
     const [ manageMode, setManagerMode ] = useState(null)
     const [selectedId, setSelectedId] = useState(null)
-    const { data } = useGetAllFood({ page , q, size : 10 })
+    const { data , isPending} = useGetAllFood({ page , q, size : 10 })
 
     const handleOpenManager = (mode, id = null) => {
         setManagerMode(mode)
         setSelectedId(id) 
         open()
     }
+
+    if (isPending) return <PendingContainer/>
 
     return <>
         <AddButton onClick={()=> handleOpenManager('add')}/>

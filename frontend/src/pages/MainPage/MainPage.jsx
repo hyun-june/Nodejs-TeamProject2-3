@@ -7,15 +7,16 @@ import { useGetDailyWeight } from "../../core/query/dailyWeight";
 import { useFoodPage } from "../../core/query/food";
 import { useGetWaterAmount } from "../../core/query/water";
 import { useGetDailyExercise } from "../../core/query/exercise";
+import { PendingContainer } from "../../components/shared/PendingContainer/PendingContainer";
 import "./MainPage.css";
 
 export const MainPage = () => {
     const now = new Date
     const parseDate = dateParser(now)
-    const { data : dailyWeightData } = useGetDailyWeight({ date : parseDate})
-    const { data : dailyFoodData } = useFoodPage(parseDate);
-    const { data : dailywaterData } = useGetWaterAmount(parseDate);
-    const { data : dailyExerciseData } = useGetDailyExercise({ data: parseDate }); 
+    const { data : dailyWeightData , isPending : isPending1 } = useGetDailyWeight({ date : parseDate})
+    const { data : dailyFoodData , isPending : isPending2 } = useFoodPage(parseDate);
+    const { data : dailywaterData , isPending : isPending3 } = useGetWaterAmount(parseDate);
+    const { data : dailyExerciseData , isPending : isPending4 } = useGetDailyExercise({ data: parseDate }); 
 
     const weight = dailyWeightData?.data?.weight && dailyWeightData?.data?.weight
     const waterAmount = dailywaterData ? dailywaterData.data.amount / 2000 * 100 : 0
@@ -23,6 +24,9 @@ export const MainPage = () => {
       acc + crr.reduce((acc,{ quantity, calories }) => quantity * calories + acc ,0), 0) : 0
     const totalExerciseCalorie = dailyExerciseData && weight &&
       Math.floor(dailyExerciseData?.dailyExercise.reduce((acc , {durationOrDistance, mets})=> weight * (durationOrDistance / 60)  * mets + acc , 0)) 
+
+    if (isPending1 || isPending2 || isPending3 || isPending4 ) 
+      return <PendingContainer/>
 
     return (
       <div className="main-page">
@@ -103,3 +107,5 @@ export const MainPage = () => {
       </div>
   );
 };
+
+

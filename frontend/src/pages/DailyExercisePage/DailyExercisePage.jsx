@@ -13,9 +13,12 @@ import "../DailyFoodPage/DailyFoodPage.css";
 import "./DailyExercisePage.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { getAllExerciseApi } from "../../core/api/exercise";
 
 export const DailyExercisePage = () => {
-  const [selectedDate, setSelectedDate] = useState(null); // 선택된 날짜 상태 추가
+  const [selectedDate, setSelectedDate] = useState(null); // 선택된 날짜
+  const query = { data: selectedDate };
+  //   const { data, isPending, error } = getAllExerciseApi(query);
   const { bottomSheetProps, open } = useBottomSheet();
   const navigate = useNavigate();
 
@@ -49,13 +52,13 @@ export const DailyExercisePage = () => {
               <span>-100kcal</span>
             </div>
           </div>
-          <div className="DailyExercise__content-box">
-            <button>
-              <Link to={`/exercise/search?date=${selectedDate}`}>
+          <Link to={`/exercise/search?date=${selectedDate}`}>
+            <div className="DailyExercise__content-box">
+              <button>
                 <GoPlus />
-              </Link>
-            </button>
-          </div>
+              </button>
+            </div>
+          </Link>
         </section>
       </main>
       <BottomSheet {...bottomSheetProps}></BottomSheet>

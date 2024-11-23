@@ -9,6 +9,7 @@ import { useFoodSearch } from "../../core/query/food";
 import "../FoodSearchPage/FoodSearchPage.css";
 import "./DailyExerciseSearchPage.css";
 import { ExerciseSearchResult } from "./components/ExerciseSearchResult/ExerciseSearchResult";
+import { useGetAllExercise } from "../../core/query/exercise";
 
 export const DailyExerciseSearchPage = () => {
   const { search } = useLocation(); //쿼리 파라미터 가져오기
@@ -17,6 +18,7 @@ export const DailyExerciseSearchPage = () => {
 
   const query = new URLSearchParams(search).get("q"); // q에 해당하는 검색어 값을 추출하는 코드
   const date = new URLSearchParams(search).get("date");
+  const { data, isPending, error } = useGetAllExercise(query, date);
 
   const handleExerciseClick = () => {
     setSelectedExercise();
@@ -30,36 +32,27 @@ export const DailyExerciseSearchPage = () => {
         </Header>
       </header>
       <main className="daily-food__search">
-        <div
-          className="DailyExercise__content-box"
-          onClick={() => handleExerciseClick()}
-        >
-          <h1>기구운동</h1>
-          <div className="DailyExercise__content-box__Num">
-            <span id="daily-exercise-category">유산소</span>
-            <span>-100kcal</span>
-          </div>
-        </div>
-        {/* {foods?.data && foods.data.length > 0 ? (
-          foods.data.map((food) => (
-            <section
-              className="DailyFood__Feed-content-box"
-              key={food._id}
-              onClick={() => handleFoodClick(food)}
+        {isPending ? (
+          <p>로딩 중...</p>
+        ) : error ? (
+          <p>운동 데이터를 불러오는 중 에러가 발생했습니다.</p>
+        ) : data?.data?.length > 0 ? (
+          data.data.map((exercise) => (
+            <div
+              className="DailyExercise__content-box"
+              key={exercise._id}
+              onClick={() => handleExerciseClick()}
             >
-              <div className="DailyFood__Feed-content-box-inner">
-                <h3>{food.name}</h3>
-                <div className="DailyFood_Feed-content-box__explain">
-                  <p>{`${food.defaultGram}g`}</p>
-                  <p>{food.calorie} kcal</p>
-                </div>
+              <h1>{exercise.name}</h1>
+              <div className="DailyExercise__content-box__Num">
+                <span id="daily-exercise-category">{exercise.category}</span>
+                {/* <span></span> */}
               </div>
-            </section>
+            </div>
           ))
         ) : (
-          <p> 검색 결과가 없습니다. 직접 입력하기</p>
-        )} */}
-
+          <p>검색 결과가 없습니다. 직접 입력하기</p>
+        )}
         <section>
           <BottomSheet {...bottomSheetProps} className="Food-bottomSheet">
             <ExerciseSearchResult />

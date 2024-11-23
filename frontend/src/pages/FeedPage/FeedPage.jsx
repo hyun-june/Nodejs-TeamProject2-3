@@ -17,7 +17,6 @@ export const FeedPage = () => {
     hasNextPage,
     isFetchNextPage,
   } = useGetAllFeed();
-  console.log("ddd", data);
 
   const { ref, inView } = useInView();
 

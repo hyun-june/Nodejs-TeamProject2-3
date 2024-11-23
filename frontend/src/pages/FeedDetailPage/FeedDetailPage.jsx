@@ -20,7 +20,7 @@ export const FeedDetailPage = () => {
   const [showComment, setShowComment] = useState({});
   const [visible, setVisible] = useState({});
   const { id } = useParams();
-
+  const currentUserId = sessionStorage.getItem("userId");
   const { data, isLoading, isError, error } = useGetDetailFeed(id);
   const { mutate: deleteComments } = useDeleteComment({ id });
 
@@ -117,11 +117,14 @@ export const FeedDetailPage = () => {
           const commentDate = new Date(item.createdAt);
           const timeAgoText = timeText(commentDate);
 
+          const profileLink =
+            currentUserId === item.userId ? "/user/me" : `/user/${item.userId}`;
+
           return (
             <li key={item._id}>
               <div className="feed-comment">
                 <div>
-                  <Link to={`/user/${item.userId}`}>
+                  <Link to={profileLink}>
                     <Avatar src={item.userInfo.profileImg} isOnline={true} />
                   </Link>
                 </div>

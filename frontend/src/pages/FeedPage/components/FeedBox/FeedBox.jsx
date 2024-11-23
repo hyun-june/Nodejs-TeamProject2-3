@@ -11,15 +11,21 @@ export const FeedBox = ({ feed }) => {
   const navigate = useNavigate();
   const feedDate = new Date(feed.createdAt);
   const feedId = feed._id;
+  const currentUserId = sessionStorage.getItem("userId");
   const handleMoveFeed = (feedId) => {
     navigate(`/feed/${feedId}`);
   };
+
+  const profileLink =
+    currentUserId === feed.userInfo.user
+      ? "/user/me"
+      : `/user/${feed.userInfo.user}`;
 
   return (
     <article className={location.pathname === "/feed" ? "feed-container" : ""}>
       <div className="feed-top">
         <div className="feed-top-text">
-          <Link to={`/user/${feed.userInfo.user}`}>
+          <Link to={profileLink}>
             <Avatar src={feed.userInfo.profileImg} isOnline />
           </Link>
           <div>

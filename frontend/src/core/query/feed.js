@@ -10,6 +10,12 @@ import {
   getDetailFeed,
   getFeed,
   updateComments,
+  getFeedSearchResult,
+  getAllFeedApi,
+  deleteFeedApi,
+  registerFeedView,
+  deleteComments,
+
 } from "../api/feed";
 import { useNavigate } from "react-router-dom";
 
@@ -29,12 +35,13 @@ export const useCreateFeed = () => {
   });
 };
 
-export const useGetAllFeed = () => {
+export const useGetAllFeedInfinite = ({ limit }) => {
   return useInfiniteQuery({
-    queryKey: ["AllFeed"],
+    queryKey: ["AllFeedInfi"],
     queryFn: ({ pageParam = 1 }) => {
-      return getFeed(pageParam);
+      return getFeed(pageParam, limit);
     },
+
     getNextPageParam: (lastPage) => {
       if (lastPage.page < lastPage.total_pages) {
         return lastPage.page + 1;
@@ -42,7 +49,6 @@ export const useGetAllFeed = () => {
       return undefined;
     },
     initialPageParam: 1,
-
     onSuccess: (data) => {
       console.log("피드 로드 성공", data);
     },
@@ -52,10 +58,39 @@ export const useGetAllFeed = () => {
   });
 };
 
+export const useGetAllFeed = (query) => {
+  return useQuery({
+    queryKey: ["feed", query],
+    queryFn: () => getAllFeedApi(query),
+  });
+};
+
 export const useGetDetailFeed = (id) => {
   return useQuery({
     queryKey: ["DetailFeed", id],
     queryFn: () => getDetailFeed(id),
+  });
+};
+
+export const useFeedSearchInfinite = ({ query, limit }) => {
+  return useInfiniteQuery({
+    queryKey: ["FeedSearch", query],
+    queryFn: ({ pageParam = 1 }) => {
+      return getFeedSearchResult({ query, page: pageParam, limit });
+    },
+    getNextPageParam: (lastPage) => {
+      if (lastPage.page < lastPage.total_pages) {
+        return lastPage.page + 1;
+      }
+      return undefined;
+    },
+    initialPageParam: 1,
+    onSuccess: (data) => {
+      console.log("피드 검색 성공", data);
+    },
+    onError: (error) => {
+      console.log("피드 검색 실패", error);
+    },
   });
 };
 
@@ -71,5 +106,42 @@ export const useUpdateComment = ({ id }) => {
     onError: (error) => {
       console.log("댓글 생성 실패", error);
     },
+  });
+};
+
+export const useDeleteComment = ({ id }) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id, commentId }) => deleteComments({ id, commentId }),
+    onSuccess: (data, variables) => {
+      queryClient.invalidateQueries(["feed", variables.feedId]);
+    },
+    onError: (error) => {
+      console.log("댓글 삭제 실패", error);
+    },
+  });
+};
+export const useDeleteFeed = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: deleteFeedApi,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["feed"] });
+    },
+  });
+};
+
+// React Query 훅을 사용하여 조회 수 증가
+export const useIncreaseFeedView = () => {
+  return useMutation({
+    mutationFn: registerFeedView, // feed 조회 수 증가를 위한 함수
+    onSuccess: (data) => {
+      console.log("조회 수 업데이트 성공:", data);
+    },
+    onError: (error) => {
+      console.error("조회 수 업데이트 실패:", error);
+    },
+
   });
 };

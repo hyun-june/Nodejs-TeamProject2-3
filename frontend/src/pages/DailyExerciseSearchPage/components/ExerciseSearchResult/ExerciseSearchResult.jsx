@@ -1,20 +1,40 @@
 import { useState, useRef, useEffect } from "react";
 
-export const ExerciseSearchResult = () => {
-  const [quantity, setQuantity] = useState(0);
+import { useAddDailyExercise } from "../../../../core/query/exercise";
+
+export const ExerciseSearchResult = ({ selectedExercise, date }) => {
+  const [quantity, setQuantity] = useState("");
+  const { mutate: addExercise, isPending, error } = useAddDailyExercise();
+
+  const handleAddExercise = () => {
+    if (isPending) return;
+
+    // 양수 값만 허용
+    if (!quantity || Number(quantity) <= 0) {
+      alert("운동 시간을 올바르게 입력해주세요.");
+      return;
+    }
+
+    addExercise({
+      exercise: selectedExercise,
+      quantity: Number(quantity),
+      date,
+    });
+  };
 
   return (
     <>
       <header className="FoodDetail-title">
-        <h1>달리기</h1>
+        <h1>{selectedExercise.name}</h1>
       </header>
       <main className="ExerciseDetail-main">
         <section className="ExerciseDetail-main__category">
-          <p>유산소</p>
-          <p>무산소</p>
+          {selectedExercise.category?.map((cat, index) => (
+            <p key={index}>{cat}</p>
+          ))}
         </section>
         <section className="ExerciseDetail-main__description">
-          <div>일반적인 달리기입니다!</div>
+          <div>{selectedExercise.description}</div>
         </section>
       </main>
 
@@ -23,9 +43,14 @@ export const ExerciseSearchResult = () => {
           <h3>운동 시간</h3>
         </section>
         <section className="ExerciseDetail-footer__btnAndInput">
-          <input></input>
+          <input
+            type="number"
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
+            placeholder="운동 시간 입력 (분)"
+          ></input>
           <div className="FoodDetail-addButton">
-            <button>추가</button>
+            <button onClick={handleAddExercise}>추가</button>
           </div>
         </section>
       </footer>

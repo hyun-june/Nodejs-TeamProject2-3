@@ -7,3 +7,15 @@
 .feed-main {
   flex-grow: 1;
 }
+
+.feed-search {
+  padding: 0.6em 1em;
+}
+
+.feed-search {
+  input {
+    background-color: var(--sub-color);
+    border: none !important;
+    height: 2.2em;
+  }
+}

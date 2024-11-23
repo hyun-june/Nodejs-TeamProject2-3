@@ -1,4 +1,4 @@
-.main-page{
+.main-page {
     --progress-value : 40%;
     padding-bottom: 2em;
     .긴박스{
@@ -54,8 +54,7 @@
                     transition: all .3s;
                     background-color: #82C3FC;
                     width: 100%;
-                    /* 물높이 */
-                    height: 40%;
+                    height: 0%;
                 }
                 .water-progress-bar-text{
                     position: absolute;
@@ -99,9 +98,10 @@
         margin: 1em 0;
         overflow: hidden;
         div {
+            transition: all .3s;
             background-color:  var(--thema-color);
             height: 100%;
-            width: 30%;
+            width: 0%;
         }
     }
     .straght-progress-bottom{

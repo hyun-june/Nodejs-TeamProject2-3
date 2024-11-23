@@ -1,10 +1,13 @@
 import express from "express";
 import {
+  deleteDailyExercise,
   deleteExercise,
   getAllExercise,
+  getDailyExercise,
   getExercise,
   postDailyExercise,
   postExercise,
+  updateDailyExercise,
   updateExercise,
 } from "../controllers/exerciseController.js";
 import {
@@ -15,7 +18,15 @@ import {
 export const exerciseRouter = express.Router();
 
 exerciseRouter.route("/").get(getAllExercise).post(postExercise);
-exerciseRouter.route("/daily").all(authenticate).post(postDailyExercise);
+exerciseRouter
+  .route("/daily")
+  .all(authenticate)
+  .get(getDailyExercise)
+  .post(postDailyExercise)
+  .put(updateDailyExercise)
+  .delete(deleteDailyExercise);
+
+exerciseRouter.route("/search").get(getAllExercise);
 
 exerciseRouter
   .route("/:id")

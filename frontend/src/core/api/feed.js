@@ -19,10 +19,9 @@ export const createFeed = async ({ fileUrl, description, hashtags, user }) => {
   return data;
 };
 
-export const getFeed = async (page = 1) => {
+export const getFeed = async (page = 1, limit) => {
   try {
-    const { data } = await api.get(`/feed?page=${page}`);
-
+    const { data } = await api.get(`/feed?page=${page}&limit=${limit}`);
     return {
       data: data.data,
       page: data.page,
@@ -30,6 +29,15 @@ export const getFeed = async (page = 1) => {
     };
   } catch (error) {
     console.log("getFeed Error", error);
+  }
+};
+
+export const getAllFeedApi = async (query) => {
+  try {
+    const { data } = await api.get(`/feed/all`, { params: { ...query } });
+    return data;
+  } catch (error) {
+    console.error("Error fetching food data:", error);
   }
 };
 
@@ -42,9 +50,34 @@ export const getDetailFeed = async (id) => {
   }
 };
 
+export const getFeedSearchResult = async ({ query, limit, page }) => {
+  if (!query) return [];
+  try {
+    const { data } = await api.get(
+      `/feed?page=${page}&limit=${limit}&q=${query}`
+    );
+
+    return {
+      data: data.data,
+      page: data.page,
+      total_pages: data.total_pages,
+    };
+  } catch (error) {
+    console.error("피드 검색 중 에러:", error);
+    return [];
+  }
+};
+
+export const deleteFeedApi = async (id) => {
+  try {
+    const { data } = await api.delete(`/feed/${id}`);
+    return data;
+  } catch (error) {
+    console.error("Error delete food data:", error);
+  }
+};
+
 export const updateComments = async ({ id, newCommentText }) => {
-  console.log("댓글 추가 요청 - ID:", id);
-  console.log("댓글 내용:", newCommentText);
   try {
     const { data } = await api.post(`/feed/${id}`, {
       content: newCommentText,
@@ -53,5 +86,27 @@ export const updateComments = async ({ id, newCommentText }) => {
     return data;
   } catch (error) {
     console.error("댓글 추가 실패:", error);
+  }
+};
+
+export const registerFeedView = async (feedId) => {
+  try {
+    console.log("API 요청 경로:", `/feed/${feedId}/view`);
+    const { data } = await api.put(`/feed/${feedId}/view`);
+    console.log("서버 응답 데이터:", data);
+
+    return data; // 업데이트된 피드 데이터 반환
+  } catch (error) {
+    console.error("조회 수 업데이트 실패:", error);
+  }
+};
+
+export const deleteComments = async ({ id, commentId }) => {
+  try {
+    const { data } = await api.delete(`/feed/${id}/comments/${commentId}`);
+    console.log("댓글 삭제 성공", data);
+    return data;
+  } catch (error) {
+    console.log("댓글 삭제 실패", error);
   }
 };

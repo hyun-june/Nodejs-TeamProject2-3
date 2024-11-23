@@ -3,44 +3,38 @@ import { PageNationBar } from "../../../../components/shared/PageNationBar/PageN
 import { BottomSheet } from "../../../../components/shared/BottomSheet/BottomSheet"
 import { useBottomSheet } from "../../../../components/shared/BottomSheet/components/useBottomSheet"
 import { AdminTable } from "../../../../components/Admin/AdminTable/AdminTable"
+import { useSearchParams } from "react-router-dom"
 import { AdminFeedDeleteForm } from "../AdminFeedDeleteForm/AdminFeedDeleteForm"
-
-const mocks = [
-    {
-        _id : '1',
-        date : '24-11-12',
-        name : '피드1',
-    },
-    {
-        _id : '2',
-        date : '24-11-12',
-        name : '피드2',
-    },
-    {
-        _id : '3',
-        date : '24-11-12',
-        name : '피드3333',
-    },
-]
+import { useGetAllFeed } from "../../../../core/query/feed"
+import { PendingContainer } from "../../../../components/shared/PendingContainer/PendingContainer"
 
 const manageOptions = {
-    'delete' : <AdminFeedDeleteForm/>,
+    delete: (props) => <AdminFeedDeleteForm {...props} />,
 }
 
 export const AdminFeedList = () => {
-    const { bottomSheetProps , open } = useBottomSheet()
-    const [manageMode, setManagerMode] = useState(null)
+    const [ searchParams ] = useSearchParams()
+    const page = +searchParams.get('page') || 1
+    const q = searchParams.get('q')
+    const { bottomSheetProps , open, close } = useBottomSheet()
+    const [ manageMode, setManagerMode ] = useState(null)
+    const [selectedId, setSelectedId] = useState(null)
+    const { data, isPending } = useGetAllFeed({ page , q, size : 10  })
 
-    const handleOpenManager = (mode) => {
+
+    const handleOpenManager = (mode, id = null) => {
         setManagerMode(mode)
+        setSelectedId(id) 
         open()
     }
 
+    if (isPending) return <PendingContainer/>
+
     return <>
         <AdminTable 
-            list={mocks} 
+            list={data?.data} 
             handleOpenManager={handleOpenManager} 
-            theads={['date', 'name']}
+            theads={['description']}
             buttonOption={ [
                 {
                     name : 'delete', 
@@ -48,9 +42,9 @@ export const AdminFeedList = () => {
                 },
             ]}
         />
-        <PageNationBar totalPageNum={3} />
+        <PageNationBar totalPageNum={data?.totalPageNum} />
         <BottomSheet {...bottomSheetProps}>
-            { manageMode && manageOptions[manageMode] }
+            {manageMode && manageOptions[manageMode]({ id: selectedId , close})}
         </BottomSheet>
     </>
 }

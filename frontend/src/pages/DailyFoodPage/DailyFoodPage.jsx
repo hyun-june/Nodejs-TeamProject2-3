@@ -1,7 +1,6 @@
 import Slider from "react-slick";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { DailyFoodCalender } from "./components/DailyFoodCalender/DailyFoodCalender";
 import { DailyFoodFeed } from "./components/DailyFoodFeed/DailyFoodFeed";
 import { Header } from "../../components/shared/Header/Header";
@@ -9,7 +8,6 @@ import { DailyFoodChart } from "./components/DailyFoodChart/DailyFoodChart";
 import { BottomSheet } from "../../components/shared/BottomSheet/BottomSheet";
 import { useBottomSheet } from "../../components/shared/BottomSheet/components/useBottomSheet";
 import { useFoodPage } from "../../core/query/food";
-
 import "./DailyFoodPage.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -22,11 +20,22 @@ export const DailyFoodPage = () => {
   const { bottomSheetProps, open } = useBottomSheet();
   const navigate = useNavigate(); // URL을 변경하기 위한 navigate 훅 사용
 
-  console.log("데이타!!!", data);
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const dateFromUrl = queryParams.get("date");
+
+    if (dateFromUrl) {
+      setSelectedDate(dateFromUrl);
+    } else {
+      const today = new Date().toLocaleDateString("en-CA");
+      setSelectedDate(today);
+      navigate(`/food?date=${today}`); // URL을 오늘 날짜로 설정
+    }
+  }, []);
 
   const onDateChange = (newDate) => {
     const formattedDate = newDate.toLocaleDateString("en-CA"); // "YYYY-MM-DD" 형식
-    setSelectedDate(formattedDate); // 날짜를 형식에 맞게 업데이트    setSelectedDate(formattedDate); // 날짜를 형식에 맞게 업데이트
+    setSelectedDate(formattedDate); // 날짜를 형식에 맞게 업데이트
     navigate(`/food?date=${formattedDate}`); // URL을 쿼리 파라미터와 함께 업데이트
   };
 
@@ -98,7 +107,7 @@ export const DailyFoodPage = () => {
   return (
     <>
       <header>
-        <Header backTo={-1} title={"식단"} />
+        <Header backTo={"/"} title={"식단"} />
       </header>
       <main className="DailyFood">
         <DailyFoodCalender onDateChange={onDateChange} value={selectedDate} />

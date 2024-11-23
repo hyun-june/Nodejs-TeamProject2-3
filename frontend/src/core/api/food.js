@@ -64,7 +64,6 @@ export const getDailyFood = async (date) => {
     const { data } = await api.get(`/food/daily`, {
       params: { date },
     });
-    console.log("음식 데이터:", data);
     return data;
   } catch (error) {
     console.error("음식 데이터 가져오는 중 에러:", error);
@@ -75,7 +74,7 @@ export const getDailyFood = async (date) => {
 export const addDailyFood = async (food, mealtype, quantity, date) => {
   try {
     const { data } = await api.post(
-      `/food/daily/add/${mealtype}`,
+      `/food/add/${mealtype}`,
       { food, mealtype, quantity },
       { params: { date } }
     );

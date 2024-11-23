@@ -1,10 +1,11 @@
 import { Feed } from "../Model/Feed.js";
 import { UserDetail } from "../Model/UserDetail.js";
 
+// 무한 스크롤 피드 데이터
 export const getAllFeed = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
-    const limit = 3;
+    const limit = parseInt(req.query.limit) || 3;
     const skip = (page - 1) * limit;
 
     const feed = await Feed.find().populate("userInfo").skip(skip).limit(limit);
@@ -16,6 +17,7 @@ export const getAllFeed = async (req, res) => {
       status: "success",
       data: feed,
       page: page,
+      limit: limit,
       total_pages: totalPages,
     });
   } catch (error) {
@@ -24,6 +26,30 @@ export const getAllFeed = async (req, res) => {
       message: "피드를 가져오는 데 오류가 발생했습니다.",
       error,
     });
+  }
+};
+
+// 개별 피드를 가져옴 -> 디테일 페이지에 사용
+export const getFeed = async (req, res) => {
+  try {
+    const { feedId } = req.params;
+
+    const { userId } = req;
+    const feed = await Feed.findById(feedId);
+    const userInfo = await UserDetail.findOne({ user: userId });
+
+    if (!feed) {
+      throw new Error("해당 피드을 찾을 수 없습니다.");
+    }
+
+    const isLiked = feed.likedBy.includes(userId);
+
+    res.status(200).json({
+      status: "success",
+      data: { ...feed.toObject(), isLiked, userInfo },
+    });
+  } catch (error) {
+    res.status(404).json({ status: "fail", message: error.message });
   }
 };
 
@@ -55,27 +81,32 @@ export const postFeed = async (req, res) => {
   }
 };
 
-// 개별 피드를 가져옴
-export const getFeed = async (req, res) => {
+// 피드 검색
+export const getSearchFeed = async (req, res) => {
   try {
-    const { feedId } = req.params;
+    const { q } = req.query;
+    const search = {};
 
-    const { userId } = req;
-    const feed = await Feed.findById(feedId);
-    const userInfo = await UserDetail.findOne({ user: userId });
-
-    if (!feed) {
-      throw new Error("해당 피드을 찾을 수 없습니다.");
+    if (q) {
+      search = { description: { $regex: q, $options: "i" } };
     }
 
-    const isLiked = feed.likedBy.includes(userId);
+    const feed = await Feed.find(search);
 
-    res.status(200).json({
-      status: "success",
-      data: { ...feed.toObject(), isLiked, userInfo },
-    });
+    if (feed.length === 0) {
+      return res.status(200).json({
+        status: "success",
+        message: "피드 검색 결과가 없습니다.",
+      });
+    }
+
+    res.status(200).json({ status: "success", data: feed });
   } catch (error) {
-    res.status(404).json({ status: "fail", message: error.message });
+    console.error("Error fetching feed:", error);
+    res.status(400).json({
+      status: "fail",
+      message: "피드 검색 실패",
+    });
   }
 };
 

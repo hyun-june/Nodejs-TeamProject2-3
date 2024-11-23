@@ -8,7 +8,7 @@ export const getAllFeed = async (req, res) => {
     const limit = parseInt(req.query.limit) || 3;
     const skip = (page - 1) * limit;
 
-    const feed = await Feed.find().populate("userInfo").skip(skip).limit(limit);
+    const feed = await Feed.find().populate("userInfo").skip(skip).limit(limit)
 
     const totalFeeds = await Feed.countDocuments();
     const totalPages = Math.ceil(totalFeeds / limit);

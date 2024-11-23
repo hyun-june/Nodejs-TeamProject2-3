@@ -10,6 +10,7 @@ import {
   getDetailFeed,
   getFeed,
   updateComments,
+  getAllFeedApi,
 } from "../api/feed";
 import { useNavigate } from "react-router-dom";
 
@@ -51,26 +52,10 @@ export const useGetAllFeedInfinite = ({ limit }) => {
   });
 };
 
-export const useGetAllFeed = () => {
-  return useInfiniteQuery({
-    queryKey: ["AllFeed"],
-    queryFn: ({ pageParam = 1 }) => {
-      return getFeed(pageParam);
-    },
-    getNextPageParam: (lastPage) => {
-      if (lastPage.page < lastPage.ges) {
-        return lastPage.page + 1;
-      }
-      return undefined;
-    },
-    initialPageParam: 1,
-
-    onSuccess: (data) => {
-      console.log("피드 로드 성공", data);
-    },
-    onError: (error) => {
-      console.log("피드 로드 실패", error);
-    },
+export const useGetAllFeed = (query) => {
+  return useQuery({
+      queryKey : [ 'food', query ],
+      queryFn : () => getAllFeedApi(query)
   });
 };
 

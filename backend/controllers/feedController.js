@@ -29,6 +29,34 @@ export const getAllFeed = async (req, res) => {
   }
 };
 
+export const getAllFeed2 = async (req, res) => {
+  console.log(1)
+  try {
+    const { page, q, size, } = req.query
+    const cond = q ? { name:{ $regex:q, $options:'i' } } : {}
+            
+    let query = Feed.find(cond).sort({ createdAt: -1 })
+    let response = { status : 'success' }
+            
+    if(page && size){
+          query.skip((page-1)*size).limit(size)
+          const totalItemNum = await Feed.countDocuments(cond);
+          response.totalPageNum = Math.ceil(totalItemNum / size)
+    }
+
+    const feed = await query.exec()
+    response.data = feed
+          
+    res.status(200).json(response)
+  } catch (error) {
+    res.status(500).json({
+      status: "fail",
+      message: "피드 데이터를 가져오는 데 오류가 발생했습니다.",
+      error,
+    });
+  }
+};
+
 // 개별 피드를 가져옴 -> 디테일 페이지에 사용
 export const getFeed = async (req, res) => {
   try {

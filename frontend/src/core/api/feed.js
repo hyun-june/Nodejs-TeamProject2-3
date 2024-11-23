@@ -32,6 +32,15 @@ export const getFeed = async (page = 1, limit) => {
   }
 };
 
+export const getAllFeedApi = async (query) => {
+  try {
+    const { data } = await api.get(`/feed/all`, { params : { ...query }});
+    return data;
+  } catch (error) {
+    console.error("Error fetching food data:", error);
+  }
+};
+
 export const getDetailFeed = async (id) => {
   try {
     const { data } = await api.get(`/feed/${id}`);

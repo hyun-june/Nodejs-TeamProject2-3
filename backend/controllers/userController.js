@@ -31,7 +31,7 @@ export const createUser = async (req, res) => {
 export const getUser = async (req, res) => {
   try {
     const { userId } = req;
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).populate("detailInfo");
     console.log("내정보", user);
     if (user) {
       return res.status(200).json({ status: "success", user });
@@ -46,7 +46,7 @@ export const getUser = async (req, res) => {
 export const getOtherUser = async (req, res) => {
   try {
     const userId = req.params.id;
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).populate("detailInfo");
     console.log("다른유저정보", user);
     if (!user) {
       throw new Error("해당 유저를 찾을 수 없습니다.");

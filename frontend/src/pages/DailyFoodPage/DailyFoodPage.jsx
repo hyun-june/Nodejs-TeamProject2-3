@@ -97,7 +97,7 @@ export const DailyFoodPage = () => {
   return (
     <>
       <header>
-        <Header backTo={-1} title={"식단"} />
+        <Header backTo={'/'} title={"식단"} />
       </header>
       <main className="DailyFood">
         <DailyFoodCalender onDateChange={onDateChange} value={selectedDate} />

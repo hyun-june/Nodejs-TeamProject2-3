@@ -60,7 +60,7 @@ export const getFoodSearchResult = async (query, mealtype) => {
 };
 
 // 특정 날짜의 음식 데이터 가져오기
-export const getDailyFood = async (date) => {
+export const getDailyFood = async (query) => {
   try {
     const { data } = await api.get(`/food/daily?date=${query}`);
     console.log("데이터", data);

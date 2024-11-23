@@ -230,26 +230,41 @@ export const updateComments = async (req, res) => {
 export const deleteComments = async (req, res) => {
   try {
     const { feedId, commentId } = req.params;
+    const userId = req.userId;
 
-    const feed = await Feed.findByIdAndUpdate(
-      feedId,
-      { $pull: { comments: { _id: commentId } } },
-      { new: true }
-    );
+    const feed = await Feed.findById(feedId);
     if (!feed) {
       return res
         .status(400)
         .json({ status: "fail", message: "피드를 찾을 수 없습니다." });
     }
+
+    const comment = feed.comments.id(commentId);
+    if (!comment) {
+      return res
+        .status(400)
+        .json({ status: "fail", message: "댓글을 찾을 수 없습니다." });
+    }
+
+    if (comment.userId.toString() !== userId) {
+      return res
+        .status(403)
+        .json({ status: "fail", message: "댓글을 삭제할 권한이 없습니다." });
+    }
+
+    feed.comments.pull(commentId);
+    await feed.save();
+
     return res.status(200).json({
       status: "success",
       message: "댓글이 삭제되었습니다.",
       data: feed,
     });
   } catch (error) {
+    console.error("댓글 삭제 실패:", error);
     return res.status(400).json({
       status: "fail",
-      message: error.message,
+      message: error.message || "댓글 삭제에 실패했습니다.",
     });
   }
 };

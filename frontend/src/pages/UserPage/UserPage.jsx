@@ -10,7 +10,6 @@ import { FiLogOut } from "react-icons/fi";
 import "./UserPage.css";
 
 const TabContent1 = FeedContainer;
-const TabContent2 = () => <div>탭 2의 내용입니다.</div>;
 
 export const UserPage = () => {
   const { pathname } = useLocation();
@@ -43,10 +42,6 @@ export const UserPage = () => {
     {
       title: "FEED",
       comp: <TabContent1 feeds={feeddata} />,
-    },
-    {
-      title: "DASH BOARD",
-      comp: <TabContent2 />,
     },
   ];
 

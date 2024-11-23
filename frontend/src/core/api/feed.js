@@ -105,7 +105,6 @@ export const registerFeedView = async (feedId) => {
 export const deleteComments = async ({ id, commentId }) => {
   try {
     const { data } = await api.delete(`/feed/${id}/comments/${commentId}`);
-    console.log("data", data);
     console.log("댓글 삭제 성공", data);
     return data;
   } catch (error) {

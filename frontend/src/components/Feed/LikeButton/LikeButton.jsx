@@ -17,7 +17,7 @@ export const LikeButton = () => {
       <button onClick={handleLikeUpDown}>
         <FaHeart className={likeStatus ? "like-icon liked" : "like-icon"} />
       </button>
-      <span>{`좋아요 ${likes}개`}</span>
+      <span>{`${likes}`}</span>
     </div>
   );
 };

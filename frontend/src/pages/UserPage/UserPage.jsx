@@ -1,40 +1,57 @@
-import { useLocation, useParams, Link } from "react-router-dom";
+import { useLocation, useParams, useNavigate, Link } from "react-router-dom";
 import { Header } from "../../components/shared/Header/Header.jsx";
 import { Avatar } from "../../components/shared/Avatar/Avatar.jsx";
 import { Tabs } from "../../components/shared/Tabs/Tabs.jsx";
 import { FeedContainer } from "./components/FeedContainer/FeedContainer.jsx";
 import { useGetMyInfo, useGetOtherInfo } from "../../core/query/user.js";
+import { useGetAllFeed } from "../../core/query/feed.js";
 import { BiSolidPencil } from "react-icons/bi";
+import { FiLogOut } from "react-icons/fi";
 import "./UserPage.css";
 
 const TabContent1 = FeedContainer;
-const TabContent2 = () => <div>탭 2의 내용입니다.</div>;
 
 export const UserPage = () => {
   const { pathname } = useLocation();
-  const { userId } = useParams();
+  let { userId } = useParams();
+  const navigate = useNavigate();
   const isMyPage = pathname === "/user/me";
 
   const useGetInfo = (isMyPage) => {
     return isMyPage ? useGetMyInfo() : useGetOtherInfo(userId);
   };
-  const { data, error, isPending } = useGetInfo(isMyPage);
+  const {
+    data: userData,
+    error: userError,
+    isPending: userIsPending,
+  } = useGetInfo(isMyPage);
+  const userdata = userData?.user;
 
-  const userdata = data?.user;
+  if (isMyPage) {
+    userId = userdata?._id;
+  }
+
+  const {
+    data: feedData,
+    error: feedError,
+    isPending: feedIsPending,
+  } = useGetAllFeed({ userId });
+  const feeddata = feedData?.data;
 
   const items = [
     {
       title: "FEED",
-      comp: <TabContent1 feeds={userdata?.feed} />,
-    },
-    {
-      title: "DASH BOARD",
-      comp: <TabContent2 />,
+      comp: <TabContent1 feeds={feeddata} />,
     },
   ];
 
-  if (isPending) return <>로딩중</>;
-  if (error) return <>에러 발생: {error.message}</>;
+  if (userIsPending || feedIsPending) return <>로딩중</>;
+  // if (userError||feedError) return <>에러 발생: {userError.message}</>;
+
+  const handleLogoutClick = () => {
+    sessionStorage.removeItem("token");
+    navigate("/login");
+  };
 
   return (
     <>
@@ -46,19 +63,32 @@ export const UserPage = () => {
           }`}
         >
           <div className="profile-container">
-            <Avatar isOnline={true} size="100" />
-            <p className="info-content">{userdata.detailInfo.nickname}</p>
+            <Avatar
+              src={userdata.detailInfo?.profileImg}
+              isOnline={true}
+              size="100"
+            />
+            <div
+              className="logout"
+              onClick={handleLogoutClick}
+              style={{ top: isMyPage ? "15px" : "50px" }}
+            >
+              <FiLogOut size="22" color="var(--light-gray-color)" />
+              <p>logout</p>
+            </div>
+
+            <p className="info-content">{userdata.detailInfo?.nickname}</p>
             <p className="useremail">{userdata.email}</p>
           </div>
           <div className="info-container">
             <div className="detail-info-container">
-              <p className="info-content">{userdata.feed.length}</p>
+              <p className="info-content">{feeddata.length}</p>
               <p className="detail-info-text">FEED</p>
             </div>
             <div className="seperator"></div>
             <div className="detail-info-container">
               <p className="info-content">
-                {userdata.detailInfo.weight - userdata.detailInfo.purpose}KG
+                {userdata.detailInfo?.weight - userdata.detailInfo?.purpose}KG
               </p>
               <p className="detail-info-text">목표까지</p>
             </div>

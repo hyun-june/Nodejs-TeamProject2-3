@@ -36,6 +36,19 @@
   }
 }
 
+.logout {
+  position: absolute;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  p {
+    margin-left: 5px;
+    font-size: 13px;
+    color: var(--light-gray-color);
+  }
+}
+
 .avatar-container {
   margin-bottom: 10px;
 }

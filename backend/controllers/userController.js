@@ -109,6 +109,8 @@ export const updateUserDetail = async (req, res) => {
   try {
     const { userId } = req;
     const { profileUrl, nickname, age, height, weight, purpose } = req.body;
+    const profileImg = req.file ? req.file.path : req.body.profileImg;
+    console.log("pppp", profileImg);
 
     // 값이 비어있거나 누락된 경우 처리
     if (age == null || height == null || weight == null || purpose == null) {
@@ -117,7 +119,7 @@ export const updateUserDetail = async (req, res) => {
 
     const userDetail = await UserDetail.findOneAndUpdate(
       { user: userId },
-      { profileUrl, nickname, age, height, weight, purpose },
+      { profileImg, nickname, age, height, weight, purpose },
       { new: true }
     );
 

@@ -31,10 +31,10 @@ const storageProfile = new CloudinaryStorage({
 
 export const uploadFeedFile = multer({
   storage: storageFeed,
-  limits: { fileSize: 5 * 1024 * 1024 },
+  limits: { fileSize: 20 * 1024 * 1024 },
 });
 
 export const uploadProfileFile = multer({
   storage: storageProfile,
-  limits: { fileSize: 5 * 1024 * 1024 },
+  limits: { fileSize: 20 * 1024 * 1024 },
 });

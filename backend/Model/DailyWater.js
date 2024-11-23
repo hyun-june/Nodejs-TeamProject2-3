@@ -7,7 +7,7 @@ const dailyWaterSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    amount: { type: Number, required: true },
+    amount: { type: Number, default: 0, required: true },
     date: { type: Date, default: Date.now },
   },
   { timestamps: true }

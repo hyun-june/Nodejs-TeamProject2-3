@@ -31,7 +31,8 @@ export const createUser = async (req, res) => {
 export const getUser = async (req, res) => {
   try {
     const { userId } = req;
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).populate("detailInfo");
+    console.log("내정보", user);
     if (user) {
       return res.status(200).json({ status: "success", user });
     }
@@ -45,7 +46,8 @@ export const getUser = async (req, res) => {
 export const getOtherUser = async (req, res) => {
   try {
     const userId = req.params.id;
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).populate("detailInfo");
+    console.log("다른유저정보", user);
     if (!user) {
       throw new Error("해당 유저를 찾을 수 없습니다.");
     }
@@ -71,6 +73,13 @@ export const postUserDetail = async (req, res) => {
       purpose,
       profileImg,
     });
+
+    // 생성한 UserDetail의 ID를 User 스키마의 detailInfo에 추가
+    await User.findByIdAndUpdate(
+      userId,
+      { $push: { detailInfo: newUserDetail._id } }, // detailInfo 배열에 추가
+      { new: true } // 업데이트된 유저 데이터를 반환하도록 설정
+    );
 
     res.status(201).json({ status: "success", data: newUserDetail });
   } catch (error) {

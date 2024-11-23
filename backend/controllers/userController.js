@@ -32,7 +32,7 @@ export const getUser = async (req, res) => {
   try {
     const { userId } = req;
     const user = await User.findById(userId).populate("detailInfo");
-    console.log("내정보", user);
+    // console.log("내정보", user);
     if (user) {
       return res.status(200).json({ status: "success", user });
     }
@@ -91,7 +91,7 @@ export const postUserDetail = async (req, res) => {
 export const getUserDetail = async (req, res) => {
   try {
     const { userId } = req;
-    const userDetail = await UserDetail.findOne(userId);
+    const userDetail = await UserDetail.findOne({ user: userId });
 
     if (!userDetail) {
       throw new Error("해당 유저의 정보를 찾을 수 없습니다.");
@@ -101,11 +101,13 @@ export const getUserDetail = async (req, res) => {
     return res.status(400).json({ status: "fail", message: error.message });
   }
 };
+
 //유저 디테일 페이지 수정
 export const updateUserDetail = async (req, res) => {
+  console.log("요청 도착: ", req.body); // 백엔드에 요청이 도달하는지 확인
   try {
     const { userId } = req;
-    const { age, height, weight, purpose } = req.body;
+    const { profileUrl, nickname, age, height, weight, purpose } = req.body;
 
     // 값이 비어있거나 누락된 경우 처리
     if (age == null || height == null || weight == null || purpose == null) {
@@ -114,7 +116,7 @@ export const updateUserDetail = async (req, res) => {
 
     const userDetail = await UserDetail.findOneAndUpdate(
       { user: userId },
-      { age, height, weight, purpose },
+      { profileUrl, nickname, age, height, weight, purpose },
       { new: true }
     );
 

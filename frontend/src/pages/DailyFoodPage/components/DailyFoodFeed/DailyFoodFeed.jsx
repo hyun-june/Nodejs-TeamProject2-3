@@ -32,15 +32,14 @@ export const DailyFoodFeed = ({
           ))
         ) : (
           <div></div>
-        )}
-
-        <section className="DailyFood__Feed-content-box">
-          <button aria-label="음식 추가">
-            <Link to={`/food/search/${mealType}?date=${selectedDate}`}>
+        )}{" "}
+        <Link to={`/food/search/${mealType}?date=${selectedDate}`}>
+          <section className="DailyFood__Feed-content-box">
+            <button aria-label="음식 추가">
               <GoPlus />
-            </Link>
-          </button>
-        </section>
+            </button>
+          </section>
+        </Link>
       </div>
       <footer className="DailyFood__Feed-footer">
         <p className="DailyFood__Feed-totalCalorie-Num">

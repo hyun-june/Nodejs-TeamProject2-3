@@ -1,15 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "../../components/shared/Header/Header";
 import { WaterCalender } from "./WaterCalender/WaterCalender";
+import { useGetWaterAmount } from "../../core/query/water";
 import "./WaterPage.css";
+
+const MAX_HEIGHT = 300; // 병의 총 높이
+const MAX_WATER = 2000;
+const STEP_WATER = 250;
 
 export const WaterPage = () => {
   const [selectedData, setSelectedDate] = useState(null);
   const [waterHeight, setWaterHeight] = useState(0);
 
-  const MAX_HEIGHT = 300; // 병의 총 높이
-  const MAX_WATER = 2000;
-  const STEP_WATER = 250;
+  const { data } = useGetWaterAmount(selectedData);
+  console.log("물 섭취량 데이터", data);
+
+  useEffect(() => {
+    if (data?.data?.amount) {
+      setWaterHeight(data?.data?.amount); // API의 물 섭취량으로 초기 상태 설정
+    }
+  }, [data]);
 
   const onDateChange = (newDate) => {
     const formattedDate = newDate.toLocaleDateString("en-CA");

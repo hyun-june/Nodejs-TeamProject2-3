@@ -64,16 +64,20 @@ export const UserPage = () => {
         >
           <div className="profile-container">
             <Avatar
-              src={userdata.detailInfo.profileImg}
+              src={userdata.detailInfo?.profileImg}
               isOnline={true}
               size="100"
             />
-            <div className="logout" onClick={handleLogoutClick}>
+            <div
+              className="logout"
+              onClick={handleLogoutClick}
+              style={{ top: isMyPage ? "15px" : "50px" }}
+            >
               <FiLogOut size="22" color="var(--light-gray-color)" />
               <p>logout</p>
             </div>
 
-            <p className="info-content">{userdata.detailInfo.nickname}</p>
+            <p className="info-content">{userdata.detailInfo?.nickname}</p>
             <p className="useremail">{userdata.email}</p>
           </div>
           <div className="info-container">
@@ -84,7 +88,7 @@ export const UserPage = () => {
             <div className="seperator"></div>
             <div className="detail-info-container">
               <p className="info-content">
-                {userdata.detailInfo.weight - userdata.detailInfo.purpose}KG
+                {userdata.detailInfo?.weight - userdata.detailInfo?.purpose}KG
               </p>
               <p className="detail-info-text">목표까지</p>
             </div>

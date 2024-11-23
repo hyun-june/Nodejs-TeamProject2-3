@@ -2,10 +2,6 @@
   display: flex;
   align-items: center;
   gap: 1em;
-
-  & span {
-    font-size: 0.9em;
-  }
 }
 
 .like-icon {

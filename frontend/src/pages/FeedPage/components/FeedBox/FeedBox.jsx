@@ -43,6 +43,7 @@ export const FeedBox = ({ feed }) => {
 
       <div className="feed-inner">
         <LikeButton />
+
         <div
           onClick={() => handleMoveFeed(feedId)}
           className={

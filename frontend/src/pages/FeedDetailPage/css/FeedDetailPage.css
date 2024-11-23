@@ -89,3 +89,13 @@
   border: 1px solid var(--warn-color);
   background-color: white;
 }
+
+.feed-inner-text {
+  display: flex;
+  align-items: center;
+}
+
+.feed-view-icon {
+  width: 1.5em;
+  color: var(--sub-color);
+}

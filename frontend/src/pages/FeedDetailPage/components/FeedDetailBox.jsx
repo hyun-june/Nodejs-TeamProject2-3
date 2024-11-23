@@ -4,11 +4,12 @@ import { LikeButton } from "../../../components/Feed/LikeButton/LikeButton";
 import { TagButton } from "../../FeedPage/components/TagButton/TagButton";
 import { Avatar } from "../../../components/shared/Avatar/Avatar";
 import { timeText } from "../../../core/constants/DateTimeFormat";
+import { IoEyeSharp } from "react-icons/io5";
 
 export const FeedDetailBox = ({ feed }) => {
   const navigate = useNavigate();
   const feedDate = new Date(feed.createdAt);
-
+  console.log("1111", feed);
   const feedId = feed._id;
   const handleMoveFeed = (feedId) => {
     navigate(`/feed/${feedId}`);
@@ -33,7 +34,13 @@ export const FeedDetailBox = ({ feed }) => {
       </picture>
 
       <div className="feed-inner">
-        <LikeButton />
+        <div className="feed-inner-text">
+          <LikeButton />
+          <span>
+            <IoEyeSharp className="feed-view-icon" /> {feed.views}
+          </span>
+        </div>
+
         <div
           onClick={() => handleMoveFeed(feedId)}
           className={

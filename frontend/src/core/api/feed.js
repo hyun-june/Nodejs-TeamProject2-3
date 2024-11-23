@@ -19,10 +19,9 @@ export const createFeed = async ({ fileUrl, description, hashtags, user }) => {
   return data;
 };
 
-export const getFeed = async (page = 1) => {
+export const getFeed = async (page = 1, limit) => {
   try {
-    const { data } = await api.get(`/feed?page=${page}`);
-
+    const { data } = await api.get(`/feed?page=${page}&limit=${limit}`);
     return {
       data: data.data,
       page: data.page,
@@ -30,6 +29,15 @@ export const getFeed = async (page = 1) => {
     };
   } catch (error) {
     console.log("getFeed Error", error);
+  }
+};
+
+export const getAllFeedApi = async (query) => {
+  try {
+    const { data } = await api.get(`/feed/all`, { params : { ...query }});
+    return data;
+  } catch (error) {
+    console.error("Error fetching food data:", error);
   }
 };
 
@@ -42,9 +50,18 @@ export const getDetailFeed = async (id) => {
   }
 };
 
+export const deleteFeedApi = async (id) => {
+  try {
+      const { data } = await api.delete(`/feed/${id}`)
+      return data
+  } catch (error) {
+      console.error("Error delete food data:", error);
+  }
+};
+
+// export const getFeedSearchResult = async(query);
+
 export const updateComments = async ({ id, newCommentText }) => {
-  console.log("댓글 추가 요청 - ID:", id);
-  console.log("댓글 내용:", newCommentText);
   try {
     const { data } = await api.post(`/feed/${id}`, {
       content: newCommentText,

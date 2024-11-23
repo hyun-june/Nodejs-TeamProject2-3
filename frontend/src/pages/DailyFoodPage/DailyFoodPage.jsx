@@ -9,7 +9,6 @@ import { DailyFoodChart } from "./components/DailyFoodChart/DailyFoodChart";
 import { BottomSheet } from "../../components/shared/BottomSheet/BottomSheet";
 import { useBottomSheet } from "../../components/shared/BottomSheet/components/useBottomSheet";
 import { useFoodPage } from "../../core/query/food";
-
 import "./DailyFoodPage.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -96,7 +95,7 @@ export const DailyFoodPage = () => {
   return (
     <>
       <header>
-        <Header backTo={-1} title={"식단"} />
+        <Header backTo={'/'} title={"식단"} />
       </header>
       <main className="DailyFood">
         <DailyFoodCalender onDateChange={onDateChange} value={selectedDate} />

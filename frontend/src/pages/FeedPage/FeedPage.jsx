@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AddButton } from "../../components/shared/AddButton/AddButton";
 import { SearchBar } from "../../components/shared/SearchBar/SearchBar";
 import { FeedBox } from "./components/FeedBox/FeedBox";
-import { useGetAllFeed } from "../../core/query/feed";
+import { useGetAllFeedInfinite } from "../../core/query/feed";
 import { useInView } from "react-intersection-observer";
 import "./css/FeedPage.css";
 
@@ -16,7 +16,7 @@ export const FeedPage = () => {
     fetchNextPage,
     hasNextPage,
     isFetchNextPage,
-  } = useGetAllFeed();
+  } = useGetAllFeedInfinite({ limit: 3 });
 
   const { ref, inView } = useInView();
 
@@ -24,7 +24,7 @@ export const FeedPage = () => {
     if (inView && hasNextPage && !isFetchNextPage) {
       fetchNextPage();
     }
-  }, [inView]);
+  }, [inView, hasNextPage, isFetchNextPage]);
 
   return (
     <div className="feed-inner-body">

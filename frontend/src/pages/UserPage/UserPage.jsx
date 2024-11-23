@@ -47,7 +47,7 @@ export const UserPage = () => {
         >
           <div className="profile-container">
             <Avatar isOnline={true} size="100" />
-            <p className="info-content">{userdata.name}</p>
+            <p className="info-content">{userdata.detailInfo.nickname}</p>
             <p className="useremail">{userdata.email}</p>
           </div>
           <div className="info-container">
@@ -57,7 +57,9 @@ export const UserPage = () => {
             </div>
             <div className="seperator"></div>
             <div className="detail-info-container">
-              <p className="info-content">3KG</p>
+              <p className="info-content">
+                {userdata.detailInfo.weight - userdata.detailInfo.purpose}KG
+              </p>
               <p className="detail-info-text">목표까지</p>
             </div>
           </div>

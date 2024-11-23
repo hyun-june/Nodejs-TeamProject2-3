@@ -44,16 +44,7 @@ export const useInputDetail = () => {
   const navigate = useNavigate();
 
   return useMutation({
-    mutationFn: ({ nickname, age, height, weight, purpose, profileUrl }) => {
-      return inputUserDetail({
-        nickname,
-        age,
-        height,
-        weight,
-        purpose,
-        profileUrl,
-      });
-    },
+    mutationFn: inputUserDetail,
     onSuccess: (data) => {
       navigate("/");
       console.log("개인정보 입력 성공:", data);

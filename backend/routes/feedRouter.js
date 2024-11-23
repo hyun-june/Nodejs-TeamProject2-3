@@ -6,11 +6,16 @@ import {
   postFeed,
   updateComments,
   updateFeed,
+  getAllFeed2
 } from "../controllers/feedController.js";
 import { authenticate } from "../controllers/authController.js";
 import { uploadFeedFile } from "../utils/uploadFile.js";
 
 export const feedRouter = express.Router();
+
+feedRouter
+  .route("/all")
+  .get(authenticate, getAllFeed2)
 
 feedRouter
   .route("/")

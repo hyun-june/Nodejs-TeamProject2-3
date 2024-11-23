@@ -4,6 +4,7 @@ import { Avatar } from "../../components/shared/Avatar/Avatar.jsx";
 import { Tabs } from "../../components/shared/Tabs/Tabs.jsx";
 import { FeedContainer } from "./components/FeedContainer/FeedContainer.jsx";
 import { useGetMyInfo, useGetOtherInfo } from "../../core/query/user.js";
+import { useGetAllFeed } from "../../core/query/feed.js";
 import { BiSolidPencil } from "react-icons/bi";
 import "./UserPage.css";
 
@@ -12,20 +13,34 @@ const TabContent2 = () => <div>탭 2의 내용입니다.</div>;
 
 export const UserPage = () => {
   const { pathname } = useLocation();
-  const { userId } = useParams();
+  let { userId } = useParams();
   const isMyPage = pathname === "/user/me";
 
   const useGetInfo = (isMyPage) => {
     return isMyPage ? useGetMyInfo() : useGetOtherInfo(userId);
   };
-  const { data, error, isPending } = useGetInfo(isMyPage);
+  const {
+    data: userData,
+    error: userError,
+    isPending: userIsPending,
+  } = useGetInfo(isMyPage);
+  const userdata = userData?.user;
 
-  const userdata = data?.user;
+  if (isMyPage) {
+    userId = userdata._id;
+  }
+
+  const {
+    data: feedData,
+    error: feedError,
+    isPending: feedIsPending,
+  } = useGetAllFeed({ userId });
+  const feeddata = feedData?.data;
 
   const items = [
     {
       title: "FEED",
-      comp: <TabContent1 feeds={userdata?.feed} />,
+      comp: <TabContent1 feeds={feeddata} />,
     },
     {
       title: "DASH BOARD",
@@ -33,8 +48,8 @@ export const UserPage = () => {
     },
   ];
 
-  if (isPending) return <>로딩중</>;
-  if (error) return <>에러 발생: {error.message}</>;
+  if (userIsPending || feedIsPending) return <>로딩중</>;
+  // if (userError||feedError) return <>에러 발생: {userError.message}</>;
 
   return (
     <>
@@ -52,7 +67,7 @@ export const UserPage = () => {
           </div>
           <div className="info-container">
             <div className="detail-info-container">
-              <p className="info-content">{userdata.feed.length}</p>
+              <p className="info-content">{feeddata.length}</p>
               <p className="detail-info-text">FEED</p>
             </div>
             <div className="seperator"></div>

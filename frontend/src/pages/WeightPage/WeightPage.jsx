@@ -12,7 +12,7 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import { MdMonitorWeight } from "react-icons/md";
 import "./WeightPage.css";
-import { useGetMyInfo } from '../../core/query/user';
+
 const customStyles = {
     content: {
         position : 'absolute',

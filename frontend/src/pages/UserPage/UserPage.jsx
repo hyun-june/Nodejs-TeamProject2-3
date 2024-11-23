@@ -1,4 +1,4 @@
-import { useLocation, useParams, useNavigate } from "react-router-dom";
+import { useLocation, useParams, useNavigate, Link } from "react-router-dom";
 import { Header } from "../../components/shared/Header/Header.jsx";
 import { Avatar } from "../../components/shared/Avatar/Avatar.jsx";
 import { Tabs } from "../../components/shared/Tabs/Tabs.jsx";
@@ -95,9 +95,11 @@ export const UserPage = () => {
           </div>
           {isMyPage && (
             <div className="button-container">
-              <button className="edit-userinfo-button">
-                <p>내 정보 수정하기</p> <BiSolidPencil size="20" />
-              </button>
+              <Link to="/user/detail">
+                <button className="edit-userinfo-button">
+                  <p>내 정보 수정하기</p> <BiSolidPencil size="20" />
+                </button>
+              </Link>
             </div>
           )}
         </div>

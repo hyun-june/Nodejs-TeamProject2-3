@@ -8,7 +8,7 @@ export const getAllFeed = async (req, res) => {
     const limit = parseInt(req.query.limit) || 3;
     const skip = (page - 1) * limit;
 
-    const feed = await Feed.find().populate("userInfo").skip(skip).limit(limit);
+    const feed = await Feed.find().populate("userInfo").skip(skip).limit(limit)
 
     const totalFeeds = await Feed.countDocuments();
     const totalPages = Math.ceil(totalFeeds / limit);
@@ -31,27 +31,27 @@ export const getAllFeed = async (req, res) => {
 
 export const getAllFeed2 = async (req, res) => {
   try {
-    const { page, q, size, userId } = req.query
+    const { page, q, size, userId } = req.query;
 
     const cond = {};
 
-    if (q) cond.description = { $regex: q, $options: 'i' }
-    
-    if (userId) cond.user = userId; 
-            
-    let query = Feed.find(cond).sort({ createdAt: -1 })
-    let response = { status : 'success' }
-            
-    if(page && size){
-          query.skip((page-1)*size).limit(size)
-          const totalItemNum = await Feed.countDocuments(cond);
-          response.totalPageNum = Math.ceil(totalItemNum / size)
+    if (q) cond.description = { $regex: q, $options: "i" };
+
+    if (userId) cond.user = userId;
+
+    let query = Feed.find(cond).sort({ createdAt: -1 });
+    let response = { status: "success" };
+
+    if (page && size) {
+      query.skip((page - 1) * size).limit(size);
+      const totalItemNum = await Feed.countDocuments(cond);
+      response.totalPageNum = Math.ceil(totalItemNum / size);
     }
 
-    const feed = await query.exec()
-    response.data = feed
-          
-    res.status(200).json(response)
+    const feed = await query.exec();
+    response.data = feed;
+
+    res.status(200).json(response);
   } catch (error) {
     res.status(500).json({
       status: "fail",
@@ -65,7 +65,6 @@ export const getAllFeed2 = async (req, res) => {
 export const getFeed = async (req, res) => {
   try {
     const { feedId } = req.params;
-
     const { userId } = req;
     const feed = await Feed.findById(feedId);
     const userInfo = await UserDetail.findOne({ user: userId });
@@ -274,4 +273,3 @@ export const registerUnlike = async (req, res) => {
     return res.status(500).json({ status: "fail", message: error.message });
   }
 };
-

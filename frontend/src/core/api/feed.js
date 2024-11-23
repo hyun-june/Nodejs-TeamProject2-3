@@ -50,6 +50,15 @@ export const getDetailFeed = async (id) => {
   }
 };
 
+export const deleteFeedApi = async (id) => {
+  try {
+      const { data } = await api.delete(`/feed/${id}`)
+      return data
+  } catch (error) {
+      console.error("Error delete food data:", error);
+  }
+};
+
 // export const getFeedSearchResult = async(query);
 
 export const updateComments = async ({ id, newCommentText }) => {

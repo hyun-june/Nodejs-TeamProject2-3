@@ -11,6 +11,7 @@ import {
   getFeed,
   updateComments,
   getAllFeedApi,
+  deleteFeedApi
 } from "../api/feed";
 import { useNavigate } from "react-router-dom";
 
@@ -54,7 +55,7 @@ export const useGetAllFeedInfinite = ({ limit }) => {
 
 export const useGetAllFeed = (query) => {
   return useQuery({
-      queryKey : [ 'food', query ],
+      queryKey : [ 'feed', query ],
       queryFn : () => getAllFeedApi(query)
   });
 };
@@ -78,5 +79,15 @@ export const useUpdateComment = ({ id }) => {
     onError: (error) => {
       console.log("댓글 생성 실패", error);
     },
+  });
+};
+
+export const useDeleteFeed = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+      mutationFn: deleteFeedApi,
+      onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['feed'] });
+      },
   });
 };

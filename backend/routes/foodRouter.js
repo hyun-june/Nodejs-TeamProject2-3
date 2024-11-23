@@ -17,11 +17,16 @@ import { authenticate } from "../controllers/authController.js";
 
 export const foodRouter = express.Router();
 
-// foodRouter.route("/").get(getAllFood).post(postFood);
+foodRouter
+  .route("/daily")
+  .all(authenticate)
+  .get(getDailyFood)
+  .put(updateDailyFood)
+  .delete(deleteDailyFood);
 
 foodRouter
   .route("/")
-  .get( getAllFood)
+  .get(getAllFood)
   .post(postFood);
 
 foodRouter
@@ -30,12 +35,5 @@ foodRouter
   .put(updateFood)
   .delete(deleteFood);
 
-foodRouter
-  .route("/")
-  .all(authenticate)
-  .get(getDailyFood)
-  .put(updateDailyFood)
-  .delete(deleteDailyFood);
 foodRouter.get("/search/:mealtype", getSearchFood);
 foodRouter.route("/add/:mealtype").post(authenticate, postDailyFood);
-// foodRouter.route("/:foodId").get(getFood).put(updateFood).delete(deleteFood);

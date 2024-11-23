@@ -61,7 +61,7 @@ export const getFoodSearchResult = async (query, mealtype) => {
 
 export const getDailyFood = async (query) => {
   try {
-    const { data } = await api.get(`/food?date=${query}`);
+    const { data } = await api.get(`/food/daily?date=${query}`);
     console.log("데이터", data);
     return data;
   } catch (error) {
@@ -69,6 +69,7 @@ export const getDailyFood = async (query) => {
     throw error; // 필요한 경우 상위로 에러 전달
   }
 };
+
 export const addDailyFood = async (food, mealtype, quantity, date) => {
   try {
     const { data } = await api.post(`/food/add/${mealtype}?date=${date}`, {
@@ -87,7 +88,7 @@ export const addDailyFood = async (food, mealtype, quantity, date) => {
 
 export const updateDailyFood = async (quantity, foodId) => {
   try {
-    const { data } = await api.put("/food", { quantity, foodId });
+    const { data } = await api.put("/food/daily", { quantity, foodId });
     return data;
   } catch (error) {
     console.error("음식 수정 중 에러", error);
@@ -96,7 +97,7 @@ export const updateDailyFood = async (quantity, foodId) => {
 
 export const deleteDailyFood = async (foodId) => {
   try {
-    const { data } = await api.delete("/food", { data: { foodId } });
+    const { data } = await api.delete("/food/daily", { data: { foodId }});
     return data;
   } catch (error) {
     console.error("음식 삭제 중 에러", error);

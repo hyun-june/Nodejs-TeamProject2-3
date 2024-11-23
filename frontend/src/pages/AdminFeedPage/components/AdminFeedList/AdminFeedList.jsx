@@ -18,9 +18,8 @@ export const AdminFeedList = () => {
     const { bottomSheetProps , open, close } = useBottomSheet()
     const [ manageMode, setManagerMode ] = useState(null)
     const [selectedId, setSelectedId] = useState(null)
-    const { data } = useGetAllFeed({ page , q, size : 10 })
+    const { data } = useGetAllFeed({ page , q, size : 10  })
 
-    console.log(data)
 
     const handleOpenManager = (mode, id = null) => {
         setManagerMode(mode)

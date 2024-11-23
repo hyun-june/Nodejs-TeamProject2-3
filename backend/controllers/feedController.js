@@ -167,8 +167,9 @@ export const updateFeed = async (req, res) => {
 //피드를 삭제함
 export const deleteFeed = async (req, res) => {
   try {
-    const { id } = req.params;
-    const feed = await Feed.findByIdAndDelete(id);
+    const { feedId } = req.params;
+
+    const feed = await Feed.findByIdAndDelete(feedId);
     if (!feed) throw new Error("삭제할 피드가 없습니다");
     res.status(200).json({ status: "success", data: feed });
   } catch (error) {
@@ -273,3 +274,4 @@ export const registerUnlike = async (req, res) => {
     return res.status(500).json({ status: "fail", message: error.message });
   }
 };
+

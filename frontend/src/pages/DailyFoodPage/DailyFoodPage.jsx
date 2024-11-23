@@ -21,8 +21,6 @@ export const DailyFoodPage = () => {
   const { bottomSheetProps, open } = useBottomSheet();
   const navigate = useNavigate(); // URL을 변경하기 위한 navigate 훅 사용
 
-  console.log("데이타!!!", data);
-
   const onDateChange = (newDate) => {
     const formattedDate = newDate.toLocaleDateString("en-CA"); // "YYYY-MM-DD" 형식
     setSelectedDate(formattedDate); // 날짜를 형식에 맞게 업데이트    setSelectedDate(formattedDate); // 날짜를 형식에 맞게 업데이트

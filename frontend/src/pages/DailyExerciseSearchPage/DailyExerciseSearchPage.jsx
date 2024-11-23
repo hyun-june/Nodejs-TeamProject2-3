@@ -9,7 +9,7 @@ import { useFoodSearch } from "../../core/query/food";
 import "../FoodSearchPage/FoodSearchPage.css";
 import "./DailyExerciseSearchPage.css";
 import { ExerciseSearchResult } from "./components/ExerciseSearchResult/ExerciseSearchResult";
-import { useGetAllExercise } from "../../core/query/exercise";
+import { useGetSearchedExercise } from "../../core/query/exercise";
 
 export const DailyExerciseSearchPage = () => {
   const { search } = useLocation(); //쿼리 파라미터 가져오기
@@ -18,10 +18,10 @@ export const DailyExerciseSearchPage = () => {
 
   const query = new URLSearchParams(search).get("q"); // q에 해당하는 검색어 값을 추출하는 코드
   const date = new URLSearchParams(search).get("date");
-  const { data, isPending, error } = useGetAllExercise(query, date);
+  const { data, isPending, error } = useGetSearchedExercise(query, date);
 
-  const handleExerciseClick = () => {
-    setSelectedExercise();
+  const handleExerciseClick = (exercise) => {
+    setSelectedExercise(exercise);
     open();
   };
   return (
@@ -41,7 +41,7 @@ export const DailyExerciseSearchPage = () => {
             <div
               className="DailyExercise__content-box"
               key={exercise._id}
-              onClick={() => handleExerciseClick()}
+              onClick={() => handleExerciseClick(exercise)}
             >
               <h1>{exercise.name}</h1>
               <div className="DailyExercise__content-box__Num">
@@ -55,7 +55,10 @@ export const DailyExerciseSearchPage = () => {
         )}
         <section>
           <BottomSheet {...bottomSheetProps} className="Food-bottomSheet">
-            <ExerciseSearchResult />
+            <ExerciseSearchResult
+              selectedExercise={selectedExercise}
+              date={date}
+            />
           </BottomSheet>
         </section>
       </main>

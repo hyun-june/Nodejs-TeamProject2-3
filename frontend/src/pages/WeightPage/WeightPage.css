@@ -3,10 +3,23 @@
     min-height: 100%;
     main{
         padding: 1em;
+        .date-section{
+            font-size: 1em;
+            display: flex;
+            gap: 1em;
+            font-size: .8em;
+        }
+        .weight-page-weight-section{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                text-align: center;
+                margin: 1em 0;
+                font-size: 1.2em;
+        }
         section {
             background-color: var(--main-color);
-            text-align: center;
-            padding: 1em;
+            padding: 1.4em;
             border-radius: 8px;
             margin-bottom: 1em;
         }

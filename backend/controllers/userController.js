@@ -31,8 +31,9 @@ export const createUser = async (req, res) => {
 export const getUser = async (req, res) => {
   try {
     const { userId } = req;
+
     const user = await User.findById(userId).populate("detailInfo");
-    // console.log("내정보", user);
+
     if (user) {
       return res.status(200).json({ status: "success", user });
     }

@@ -39,7 +39,6 @@ export const UserDetailPage = () => {
       ...formData,
     };
 
-    console.log("유우우우저", userData);
 
     if (userDetails?.data) {
       return updateUserDetail(userData);

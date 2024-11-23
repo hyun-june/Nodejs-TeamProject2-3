@@ -1,4 +1,5 @@
 import { Feed } from "../Model/Feed.js";
+import { User } from "../Model/User.js";
 import { UserDetail } from "../Model/UserDetail.js";
 
 // 무한 스크롤 피드 데이터
@@ -7,13 +8,15 @@ export const getAllFeed = async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 3;
     const skip = (page - 1) * limit;
-
-    const feed = await Feed.find().populate("userInfo").skip(skip).limit(limit)
-
+    const feed = await Feed.find()
+      .populate("userInfo")
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
     const totalFeeds = await Feed.countDocuments();
     const totalPages = Math.ceil(totalFeeds / limit);
 
-    res.status(200).json({
+    return res.status(200).json({
       status: "success",
       data: feed,
       page: page,
@@ -21,7 +24,7 @@ export const getAllFeed = async (req, res) => {
       total_pages: totalPages,
     });
   } catch (error) {
-    res.status(400).json({
+    return res.status(400).json({
       status: "fail",
       message: "피드를 가져오는 데 오류가 발생했습니다.",
       error,
@@ -66,7 +69,15 @@ export const getFeed = async (req, res) => {
   try {
     const { feedId } = req.params;
     const { userId } = req;
-    const feed = await Feed.findById(feedId);
+
+    const feed = await Feed.findById(feedId).populate({
+      path: "user",
+      populate: {
+        path: "detailInfo",
+        model: "UserDetail",
+      },
+    });
+
     const userInfo = await UserDetail.findOne({ user: userId });
 
     if (!feed) {
@@ -75,12 +86,12 @@ export const getFeed = async (req, res) => {
 
     const isLiked = feed.likedBy.includes(userId);
 
-    res.status(200).json({
+    return res.status(200).json({
       status: "success",
       data: { ...feed.toObject(), isLiked, userInfo },
     });
   } catch (error) {
-    res.status(404).json({ status: "fail", message: error.message });
+    return res.status(404).json({ status: "fail", message: error.message });
   }
 };
 
@@ -90,7 +101,6 @@ export const postFeed = async (req, res) => {
     const { description, hashtags, views, likes } = req.body;
     const { userId } = req;
     const fileUrl = req.file.path;
-
     const userDetail = await UserDetail.findOne({ user: userId });
 
     const newFeed = await Feed.create({
@@ -102,7 +112,8 @@ export const postFeed = async (req, res) => {
       user: userId,
       userInfo: userDetail._id,
     });
-    res.status(200).json({ status: "success", data: newFeed });
+
+    return res.status(200).json({ status: "success", data: newFeed });
   } catch (error) {
     return res.status(500).json({
       status: "fail",
@@ -115,26 +126,38 @@ export const postFeed = async (req, res) => {
 // 피드 검색
 export const getSearchFeed = async (req, res) => {
   try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 3;
+    const skip = (page - 1) * limit;
     const { q } = req.query;
-    const search = {};
+    let search = {};
 
     if (q) {
-      search = { description: { $regex: q, $options: "i" } };
+      search = {
+        $or: [
+          { description: { $regex: q, $options: "i" } },
+          { hashtags: { $elemMatch: { $regex: q, $options: "i" } } },
+        ],
+      };
     }
+    const feedSearch = await Feed.find(search)
+      .skip(skip)
+      .limit(limit)
+      .populate("userInfo");
+    const totalFeedSearch = await Feed.countDocuments(search);
 
-    const feed = await Feed.find(search);
+    const totalSearchPages = Math.ceil(totalFeedSearch / limit);
 
-    if (feed.length === 0) {
-      return res.status(200).json({
-        status: "success",
-        message: "피드 검색 결과가 없습니다.",
-      });
-    }
-
-    res.status(200).json({ status: "success", data: feed });
+    return res.status(200).json({
+      status: "success",
+      data: feedSearch,
+      page,
+      limit,
+      total_pages: totalSearchPages,
+    });
   } catch (error) {
     console.error("Error fetching feed:", error);
-    res.status(400).json({
+    return res.status(400).json({
       status: "fail",
       message: "피드 검색 실패",
     });
@@ -157,9 +180,9 @@ export const updateFeed = async (req, res) => {
       { new: true }
     );
     if (!feed) throw new Error("수정하려는 피드가 존재하지 않습니다.");
-    res.status(200).json({ status: "success", data: feed });
+    return res.status(200).json({ status: "success", data: feed });
   } catch (error) {
-    res.status(404).json({ status: "fail", message: error.message });
+    return res.status(404).json({ status: "fail", message: error.message });
   }
 };
 
@@ -201,6 +224,33 @@ export const updateComments = async (req, res) => {
     return res.status(200).json({ status: "success", data: updatedFeed });
   } catch (error) {
     return res.status(400).json({ status: "fail", message: error.message });
+  }
+};
+
+export const deleteComments = async (req, res) => {
+  try {
+    const { feedId, commentId } = req.params;
+
+    const feed = await Feed.findByIdAndUpdate(
+      feedId,
+      { $pull: { comments: { _id: commentId } } },
+      { new: true }
+    );
+    if (!feed) {
+      return res
+        .status(400)
+        .json({ status: "fail", message: "피드를 찾을 수 없습니다." });
+    }
+    return res.status(200).json({
+      status: "success",
+      message: "댓글이 삭제되었습니다.",
+      data: feed,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      status: "fail",
+      message: error.message,
+    });
   }
 };
 

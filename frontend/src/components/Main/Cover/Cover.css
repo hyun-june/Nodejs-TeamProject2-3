@@ -1,0 +1,15 @@
+.cover-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  width: 100%;
+  height: 100%;
+  margin-left: 4%;
+  p {
+    color: var(--text-color);
+    margin-top: 6%;
+    font-size: 16px;
+    font-weight: bold;
+  }
+}

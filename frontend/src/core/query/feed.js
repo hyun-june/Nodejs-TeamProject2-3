@@ -12,7 +12,8 @@ import {
   updateComments,
   getFeedSearchResult,
   getAllFeedApi,
-  deleteFeedApi,
+  deleteFeed,
+  deleteComments,
 } from "../api/feed";
 import { useNavigate } from "react-router-dom";
 
@@ -106,12 +107,30 @@ export const useUpdateComment = ({ id }) => {
   });
 };
 
+export const useDeleteComment = ({ id }) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id, commentId }) => deleteComments({ id, commentId }),
+    onSuccess: (data, variables) => {
+      queryClient.invalidateQueries(["feed", variables.feedId]);
+    },
+    onError: (error) => {
+      console.log("댓글 삭제 실패", error);
+    },
+  });
+};
+
 export const useDeleteFeed = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: deleteFeedApi,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["feed"] });
+    mutationFn: ({ feedId }) => deleteFeed({ feedId }),
+    onSuccess: (data, variables) => {
+      queryClient.invalidateQueries(["feed", variables.feedId]);
+      console.log("피드 삭제 성공");
+    },
+    onError: (error) => {
+      console.log("피드 삭제 실패", error);
     },
   });
 };

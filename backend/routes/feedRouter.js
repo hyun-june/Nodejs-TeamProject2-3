@@ -7,16 +7,15 @@ import {
   postFeed,
   updateComments,
   updateFeed,
-  getAllFeed2
+  getAllFeed2,
+  deleteComments,
 } from "../controllers/feedController.js";
 import { authenticate } from "../controllers/authController.js";
 import { uploadFeedFile } from "../utils/uploadFile.js";
 
 export const feedRouter = express.Router();
 
-feedRouter
-  .route("/all")
-  .get(authenticate, getAllFeed2)
+feedRouter.route("/all").get(authenticate, getAllFeed2);
 
 feedRouter
   .route("/")
@@ -30,6 +29,7 @@ feedRouter
 
 // feedRouter.put("/:feedId", updateComments);
 feedRouter.post("/:feedId", authenticate, updateComments);
+feedRouter.delete("/:feedId/comments/:commentId", authenticate, deleteComments);
 feedRouter.route("/").get((req, res) => {
   const query = req.query.q;
 

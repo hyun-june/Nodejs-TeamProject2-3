@@ -4,7 +4,12 @@ import { Header } from "../../components/shared/Header/Header";
 import { FeedDetailBox } from "./components/FeedDetailBox";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { FaArrowAltCircleUp } from "react-icons/fa";
-import { useGetDetailFeed, useUpdateComment } from "../../core/query/feed";
+import {
+  useDeleteComment,
+  useGetDetailFeed,
+  useUpdateComment,
+} from "../../core/query/feed";
+
 import { useParams } from "react-router-dom";
 import { timeText } from "../../core/constants/DateTimeFormat";
 import "./css/FeedDetailPage.css";
@@ -14,9 +19,11 @@ const maxLength = 30;
 export const FeedDetailPage = () => {
   const [newComment, setNewComment] = useState("");
   const [showComment, setShowComment] = useState({});
+  const [visible, setVisible] = useState({});
   const { id } = useParams();
 
   const { data, isLoading, isError, error } = useGetDetailFeed(id);
+  const { mutate: deleteComments } = useDeleteComment({ id });
 
   const recentComments = data?.comments
     ? [...data.comments].sort(
@@ -66,8 +73,19 @@ export const FeedDetailPage = () => {
     }
   };
 
-  const handleCommentchange = (e) => {
+  const handleCommentInput = (e) => {
     setNewComment(e.target.value);
+  };
+
+  const handleCommentDelete = (id, commentId) => {
+    deleteComments({ id, commentId });
+  };
+
+  const toggleVisible = (index) => {
+    setVisible((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
   };
 
   return (
@@ -79,7 +97,7 @@ export const FeedDetailPage = () => {
         <input
           type="text"
           placeholder="댓글쓰기"
-          onChange={handleCommentchange}
+          onChange={handleCommentInput}
           onKeyPress={handleKeyPress}
           value={newComment}
         />
@@ -100,7 +118,7 @@ export const FeedDetailPage = () => {
           const timeAgoText = timeText(commentDate);
 
           return (
-            <li key={index}>
+            <li key={item._id}>
               <div className="feed-comment">
                 <div>
                   <Avatar src={item.userInfo.profileImg} isOnline={true} />
@@ -112,8 +130,21 @@ export const FeedDetailPage = () => {
                       <span> {item.userInfo.nickname}</span>
                       <span> {timeAgoText}</span>{" "}
                     </p>
-
-                    <FaEllipsisVertical />
+                    <div className="comment-button">
+                      <FaEllipsisVertical
+                        onClick={() => toggleVisible(index)}
+                      />
+                      <span>
+                        {visible[index] && (
+                          <span
+                            className="comment-delete"
+                            onClick={() => handleCommentDelete(id, item._id)}
+                          >
+                            삭제
+                          </span>
+                        )}
+                      </span>
+                    </div>
                   </div>
 
                   <div className="feed-content-inner">

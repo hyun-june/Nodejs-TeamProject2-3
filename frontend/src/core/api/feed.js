@@ -51,7 +51,6 @@ export const getDetailFeed = async (id) => {
 };
 
 export const getFeedSearchResult = async ({ query, limit, page }) => {
-  console.log("page", page);
   if (!query) return [];
   try {
     const { data } = await api.get(
@@ -68,6 +67,7 @@ export const getFeedSearchResult = async ({ query, limit, page }) => {
     return [];
   }
 };
+
 export const deleteFeedApi = async (id) => {
   try {
     const { data } = await api.delete(`/feed/${id}`);
@@ -76,8 +76,6 @@ export const deleteFeedApi = async (id) => {
     console.error("Error delete food data:", error);
   }
 };
-
-// export const getFeedSearchResult = async(query);
 
 export const updateComments = async ({ id, newCommentText }) => {
   try {
@@ -88,5 +86,15 @@ export const updateComments = async ({ id, newCommentText }) => {
     return data;
   } catch (error) {
     console.error("댓글 추가 실패:", error);
+  }
+};
+
+export const deleteComments = async ({ id, commentId }) => {
+  try {
+    const { data } = await api.delete(`/feed/${id}/comments/${commentId}`);
+    console.log("댓글 삭제 성공", data);
+    return data;
+  } catch (error) {
+    console.log("댓글 삭제 실패", error);
   }
 };

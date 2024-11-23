@@ -13,13 +13,12 @@ export const UserDetailPage = () => {
   const { register, handleSubmit } = useForm();
   const [profileImgUrl, setProfileImgUrl] = useState("");
   const [profileImgfile, setProfileImgfile] = useState(null);
-
-  const { mutate: inputUserDetail} = useInputDetail();
+  const { mutate: inputUserDetail } = useInputDetail();
 
   const onUserSubmit = async (formData) => {
     inputUserDetail({
       profileUrl: profileImgfile,
-      ...formData
+      ...formData,
     });
   };
 

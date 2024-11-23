@@ -8,7 +8,11 @@ export const getAllFeed = async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 3;
     const skip = (page - 1) * limit;
-    const feed = await Feed.find().populate("userInfo").skip(skip).limit(limit);
+    const feed = await Feed.find()
+      .populate("userInfo")
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
 
     const totalFeeds = await Feed.countDocuments();
     const totalPages = Math.ceil(totalFeeds / limit);
@@ -74,7 +78,7 @@ export const getFeed = async (req, res) => {
         model: "UserDetail",
       },
     });
-    console.log("fff", feed);
+
     const userInfo = await UserDetail.findOne({ user: userId });
 
     if (!feed) {
@@ -142,7 +146,6 @@ export const getSearchFeed = async (req, res) => {
       .limit(limit)
       .populate("userInfo");
     const totalFeedSearch = await Feed.countDocuments(search);
-    // console.log("FFff", feedSearch);
 
     const totalSearchPages = Math.ceil(totalFeedSearch / limit);
 
@@ -191,9 +194,9 @@ export const deleteFeed = async (req, res) => {
 
     const feed = await Feed.findByIdAndDelete(feedId);
     if (!feed) throw new Error("삭제할 피드가 없습니다");
-    return res.status(200).json({ status: "success", data: feed });
+    res.status(200).json({ status: "success", data: feed });
   } catch (error) {
-    return res.status(400).json({ status: "fail", message: error.message });
+    res.status(400).json({ status: "fail", message: error.message });
   }
 };
 
@@ -222,6 +225,33 @@ export const updateComments = async (req, res) => {
     return res.status(200).json({ status: "success", data: updatedFeed });
   } catch (error) {
     return res.status(400).json({ status: "fail", message: error.message });
+  }
+};
+
+export const deleteComments = async (req, res) => {
+  try {
+    const { feedId, commentId } = req.params;
+
+    const feed = await Feed.findByIdAndUpdate(
+      feedId,
+      { $pull: { comments: { _id: commentId } } },
+      { new: true }
+    );
+    if (!feed) {
+      return res
+        .status(400)
+        .json({ status: "fail", message: "피드를 찾을 수 없습니다." });
+    }
+    return res.status(200).json({
+      status: "success",
+      message: "댓글이 삭제되었습니다.",
+      data: feed,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      status: "fail",
+      message: error.message,
+    });
   }
 };
 

@@ -71,3 +71,20 @@
   text-align: center;
   color: var(--light-gray-color);
 }
+
+.comment-button {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.comment-delete {
+  position: absolute;
+  width: 2.3em;
+  text-align: center;
+  top: 1em;
+  left: 0;
+  border: 1px solid var(--warn-color);
+}

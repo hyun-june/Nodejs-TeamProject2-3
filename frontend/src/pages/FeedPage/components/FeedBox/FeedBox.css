@@ -57,3 +57,19 @@
   padding: 0 1em;
   margin-bottom: 1em;
 }
+
+.feed-button {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.feed-delete-button {
+  position: absolute;
+  width: 2.3em;
+  text-align: center;
+  top: 1em;
+  border: 1px solid var(--warn-color);
+}

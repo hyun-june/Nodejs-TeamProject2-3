@@ -1,12 +1,15 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LikeButton } from "../../../../components/Feed/LikeButton/LikeButton";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { TagButton } from "../TagButton/TagButton";
 import { Avatar } from "../../../../components/shared/Avatar/Avatar";
 import { timeText } from "../../../../core/constants/DateTimeFormat";
+import { useDeleteFeed } from "../../../../core/query/feed.js";
 import "./FeedBox.css";
 
 export const FeedBox = ({ feed }) => {
+  const [visible, setVisible] = useState({});
   const navigate = useNavigate();
   const feedDate = new Date(feed.createdAt);
   const feedId = feed._id;
@@ -14,7 +17,11 @@ export const FeedBox = ({ feed }) => {
     navigate(`/feed/${feedId}`);
   };
 
-  console.log("ff", feed);
+  const { mutate: deleteFeed } = useDeleteFeed({ feedId });
+
+  const handleFeedDelete = () => {
+    console.log("삭제가능?");
+  };
 
   return (
     <article className={location.pathname === "/feed" ? "feed-container" : ""}>
@@ -26,7 +33,14 @@ export const FeedBox = ({ feed }) => {
             <span>Lv 0</span>
           </div>
         </div>
-        <FaEllipsisVertical />
+        <div className="feed-button">
+          <FaEllipsisVertical onClick={() => setVisible((prev) => !prev)} />
+          {visible && (
+            <span onClick={handleFeedDelete} className="feed-delete-button">
+              삭제
+            </span>
+          )}
+        </div>
       </div>
       <picture className="feed-imgbox" onClick={() => handleMoveFeed(feedId)}>
         <img src={feed?.fileUrl} alt="" />

@@ -48,7 +48,7 @@ export const getOtherUser = async (req, res) => {
   try {
     const userId = req.params.id;
     const user = await User.findById(userId).populate("detailInfo");
-    console.log("다른유저정보", user);
+
     if (!user) {
       throw new Error("해당 유저를 찾을 수 없습니다.");
     }

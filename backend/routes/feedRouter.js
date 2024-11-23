@@ -25,7 +25,7 @@ feedRouter
   .route("/:feedId")
   .get(authenticate, getFeed)
   .put(updateFeed)
-  .delete(deleteFeed);
+  .delete(authenticate, deleteFeed);
 
 // feedRouter.put("/:feedId", updateComments);
 feedRouter.post("/:feedId", authenticate, updateComments);

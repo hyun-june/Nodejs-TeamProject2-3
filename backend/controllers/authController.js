@@ -10,7 +10,7 @@ export const loginWithEmail = async (req, res) => {
   try {
     const { email, password } = req.body;
     let user = await User.findOne({ email });
-    console.log("user", user);
+
     if (user) {
       const isMatch = await bcrypt.compare(
         password.trim(),
@@ -21,7 +21,7 @@ export const loginWithEmail = async (req, res) => {
 
       if (isMatch) {
         const token = await user.generateToken();
-        console.log("token", token);
+
         return res
           .status(200)
           .json({ status: "success", user, token, userInfo: !!userDetail });

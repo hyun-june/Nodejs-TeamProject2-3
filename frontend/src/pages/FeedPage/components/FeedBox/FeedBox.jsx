@@ -9,7 +9,6 @@ import "./FeedBox.css";
 export const FeedBox = ({ feed }) => {
   const location = useLocation();
   const navigate = useNavigate();
-
   const feedDate = new Date(feed.createdAt);
   const feedId = feed._id;
 

@@ -83,6 +83,7 @@ export const getUserDetail = async (req, res) => {
   try {
     const { userId } = req;
     const userDetail = await UserDetail.findOne(userId);
+
     if (!userDetail) {
       throw new Error("해당 유저의 정보를 찾을 수 없습니다.");
     }

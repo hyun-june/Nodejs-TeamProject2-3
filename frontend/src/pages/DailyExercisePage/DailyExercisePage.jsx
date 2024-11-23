@@ -28,6 +28,12 @@ export const DailyExercisePage = () => {
   const { bottomSheetProps, open } = useBottomSheet();
   const navigate = useNavigate();
 
+  const onDateChange = (newDate) => {
+    const formattedDate = newDate.toLocaleDateString("en-CA"); // "YYYY-MM-DD" 형식
+    setSelectedDate(formattedDate); // 날짜를 형식에 맞게 업데이트
+    navigate(`/exercise?date=${formattedDate}`); // URL을 쿼리 파라미터와 함께 업데이트
+  };
+
   // 총 칼로리 계산
   const totalCalories = data?.dailyExercise?.reduce((acc, exercise) => {
     const mets = exercise.mets;
@@ -35,12 +41,6 @@ export const DailyExercisePage = () => {
     const calories = Math.floor(mets * weight * (duration / 60));
     return acc + calories;
   }, 0);
-
-  const onDateChange = (newDate) => {
-    const formattedDate = newDate.toLocaleDateString("en-CA"); // "YYYY-MM-DD" 형식
-    setSelectedDate(formattedDate); // 날짜를 형식에 맞게 업데이트
-    navigate(`/exercise?date=${formattedDate}`); // URL을 쿼리 파라미터와 함께 업데이트
-  };
 
   const handleExerciseClick = (exercise) => {
     setSelectedExercise(exercise);

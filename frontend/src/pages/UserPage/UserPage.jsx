@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 import { Header } from "../../components/shared/Header/Header.jsx";
 import { Avatar } from "../../components/shared/Avatar/Avatar.jsx";
 import { Tabs } from "../../components/shared/Tabs/Tabs.jsx";
@@ -6,6 +6,7 @@ import { FeedContainer } from "./components/FeedContainer/FeedContainer.jsx";
 import { useGetMyInfo, useGetOtherInfo } from "../../core/query/user.js";
 import { useGetAllFeed } from "../../core/query/feed.js";
 import { BiSolidPencil } from "react-icons/bi";
+import { FiLogOut } from "react-icons/fi";
 import "./UserPage.css";
 
 const TabContent1 = FeedContainer;
@@ -14,6 +15,7 @@ const TabContent2 = () => <div>탭 2의 내용입니다.</div>;
 export const UserPage = () => {
   const { pathname } = useLocation();
   let { userId } = useParams();
+  const navigate = useNavigate();
   const isMyPage = pathname === "/user/me";
 
   const useGetInfo = (isMyPage) => {
@@ -27,7 +29,7 @@ export const UserPage = () => {
   const userdata = userData?.user;
 
   if (isMyPage) {
-    userId = userdata._id;
+    userId = userdata?._id;
   }
 
   const {
@@ -51,6 +53,11 @@ export const UserPage = () => {
   if (userIsPending || feedIsPending) return <>로딩중</>;
   // if (userError||feedError) return <>에러 발생: {userError.message}</>;
 
+  const handleLogoutClick = () => {
+    sessionStorage.removeItem("token");
+    navigate("/login");
+  };
+
   return (
     <>
       {!isMyPage && <Header backTo={-1} />}
@@ -62,6 +69,11 @@ export const UserPage = () => {
         >
           <div className="profile-container">
             <Avatar isOnline={true} size="100" />
+            <div className="logout" onClick={handleLogoutClick}>
+              <FiLogOut size="22" color="var(--light-gray-color)" />
+              <p>logout</p>
+            </div>
+
             <p className="info-content">{userdata.detailInfo.nickname}</p>
             <p className="useremail">{userdata.email}</p>
           </div>

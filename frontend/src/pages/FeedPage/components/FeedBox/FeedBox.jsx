@@ -1,59 +1,57 @@
-import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { LikeButton } from "../../../../components/Feed/LikeButton/LikeButton";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { TagButton } from "../TagButton/TagButton";
 import { Avatar } from "../../../../components/shared/Avatar/Avatar";
+import { timeText } from "../../../../core/constants/DateTimeFormat";
 import "./FeedBox.css";
 
-const feedtext = `라이언 귀엽다. 라이언 귀엽다.라이언 귀엽다. 라이언 귀엽다.라이언
-    귀엽다. 라이언 귀엽다.라이언 귀엽다. 라이언 귀엽다.라이언 귀엽다.
-    라이언 귀엽다.라이언 귀엽다. 라이언 귀엽다.라이언 귀엽다. 라이언
-    귀엽다. 라이언 귀엽다. 라이언 귀엽다.라이언 귀엽다. 라이언
-    귀엽다.라이언 귀엽다. 라이언 귀엽다.라이언 귀엽다. 라이언
-    귀엽다.라이언 귀엽다. 라이언 귀엽다.`;
-
-export const FeedBox = ({ src }) => {
+export const FeedBox = ({ feed }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleMoveFeed = (feedId) => [navigate(`/feed/${feedId}`)];
+  const feedDate = new Date(feed.createdAt);
+  const feedId = feed._id;
+
+  const handleMoveFeed = (feedId) => {
+    navigate(`/feed/${feedId}`);
+  };
 
   return (
     <article className={location.pathname === "/feed" ? "feed-container" : ""}>
       <div className="feed-top">
         <div className="feed-top-text">
-          <Avatar />
+          <Avatar src={feed.userInfo.profileImg} isOnline />
           <div>
-            <div>유저 닉네임</div>
+            <div>{feed.userInfo.nickname}</div>
             <span>Lv 0</span>
           </div>
         </div>
         <FaEllipsisVertical />
       </div>
-      <picture className="feed-imgbox">
-        <img src={src} alt="" />
+      <picture className="feed-imgbox" onClick={() => handleMoveFeed(feedId)}>
+        <img src={feed?.fileUrl} alt="" />
       </picture>
 
       <div className="feed-inner">
         <LikeButton />
         <div
-          onClick={handleMoveFeed}
+          onClick={() => handleMoveFeed(feedId)}
           className={
             location.pathname === "/feed" ? "feed-text" : "feed-detail-text"
           }
         >
-          <div>{feedtext}</div>
+          <div>{feed?.description}</div>
         </div>
       </div>
       <div className="feed-tag-info">
         <div className="feed-tags-list">
-          <TagButton tagName="뿌숑" />
-          <TagButton tagName="뿌숑" />
-          <TagButton tagName="뿌우우우우" />
+          {feed?.hashtags.map((tag, index) => (
+            <TagButton tagName={tag} key={index} />
+          ))}
         </div>
 
-        <span>몇 시간전</span>
+        <span>{timeText(feedDate)}</span>
       </div>
     </article>
   );

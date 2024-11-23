@@ -19,6 +19,6 @@ export const SearchBar = ({...props}) => {
             placeholder="검색어를 입력하세요" 
             onKeyDown={handleSearch}
         />
-        <button onClick={handleSearch}><MdSearch size={30}/></button>
+        <button onClick={()=> handleSearch}><MdSearch size={30}/></button>
     </div>
 }

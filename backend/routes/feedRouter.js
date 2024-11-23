@@ -4,6 +4,7 @@ import {
   getAllFeed,
   getFeed,
   postFeed,
+  updateComments,
   updateFeed,
 } from "../controllers/feedController.js";
 import { authenticate } from "../controllers/authController.js";
@@ -20,3 +21,6 @@ feedRouter
   .get(authenticate, getFeed)
   .put(updateFeed)
   .delete(deleteFeed);
+
+// feedRouter.put("/:feedId", updateComments);
+feedRouter.post("/:feedId", authenticate, updateComments);

@@ -3,13 +3,39 @@ import {
   deleteFood,
   getAllFood,
   getFood,
-  getSearchFood,
   postFood,
   updateFood,
 } from "../controllers/foodController.js";
+import {
+  deleteDailyFood,
+  getDailyFood,
+  getSearchFood,
+  postDailyFood,
+  updateDailyFood,
+} from "../controllers/dailyFoodController.js";
+import { authenticate } from "../controllers/authController.js";
 
 export const foodRouter = express.Router();
 
-foodRouter.route("/").get(getAllFood).post(postFood);
-foodRouter.get("/search", getSearchFood);
-foodRouter.route("/:foodId").get(getFood).put(updateFood).delete(deleteFood);
+// foodRouter.route("/").get(getAllFood).post(postFood);
+
+foodRouter
+  .route("/")
+  .get( getAllFood)
+  .post(postFood);
+
+foodRouter
+  .route("/:id")
+  .get(getFood)
+  .put(updateFood)
+  .delete(deleteFood);
+
+foodRouter
+  .route("/")
+  .all(authenticate)
+  .get(getDailyFood)
+  .put(updateDailyFood)
+  .delete(deleteDailyFood);
+foodRouter.get("/search/:mealtype", getSearchFood);
+foodRouter.route("/add/:mealtype").post(authenticate, postDailyFood);
+// foodRouter.route("/:foodId").get(getFood).put(updateFood).delete(deleteFood);

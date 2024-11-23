@@ -6,10 +6,11 @@
 
 .mainImagePreview {
   position: relative;
+  padding-top: 1em;
   & img {
     width: 100%;
-    height: auto;
-    object-fit: cover;
+    height: 20em;
+    object-fit: contain;
   }
 
   & button {

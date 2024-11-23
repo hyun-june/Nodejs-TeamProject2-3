@@ -1,6 +1,16 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { useMutation } from "@tanstack/react-query";
-import { createFeed } from "../api/feed";
+
+import {
+  createFeed,
+  getDetailFeed,
+  getFeed,
+  updateComments,
+} from "../api/feed";
 import { useNavigate } from "react-router-dom";
 
 export const useCreateFeed = () => {
@@ -19,60 +29,47 @@ export const useCreateFeed = () => {
   });
 };
 
-const useGetTest = async (page) => {
-  const response = await fetch(
-    `https://api.themoviedb.org/3/movie/top_rated?page=${page}`,
-    {
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNjI4OWI3ODkxZmRiMmZjM2ZiOTljNmVkODZkMmM0ZCIsIm5iZiI6MTczMjA5MjUyMy4wOTg2MzExLCJzdWIiOiI2Njc3ZDFmN2YzYjM2MTZjOWYyMzQ0NWUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.WqcgZMONVICOOWhc7Y_z909OdGOWt39sd8PGSdtFsf4",
-      },
-    }
-  );
-  return response.json();
-};
-
-export const useGetTestAll = () => {
+export const useGetAllFeed = () => {
   return useInfiniteQuery({
-    queryKey: ["feed"],
-    queryFn: ({ pageParam }) => {
-      return useGetTest(pageParam);
+    queryKey: ["AllFeed"],
+    queryFn: ({ pageParam = 1 }) => {
+      return getFeed(pageParam);
     },
-    getNextPageParam: (last) => {
-      if (last.page < last.total_pages) {
-        return last.page + 1;
+    getNextPageParam: (lastPage) => {
+      if (lastPage.page < lastPage.total_pages) {
+        return lastPage.page + 1;
       }
       return undefined;
     },
     initialPageParam: 1,
+
+    onSuccess: (data) => {
+      console.log("피드 로드 성공", data);
+    },
+    onError: (error) => {
+      console.log("피드 로드 실패", error);
+    },
   });
 };
 
-// const useGetFeed = async (page) => {
-//     const response = await fetch(
-//       `https://api.themoviedb.org/3/movie/top_rated?page=${page}`,
-//       {
-//         headers: {
-//           Authorization:
-//             "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNjI4OWI3ODkxZmRiMmZjM2ZiOTljNmVkODZkMmM0ZCIsIm5iZiI6MTczMjA5MjUyMy4wOTg2MzExLCJzdWIiOiI2Njc3ZDFmN2YzYjM2MTZjOWYyMzQ0NWUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.WqcgZMONVICOOWhc7Y_z909OdGOWt39sd8PGSdtFsf4",
-//         },
-//       }
-//     );
-//     return response.json();
-//   };
+export const useGetDetailFeed = (id) => {
+  return useQuery({
+    queryKey: ["DetailFeed", id],
+    queryFn: () => getDetailFeed(id),
+  });
+};
 
-//   export const useGetAll = () => {
-//     return useInfiniteQuery({
-//       queryKey: ["feed"],
-//       queryFn: ({ pageParam }) => {
-//         return useGetFeed(pageParam);
-//       },
-//       getNextPageParam: (last) => {
-//         if (last.page < last.total_pages) {
-//           return last.page + 1;
-//         }
-//         return undefined;
-//       },
-//       initialPageParam: 1,
-//     });
-//   };
+export const useUpdateComment = ({ id }) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, newCommentText }) =>
+      updateComments({ id, newCommentText }),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries("DetailFeed");
+      console.log("댓글 생성 성공", data);
+    },
+    onError: (error) => {
+      console.log("댓글 생성 실패", error);
+    },
+  });
+};

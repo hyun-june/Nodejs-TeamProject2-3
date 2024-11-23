@@ -58,18 +58,6 @@
         gap: 1em;
     }
     .submit-btn{
-        width: 100%;
-        border-radius: 8px;
-        padding: 1em 0;
-        background-color: var(--point-color);
-        color: var(--main-color);
-        margin-top : 2em;
-        transition: all .3s;
-        &:hover {
-            opacity: .8;
-        }
-    }
-    .delete-btn {
-        background-color: var(--warn-color);
+        margin-top: 2em;
     }
 }

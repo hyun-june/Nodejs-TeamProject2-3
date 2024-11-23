@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router";
 import { MainPage } from "../pages/MainPage/MainPage";
 import { FeedPage } from "../pages/FeedPage/FeedPage";
 import { UserPage } from "../pages/UserPage/UserPage";
+import { WaterPage } from "../pages/WaterPage/WaterPage";
 import { LoginPage } from "../pages/LoginPage/LoginPage";
 import { SignUpPage } from "../pages/SignUpPage/SignUpPage";
 import { UserDetailPage } from "../pages/UserDetailPage/UserDetailPage";
@@ -18,6 +19,8 @@ import { MainLayout } from "../components/Layout/MainLayout/MainLayout";
 import { FeedCreatePage } from "../pages/FeedCreatePage/FeedCreatePage";
 import { FeedDetailPage } from "../pages/FeedDetailPage/FeedDetailPage";
 import { WeightPage } from "../pages/WeightPage/WeightPage";
+import { DailyExercisePage } from "../pages/DailyExercisePage/DailyExercisePage";
+import { DailyExerciseSearchPage } from "../pages/DailyExerciseSearchPage/DailyExerciseSearchPage";
 
 export const AppRouter = () => {
   return (
@@ -31,6 +34,8 @@ export const AppRouter = () => {
       <Route path="/user/:userId" element={<UserPage />} />
       <Route path="/feed/:id" element={<FeedDetailPage />} />
       <Route path="/feed-create" element={<FeedCreatePage />} />
+      <Route path="/water" element={<WaterPage />} />
+
       <Route element={<AuthLayout />}>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/sign-up" element={<SignUpPage />} />
@@ -46,7 +51,12 @@ export const AppRouter = () => {
 
       <Route path="/food" element={<FoodLayout />}>
         <Route index element={<DailyFoodPage />} />
-        <Route path="search" element={<FoodSearchPage />} />
+        <Route path="search/:mealtype" element={<FoodSearchPage />} />
+      </Route>
+
+      <Route path="/exercise" element={<FoodLayout />}>
+        <Route index element={<DailyExercisePage />} />
+        <Route path="search" element={<DailyExerciseSearchPage />} />
       </Route>
 
       <Route path="/weight" element={<WeightPage />} />

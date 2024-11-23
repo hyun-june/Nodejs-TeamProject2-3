@@ -1,6 +1,8 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { User } from "../Model/User.js";
+import { UserDetail } from "../Model/UserDetail.js";
+
 
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
@@ -14,13 +16,15 @@ export const loginWithEmail = async (req, res) => {
         password.trim(),
         user.password.trim()
       );
-      console.log(isMatch);
-      console.log("password", password);
-      console.log("user", user.password);
+
+      const userDetail = await UserDetail.findOne({ user: user._id });
+
       if (isMatch) {
         const token = await user.generateToken();
         console.log("token", token);
-        return res.status(200).json({ status: "success", user, token });
+        return res
+          .status(200)
+          .json({ status: "success", user, token, userInfo: !!userDetail });
       }
     }
     throw new Error("email or password");
@@ -41,6 +45,8 @@ export const authenticate = async (req, res, next) => {
     req.userId = payload._id;
     next();
   } catch (error) {
+    console.log("인증 오류", error); // 오류 로그 확인
+
     return res.status(400).json({
       status: "fail",
       message: error.message || "토큰이 유효하지 않습니다",

@@ -13,6 +13,7 @@ const foodSchema = new mongoose.Schema(
     ],
     defaultGram: { type: Number },
     calorie: { type: Number },
+    date: { type: Date, default: Date.now }, // 날짜 필드 추가\
   },
   { timestamps: true }
 );

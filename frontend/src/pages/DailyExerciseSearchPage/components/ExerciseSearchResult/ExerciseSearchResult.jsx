@@ -3,9 +3,6 @@ import { useState, useRef, useEffect } from "react";
 export const ExerciseSearchResult = () => {
   const [quantity, setQuantity] = useState(0);
 
-  //   const quantityInputRef = useRef(null); // input을 참조하는 ref
-  //   const gramQuantityInputRef = useRef(null); // 다른 input을 참조하는 ref
-
   return (
     <>
       <header className="FoodDetail-title">

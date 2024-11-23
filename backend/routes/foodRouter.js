@@ -20,22 +20,16 @@ export const foodRouter = express.Router();
 // foodRouter.route("/").get(getAllFood).post(postFood);
 
 foodRouter
-  .route("/")
-  .get( getAllFood)
-  .post(postFood);
-
-foodRouter
-  .route("/:id")
-  .get(getFood)
-  .put(updateFood)
-  .delete(deleteFood);
-
-foodRouter
-  .route("/")
+  .route("/daily")
   .all(authenticate)
   .get(getDailyFood)
   .put(updateDailyFood)
   .delete(deleteDailyFood);
+
+foodRouter.route("/").get(getAllFood).post(postFood);
+
+foodRouter.route("/:id").get(getFood).put(updateFood).delete(deleteFood);
+
 foodRouter.get("/search/:mealtype", getSearchFood);
 foodRouter.route("/add/:mealtype").post(authenticate, postDailyFood);
 // foodRouter.route("/:foodId").get(getFood).put(updateFood).delete(deleteFood);

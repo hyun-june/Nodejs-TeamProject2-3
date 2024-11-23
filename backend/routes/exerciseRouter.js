@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  deleteDailyExercise,
   deleteExercise,
   getAllExercise,
   getDailyExercise,
@@ -23,7 +24,7 @@ exerciseRouter
   .get(getDailyExercise)
   .post(postDailyExercise)
   .put(updateDailyExercise)
-  .delete();
+  .delete(deleteDailyExercise);
 
 exerciseRouter.route("/search").get(getAllExercise);
 

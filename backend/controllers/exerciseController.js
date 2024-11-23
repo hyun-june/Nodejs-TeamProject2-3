@@ -140,7 +140,8 @@ export const postDailyExercise = async (req, res) => {
 
 export const getDailyExercise = async (req, res) => {
   const { userId } = req;
-  const { date } = req.query;
+  const date = req.query.date; // 단순히 date만 받음
+  console.log("날짜", date);
 
   if (!userId) {
     return res.status(400).json({ message: "로그인이 필요합니다." });
@@ -204,5 +205,22 @@ export const updateDailyExercise = async (req, res) => {
       message: "해당 운동 수정에 실패했습니다",
       error,
     });
+  }
+};
+
+export const deleteDailyExercise = async (req, res) => {
+  try {
+    const { exerciseId } = req.body;
+    const exercise = await DailyExercise.findByIdAndDelete(exerciseId);
+    if (!exercise) {
+      return res
+        .status(404)
+        .json({ status: "fail", message: "해당 운동을 찾을 수 없습니다." });
+    }
+    res.status(200).json({ status: "success" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ status: "fail", message: "운동 삭제에 실패했습니다.", error });
   }
 };

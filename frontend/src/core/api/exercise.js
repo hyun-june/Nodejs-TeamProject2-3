@@ -92,3 +92,14 @@ export const updateDailyExercise = async (quantity, exerciseId) => {
     console.error("운동 수정 실패", error);
   }
 };
+
+export const deleteDailyExercise = async (exerciseId) => {
+  try {
+    const { data } = await api.delete(`/exercise/daily`, {
+      data: { exerciseId },
+    });
+    return data;
+  } catch (error) {
+    console.error("데일리 운동 삭제 중 에러:", error);
+  }
+};

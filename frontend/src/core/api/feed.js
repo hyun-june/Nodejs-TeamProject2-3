@@ -34,7 +34,7 @@ export const getFeed = async (page = 1, limit) => {
 
 export const getAllFeedApi = async (query) => {
   try {
-    const { data } = await api.get(`/feed/all`, { params : { ...query }});
+    const { data } = await api.get(`/feed/all`, { params: { ...query } });
     return data;
   } catch (error) {
     console.error("Error fetching food data:", error);
@@ -52,10 +52,10 @@ export const getDetailFeed = async (id) => {
 
 export const deleteFeedApi = async (id) => {
   try {
-      const { data } = await api.delete(`/feed/${id}`)
-      return data
+    const { data } = await api.delete(`/feed/${id}`);
+    return data;
   } catch (error) {
-      console.error("Error delete food data:", error);
+    console.error("Error delete food data:", error);
   }
 };
 
@@ -70,5 +70,18 @@ export const updateComments = async ({ id, newCommentText }) => {
     return data;
   } catch (error) {
     console.error("댓글 추가 실패:", error);
+  }
+};
+
+export const registerFeedView = async (feedId) => {
+  console.log("ffff", feedId);
+  try {
+    console.log("API 요청 경로:", `/feed/${feedId}/view`);
+    const { data } = await api.put(`/feed/${feedId}/view`);
+    console.log("서버 응답 데이터:", data);
+
+    return data; // 업데이트된 피드 데이터 반환
+  } catch (error) {
+    console.error("조회 수 업데이트 실패:", error);
   }
 };

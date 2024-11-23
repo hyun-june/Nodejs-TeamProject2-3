@@ -206,11 +206,11 @@ export const updateComments = async (req, res) => {
 
 //조회수를 1 늘려줌
 export const registerView = async (req, res) => {
-  const { id } = req.params;
+  const { feedId } = req.params;
 
   try {
     const feed = await Feed.findByIdAndUpdate(
-      id,
+      feedId,
       { $inc: { views: 1 } },
       { new: true }
     );

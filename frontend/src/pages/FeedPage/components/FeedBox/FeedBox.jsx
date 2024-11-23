@@ -5,14 +5,19 @@ import { TagButton } from "../TagButton/TagButton";
 import { Avatar } from "../../../../components/shared/Avatar/Avatar";
 import { timeText } from "../../../../core/constants/DateTimeFormat";
 import "./FeedBox.css";
+import { registerFeedView } from "../../../../core/api/feed";
+import { useMutation } from "@tanstack/react-query";
+import { useIncreaseFeedView } from "../../../../core/query/feed";
 
 export const FeedBox = ({ feed }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const feedDate = new Date(feed.createdAt);
   const feedId = feed._id;
+  const { mutate: increaseFeedView } = useIncreaseFeedView();
 
   const handleMoveFeed = (feedId) => {
+    increaseFeedView(feedId);
     navigate(`/feed/${feedId}`);
   };
 

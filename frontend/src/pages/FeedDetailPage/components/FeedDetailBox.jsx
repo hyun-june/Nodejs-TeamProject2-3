@@ -5,14 +5,25 @@ import { TagButton } from "../../FeedPage/components/TagButton/TagButton";
 import { Avatar } from "../../../components/shared/Avatar/Avatar";
 import { timeText } from "../../../core/constants/DateTimeFormat";
 import { IoEyeSharp } from "react-icons/io5";
+import { useState } from "react";
 
 export const FeedDetailBox = ({ feed }) => {
+  const [isDetailVisible, setIsDetailVisible] = useState(false);
   const navigate = useNavigate();
   const feedDate = new Date(feed.createdAt);
   console.log("1111", feed);
   const feedId = feed._id;
   const handleMoveFeed = (feedId) => {
     navigate(`/feed/${feedId}`);
+  };
+
+  const handleToggleMenu = () => {
+    setIsDetailVisible((prev) => !prev);
+  };
+
+  const handleFeedDelete = () => {
+    console.log("삭제");
+    setIsDetailVisible(false);
   };
 
   return (
@@ -27,7 +38,16 @@ export const FeedDetailBox = ({ feed }) => {
             <span>Lv 0</span>
           </div>
         </div>
-        <FaEllipsisVertical />
+        <div className="feed-button">
+          <FaEllipsisVertical onClick={handleToggleMenu} />
+          <span>
+            {isDetailVisible && (
+              <span className="feed-delete" onClick={() => handleFeedDelete()}>
+                삭제
+              </span>
+            )}
+          </span>
+        </div>
       </div>
       <picture className="feed-imgbox" onClick={() => handleMoveFeed(feedId)}>
         <img src={feed?.fileUrl} alt="" />
@@ -36,9 +56,10 @@ export const FeedDetailBox = ({ feed }) => {
       <div className="feed-inner">
         <div className="feed-inner-text">
           <LikeButton />
-          <span>
-            <IoEyeSharp className="feed-view-icon" /> {feed.views}
-          </span>
+          <div className="feed-view-section">
+            <IoEyeSharp className="feed-view-icon" />
+            <span>{feed.views}</span>
+          </div>
         </div>
 
         <div

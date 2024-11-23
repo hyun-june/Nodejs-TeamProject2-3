@@ -1,14 +1,25 @@
 import { useState } from "react";
-import { useUpdateDailyExercise } from "../../../core/query/exercise";
+import {
+  useDeleteDailyExercise,
+  useUpdateDailyExercise,
+} from "../../../core/query/exercise";
 
 export const DailyExerciseSelectedPage = ({ selectedExercise, close }) => {
   const [quantity, setQuantity] = useState("");
   const { mutate: updateExercise, isPending, error } = useUpdateDailyExercise();
+  const { mutate: deleteFood } = useDeleteDailyExercise();
   const { _id } = selectedExercise;
 
   const handleUpdateExercise = () => {
     updateExercise({
       quantity,
+      exerciseId: _id,
+    });
+    close();
+  };
+
+  const handleDeleteExercise = () => {
+    deleteFood({
       exerciseId: _id,
     });
     close();
@@ -41,11 +52,11 @@ export const DailyExerciseSelectedPage = ({ selectedExercise, close }) => {
             onChange={(e) => setQuantity(e.target.value)}
             placeholder="운동 시간 입력 (분)"
           ></input>
-          <div className="FoodDetail-addButton">
+          <div className="FoodDetail-addButton ">
             <button onClick={handleUpdateExercise}>수정</button>
           </div>
-          <div className="FoodDetail-addButton">
-            <button>삭제</button>
+          <div className="FoodDetail-addButton ExerciseDetail-deleteButton">
+            <button onClick={handleDeleteExercise}>삭제</button>
           </div>
         </section>
       </footer>

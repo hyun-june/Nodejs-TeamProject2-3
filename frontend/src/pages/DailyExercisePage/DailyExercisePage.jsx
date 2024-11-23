@@ -11,8 +11,8 @@ import { DailyFoodCalender } from "../DailyFoodPage/components/DailyFoodCalender
 
 import { useGetDailyExercise } from "../../core/query/exercise";
 import "../DailyFoodPage/DailyFoodPage.css";
-import "./DailyExercisePage.css";
 import "../DailyExerciseSearchPage/DailyExerciseSearchPage.css";
+import "./DailyExercisePage.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { DailyExerciseSelectedPage } from "./DailyExerciseSelectedPage/DailyExerciseSelectedPage";
@@ -22,8 +22,19 @@ export const DailyExercisePage = () => {
   const [selectedExercise, setSelectedExercise] = useState(null);
   const query = { data: selectedDate };
   const { data, isPending, error } = useGetDailyExercise(query);
+  console.log("데이타", data);
+  const weight = data?.weight;
+
   const { bottomSheetProps, open } = useBottomSheet();
   const navigate = useNavigate();
+
+  // 총 칼로리 계산
+  const totalCalories = data?.dailyExercise?.reduce((acc, exercise) => {
+    const mets = exercise.mets;
+    const duration = exercise.durationOrDistance;
+    const calories = Math.floor(mets * weight * (duration / 60));
+    return acc + calories;
+  }, 0);
 
   const onDateChange = (newDate) => {
     const formattedDate = newDate.toLocaleDateString("en-CA"); // "YYYY-MM-DD" 형식
@@ -48,7 +59,7 @@ export const DailyExercisePage = () => {
             <span>총 소모 칼로리</span>
           </div>
           <div className="DailyExercise__total-calorie__Num">
-            <span>아르빠노</span>
+            <span>{`-${totalCalories}`}</span>
             <span>kcal</span>
           </div>
         </div>
@@ -63,7 +74,12 @@ export const DailyExercisePage = () => {
               <div className="DailyExercise__content-box__Num">
                 {/* 시간이랑 분으로 보이게 고쳐야함 */}
                 <span>{exercise.durationOrDistance}분</span>
-                <span>kcal</span>
+                <span>
+                  {Math.floor(
+                    exercise.mets * weight * (exercise.durationOrDistance / 60)
+                  )}
+                  kcal
+                </span>
               </div>
             </div>
           ))}

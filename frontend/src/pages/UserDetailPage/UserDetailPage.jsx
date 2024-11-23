@@ -39,8 +39,6 @@ export const UserDetailPage = () => {
       ...formData,
     };
 
-    console.log("유우우우저", userData);
-
     if (userDetails?.data) {
       return updateUserDetail(userData);
     }
@@ -118,11 +116,15 @@ export const UserDetailPage = () => {
             <AuthButton type="submit" className="button-color_blue">
               {userDetails?.data ? "수정" : "저장"}
             </AuthButton>
-            <Link to="/user/me" className="detail-cancel-button">
-              <AuthButton type="submit" className="button-color_blue">
-                수정 취소
-              </AuthButton>
-            </Link>
+            {userDetails?.data ? (
+              <Link to="/user/me" className="detail-cancel-button">
+                <AuthButton type="submit" className="button-color_blue">
+                  수정 취소
+                </AuthButton>
+              </Link>
+            ) : (
+              ""
+            )}
           </section>
         </form>
       </div>

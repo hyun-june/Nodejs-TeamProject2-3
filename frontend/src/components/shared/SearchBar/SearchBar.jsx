@@ -7,8 +7,7 @@ export const SearchBar = ({...props}) => {
     const { search } = useLocation()
     const Navigate = useNavigate()
 
-    const handleSearch = ({key}) => {
-        if (key && key !== 'Enter') return
+    const handleSearch = () => {
         const q = document.querySelector('#search-input').value
         Navigate(urlParser(search, { q }))
     }
@@ -17,8 +16,8 @@ export const SearchBar = ({...props}) => {
         <input 
             id='search-input' 
             placeholder="검색어를 입력하세요" 
-            onKeyDown={handleSearch}
+            onKeyDown={({key}) => key === 'Enter' && handleSearch()}
         />
-        <button onClick={()=> handleSearch}><MdSearch size={30}/></button>
+        <button onClick={handleSearch}><MdSearch size={30}/></button>
     </div>
 }

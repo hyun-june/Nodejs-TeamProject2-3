@@ -1,7 +1,6 @@
 import Slider from "react-slick";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { DailyFoodCalender } from "./components/DailyFoodCalender/DailyFoodCalender";
 import { DailyFoodFeed } from "./components/DailyFoodFeed/DailyFoodFeed";
 import { Header } from "../../components/shared/Header/Header";

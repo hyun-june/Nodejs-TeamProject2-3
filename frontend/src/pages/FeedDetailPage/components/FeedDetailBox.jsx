@@ -1,46 +1,32 @@
 import { Link, useNavigate } from "react-router-dom";
-import { LikeButton } from "../../../../components/Feed/LikeButton/LikeButton";
 import { FaEllipsisVertical } from "react-icons/fa6";
-import { TagButton } from "../TagButton/TagButton";
-import { Avatar } from "../../../../components/shared/Avatar/Avatar";
-import { timeText } from "../../../../core/constants/DateTimeFormat";
+import { LikeButton } from "../../../components/Feed/LikeButton/LikeButton";
+import { TagButton } from "../../FeedPage/components/TagButton/TagButton";
+import { Avatar } from "../../../components/shared/Avatar/Avatar";
+import { timeText } from "../../../core/constants/DateTimeFormat";
 
-import "./FeedBox.css";
-import { registerFeedView } from "../../../../core/api/feed";
-import { useMutation } from "@tanstack/react-query";
-import { useIncreaseFeedView } from "../../../../core/query/feed";
-
-export const FeedBox = ({ feed }) => {
+export const FeedDetailBox = ({ feed }) => {
   const navigate = useNavigate();
   const feedDate = new Date(feed.createdAt);
+
   const feedId = feed._id;
-  const { mutate: increaseFeedView } = useIncreaseFeedView();
-  const currentUserId = sessionStorage.getItem("userId");
   const handleMoveFeed = (feedId) => {
-    increaseFeedView(feedId);
     navigate(`/feed/${feedId}`);
   };
-
-  const profileLink =
-    currentUserId === feed.userInfo.user
-      ? "/user/me"
-      : `/user/${feed.userInfo.user}`;
 
   return (
     <article className={location.pathname === "/feed" ? "feed-container" : ""}>
       <div className="feed-top">
         <div className="feed-top-text">
-          <Link to={profileLink}>
-            <Avatar src={feed.userInfo.profileImg} isOnline />
+          <Link to={`/user/${feed.userInfo.user}`}>
+            <Avatar src={feed?.user?.detailInfo?.profileImg} isOnline />
           </Link>
           <div>
-            <div>{feed.userInfo.nickname}</div>
+            <div>{feed?.user?.detailInfo?.nickname}</div>
             <span>Lv 0</span>
           </div>
         </div>
-        <div>
-          <FaEllipsisVertical />
-        </div>
+        <FaEllipsisVertical />
       </div>
       <picture className="feed-imgbox" onClick={() => handleMoveFeed(feedId)}>
         <img src={feed?.fileUrl} alt="" />

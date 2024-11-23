@@ -10,9 +10,12 @@ import {
   getDetailFeed,
   getFeed,
   updateComments,
+  getFeedSearchResult,
   getAllFeedApi,
   deleteFeedApi,
   registerFeedView,
+  deleteComments,
+
 } from "../api/feed";
 import { useNavigate } from "react-router-dom";
 
@@ -38,6 +41,7 @@ export const useGetAllFeedInfinite = ({ limit }) => {
     queryFn: ({ pageParam = 1 }) => {
       return getFeed(pageParam, limit);
     },
+
     getNextPageParam: (lastPage) => {
       if (lastPage.page < lastPage.total_pages) {
         return lastPage.page + 1;
@@ -68,6 +72,28 @@ export const useGetDetailFeed = (id) => {
   });
 };
 
+export const useFeedSearchInfinite = ({ query, limit }) => {
+  return useInfiniteQuery({
+    queryKey: ["FeedSearch", query],
+    queryFn: ({ pageParam = 1 }) => {
+      return getFeedSearchResult({ query, page: pageParam, limit });
+    },
+    getNextPageParam: (lastPage) => {
+      if (lastPage.page < lastPage.total_pages) {
+        return lastPage.page + 1;
+      }
+      return undefined;
+    },
+    initialPageParam: 1,
+    onSuccess: (data) => {
+      console.log("피드 검색 성공", data);
+    },
+    onError: (error) => {
+      console.log("피드 검색 실패", error);
+    },
+  });
+};
+
 export const useUpdateComment = ({ id }) => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -83,6 +109,19 @@ export const useUpdateComment = ({ id }) => {
   });
 };
 
+export const useDeleteComment = ({ id }) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id, commentId }) => deleteComments({ id, commentId }),
+    onSuccess: (data, variables) => {
+      queryClient.invalidateQueries(["feed", variables.feedId]);
+    },
+    onError: (error) => {
+      console.log("댓글 삭제 실패", error);
+    },
+  });
+};
 export const useDeleteFeed = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -103,5 +142,6 @@ export const useIncreaseFeedView = () => {
     onError: (error) => {
       console.error("조회 수 업데이트 실패:", error);
     },
+
   });
 };

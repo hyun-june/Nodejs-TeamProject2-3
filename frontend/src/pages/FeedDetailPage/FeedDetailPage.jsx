@@ -9,8 +9,7 @@ import {
   useGetDetailFeed,
   useUpdateComment,
 } from "../../core/query/feed";
-
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { timeText } from "../../core/constants/DateTimeFormat";
 import "./css/FeedDetailPage.css";
 
@@ -21,7 +20,7 @@ export const FeedDetailPage = () => {
   const [showComment, setShowComment] = useState({});
   const [visible, setVisible] = useState({});
   const { id } = useParams();
-
+  const currentUserId = sessionStorage.getItem("userId");
   const { data, isLoading, isError, error } = useGetDetailFeed(id);
   const { mutate: deleteComments } = useDeleteComment({ id });
 
@@ -90,13 +89,11 @@ export const FeedDetailPage = () => {
 
   return (
     <div className="feed-detail-container">
-
-      <Header backTo="/feed" title="게시물" />
-      <FeedDetailBox feed={data} />
       <Header backTo={-1} title="게시물" />
-      <FeedBox feed={data} />
+      <FeedDetailBox feed={data} />
       <div className="feed-comment-section">
         <Avatar src={profileImg} isOnline={true} />
+
         <input
           type="text"
           placeholder="댓글쓰기"
@@ -120,11 +117,16 @@ export const FeedDetailPage = () => {
           const commentDate = new Date(item.createdAt);
           const timeAgoText = timeText(commentDate);
 
+          const profileLink =
+            currentUserId === item.userId ? "/user/me" : `/user/${item.userId}`;
+
           return (
             <li key={item._id}>
               <div className="feed-comment">
                 <div>
-                  <Avatar src={item.userInfo.profileImg} isOnline={true} />
+                  <Link to={profileLink}>
+                    <Avatar src={item.userInfo.profileImg} isOnline={true} />
+                  </Link>
                 </div>
 
                 <div className="feed-comment-inner">

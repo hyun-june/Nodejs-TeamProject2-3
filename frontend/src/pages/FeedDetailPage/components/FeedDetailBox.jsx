@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { LikeButton } from "../../../components/Feed/LikeButton/LikeButton";
 import { TagButton } from "../../FeedPage/components/TagButton/TagButton";
@@ -18,7 +18,9 @@ export const FeedDetailBox = ({ feed }) => {
     <article className={location.pathname === "/feed" ? "feed-container" : ""}>
       <div className="feed-top">
         <div className="feed-top-text">
-          <Avatar src={feed?.user?.detailInfo?.profileImg} isOnline />
+          <Link to={`/user/${feed.userInfo.user}`}>
+            <Avatar src={feed?.user?.detailInfo?.profileImg} isOnline />
+          </Link>
           <div>
             <div>{feed?.user?.detailInfo?.nickname}</div>
             <span>Lv 0</span>

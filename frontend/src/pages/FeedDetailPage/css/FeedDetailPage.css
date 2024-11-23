@@ -87,4 +87,5 @@
   top: 1em;
   left: 0;
   border: 1px solid var(--warn-color);
+  background-color: white;
 }

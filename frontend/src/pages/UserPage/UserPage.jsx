@@ -68,7 +68,11 @@ export const UserPage = () => {
           }`}
         >
           <div className="profile-container">
-            <Avatar isOnline={true} size="100" />
+            <Avatar
+              src={userdata.detailInfo.profileImg}
+              isOnline={true}
+              size="100"
+            />
             <div className="logout" onClick={handleLogoutClick}>
               <FiLogOut size="22" color="var(--light-gray-color)" />
               <p>logout</p>

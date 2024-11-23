@@ -14,22 +14,12 @@ export const UserDetailPage = () => {
   const [profileImgUrl, setProfileImgUrl] = useState("");
   const [profileImgfile, setProfileImgfile] = useState(null);
 
-  const {
-    mutate: inputUserDetail,
-    isLoading,
-    isError,
-    error,
-  } = useInputDetail();
+  const { mutate: inputUserDetail} = useInputDetail();
 
   const onUserSubmit = async (formData) => {
-    const { nickname, age, height, weight, purpose } = formData;
     inputUserDetail({
-      nickname,
-      age,
-      height,
-      weight,
-      purpose,
       profileUrl: profileImgfile,
+      ...formData
     });
   };
 

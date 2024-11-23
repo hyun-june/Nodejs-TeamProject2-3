@@ -9,7 +9,6 @@ export const useLogin = () => {
     mutationFn: ({ email, password }) => postLogin({ email, password }),
     onSuccess: (data) => {
       const { userInfo } = data;
-      setUserInfo(userInfo);
       if (userInfo) {
         navigate("/");
       } else {

@@ -12,7 +12,7 @@ import {
   updateComments,
   getFeedSearchResult,
   getAllFeedApi,
-  deleteFeed,
+  deleteFeedApi,
   deleteComments,
 } from "../api/feed";
 import { useNavigate } from "react-router-dom";
@@ -120,17 +120,12 @@ export const useDeleteComment = ({ id }) => {
     },
   });
 };
-
 export const useDeleteFeed = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ feedId }) => deleteFeed({ feedId }),
-    onSuccess: (data, variables) => {
-      queryClient.invalidateQueries(["feed", variables.feedId]);
-      console.log("피드 삭제 성공");
-    },
-    onError: (error) => {
-      console.log("피드 삭제 실패", error);
+    mutationFn: deleteFeedApi,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["feed"] });
     },
   });
 };

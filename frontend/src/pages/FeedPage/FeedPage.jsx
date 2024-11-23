@@ -12,7 +12,6 @@ import "./css/FeedPage.css";
 
 export const FeedPage = () => {
   const { search } = useLocation();
-  const [sortedFeeds, setSortedFeeds] = useState([]);
 
   const query = new URLSearchParams(search).get("q") || "";
   const {
@@ -63,7 +62,10 @@ export const FeedPage = () => {
   return (
     <div className="feed-inner-body">
       <div className="feed-main">
-        <SearchBar />
+        <div className="feed-search">
+          <SearchBar />
+        </div>
+
         {pages.map((page, pageIndex) => (
           <div key={pageIndex}>
             {page.data.map((feed, index) => (

@@ -17,7 +17,6 @@ export const FeedDetailPage = () => {
   const { id } = useParams();
 
   const { data, isLoading, isError, error } = useGetDetailFeed(id);
-  console.log("ddd", data);
 
   const recentComments = data?.comments
     ? [...data.comments].sort(

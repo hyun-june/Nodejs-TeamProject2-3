@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { AuthInput } from "../../components/shared/AuthInput/AuthInput";
 import { AuthButton } from "../../components/shared/AuthButton/AuthButton";
@@ -8,18 +9,41 @@ import { IoCloseSharp } from "react-icons/io5";
 import { inputUserDetail } from "../../core/api/auth";
 import { useInputDetail } from "../../core/query/auth";
 import "./css/UserDetailPage.css";
+import { useGetUserDetail, useUpdateUserDetail } from "../../core/query/user";
 
 export const UserDetailPage = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
   const [profileImgUrl, setProfileImgUrl] = useState("");
   const [profileImgfile, setProfileImgfile] = useState(null);
+  const { data: userDetails, isPending, error } = useGetUserDetail();
   const { mutate: inputUserDetail } = useInputDetail();
+  const { mutate: updateUserDetail } = useUpdateUserDetail();
+  useEffect(() => {
+    if (userDetails?.data) {
+      setValue("nickname", userDetails.data.nickname || "");
+      setValue("age", userDetails.data.age || "");
+      setValue("height", userDetails.data.height || "");
+      setValue("weight", userDetails.data.weight || "");
+      setValue("purpose", userDetails.data.purpose || "");
+
+      // 프로필 이미지 URL 설정
+      if (userDetails.data.profileImg) {
+        setProfileImgUrl(userDetails.data.profileImg);
+      }
+    }
+  }, [userDetails, setValue]);
 
   const onUserSubmit = async (formData) => {
-    inputUserDetail({
-      profileUrl: profileImgfile,
+    const userData = {
+      profileUrl: profileImgfile || profileImgUrl,
       ...formData,
-    });
+    };
+
+
+    if (userDetails?.data) {
+      return updateUserDetail(userData);
+    }
+    inputUserDetail(userData);
   };
 
   const handleProfileDelete = () => {
@@ -91,8 +115,13 @@ export const UserDetailPage = () => {
               register={register}
             />
             <AuthButton type="submit" className="button-color_blue">
-              저장
+              {userDetails?.data ? "수정" : "저장"}
             </AuthButton>
+            <Link to="/user/me" className="detail-cancel-button">
+              <AuthButton type="submit" className="button-color_blue">
+                수정 취소
+              </AuthButton>
+            </Link>
           </section>
         </form>
       </div>

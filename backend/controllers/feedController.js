@@ -13,7 +13,6 @@ export const getAllFeed = async (req, res) => {
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
-
     const totalFeeds = await Feed.countDocuments();
     const totalPages = Math.ceil(totalFeeds / limit);
 

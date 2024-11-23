@@ -90,8 +90,11 @@ export const FeedDetailPage = () => {
 
   return (
     <div className="feed-detail-container">
+
       <Header backTo="/feed" title="게시물" />
       <FeedDetailBox feed={data} />
+      <Header backTo={-1} title="게시물" />
+      <FeedBox feed={data} />
       <div className="feed-comment-section">
         <Avatar src={profileImg} isOnline={true} />
         <input

@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import { Header } from "../../components/shared/Header/Header";
 import { WaterCalender } from "./WaterCalender/WaterCalender";
-import { useGetWaterAmount } from "../../core/query/water";
+import {
+  useGetWaterAmount,
+  useUpdateWaterAmount,
+} from "../../core/query/water";
 import "./WaterPage.css";
 
 const MAX_HEIGHT = 300; // 병의 총 높이
@@ -12,31 +15,42 @@ export const WaterPage = () => {
   const [selectedData, setSelectedDate] = useState(null);
   const [waterHeight, setWaterHeight] = useState(0);
 
-  const { data } = useGetWaterAmount(selectedData);
-  console.log("물 섭취량 데이터", data);
+  const { data: waterData } = useGetWaterAmount(selectedData);
+  console.log("물 섭취량 데이터", waterData);
+  const { mutate: updateWaterAmount } = useUpdateWaterAmount();
 
   useEffect(() => {
-    if (data?.data?.amount) {
-      setWaterHeight(data?.data?.amount); // API의 물 섭취량으로 초기 상태 설정
+    if (waterData?.data?.amount) {
+      setWaterHeight(waterData?.data?.amount); // API의 물 섭취량으로 초기 상태 설정
     } else {
       setWaterHeight(0);
     }
-  }, [data]);
+  }, [waterData]);
 
   const onDateChange = (newDate) => {
     const formattedDate = newDate.toLocaleDateString("en-CA");
     setSelectedDate(formattedDate);
   };
 
-  const addWater = () => {
+  const handleAddWater = () => {
     if (waterHeight < MAX_WATER) {
-      setWaterHeight(waterHeight + STEP_WATER);
+      updateWaterAmount(
+        { date: selectedData, amount: STEP_WATER },
+        {
+          onSuccess: () => setWaterHeight((prev) => prev + STEP_WATER),
+        }
+      );
     }
   };
 
-  const removeWater = () => {
+  const handleRemoveWater = () => {
     if (waterHeight > 0) {
-      setWaterHeight(waterHeight - STEP_WATER);
+      updateWaterAmount(
+        { date: selectedData, amount: -STEP_WATER },
+        {
+          onSuccess: () => setWaterHeight((prev) => prev - STEP_WATER),
+        }
+      );
     }
   };
 
@@ -64,7 +78,7 @@ export const WaterPage = () => {
               className={`controlButton ${
                 waterHeight === MAX_WATER ? "disabledButton" : ""
               }`}
-              onClick={addWater}
+              onClick={handleAddWater}
               disabled={waterHeight === MAX_WATER}
             >
               + 250mL
@@ -73,7 +87,7 @@ export const WaterPage = () => {
               className={`controlButton ${
                 waterHeight === 0 ? "disabledButton" : ""
               }`}
-              onClick={removeWater}
+              onClick={handleRemoveWater}
               disabled={waterHeight === 0}
             >
               - 250mL

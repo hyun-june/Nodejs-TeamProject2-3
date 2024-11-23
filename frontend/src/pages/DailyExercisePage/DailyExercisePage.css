@@ -49,3 +49,7 @@
     color: var(--light-gray-color);
   }
 }
+
+.DailyExercise__BottomSheet {
+  padding: 1.5rem 1.5rem;
+}

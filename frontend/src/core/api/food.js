@@ -75,7 +75,7 @@ export const getDailyFood = async (date) => {
 export const addDailyFood = async (food, mealtype, quantity, date) => {
   try {
     const { data } = await api.post(
-      `/food/daily/add/${mealtype}`,
+      `/food/add/${mealtype}`,
       { food, mealtype, quantity },
       { params: { date } }
     );

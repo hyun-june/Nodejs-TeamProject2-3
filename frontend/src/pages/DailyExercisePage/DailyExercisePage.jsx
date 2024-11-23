@@ -9,16 +9,19 @@ import { BottomSheet } from "../../components/shared/BottomSheet/BottomSheet";
 import { useBottomSheet } from "../../components/shared/BottomSheet/components/useBottomSheet";
 import { DailyFoodCalender } from "../DailyFoodPage/components/DailyFoodCalender/DailyFoodCalender";
 
+import { useGetDailyExercise } from "../../core/query/exercise";
 import "../DailyFoodPage/DailyFoodPage.css";
 import "./DailyExercisePage.css";
+import "../DailyExerciseSearchPage/DailyExerciseSearchPage.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { getAllExerciseApi } from "../../core/api/exercise";
+import { DailyExerciseSelectedPage } from "./DailyExerciseSelectedPage/DailyExerciseSelectedPage";
 
 export const DailyExercisePage = () => {
   const [selectedDate, setSelectedDate] = useState(null); // 선택된 날짜
+  const [selectedExercise, setSelectedExercise] = useState(null);
   const query = { data: selectedDate };
-  //   const { data, isPending, error } = getAllExerciseApi(query);
+  const { data, isPending, error } = useGetDailyExercise(query);
   const { bottomSheetProps, open } = useBottomSheet();
   const navigate = useNavigate();
 
@@ -28,10 +31,15 @@ export const DailyExercisePage = () => {
     navigate(`/exercise?date=${formattedDate}`); // URL을 쿼리 파라미터와 함께 업데이트
   };
 
+  const handleExerciseClick = (exercise) => {
+    setSelectedExercise(exercise);
+    open();
+  };
+
   return (
     <>
       <header>
-        <Header backTo={-1} title={"운동"} />
+        <Header backTo={"/"} title={"운동"} />
       </header>
       <main className="DailyExercise">
         <DailyFoodCalender onDateChange={onDateChange} value={selectedDate} />
@@ -45,13 +53,20 @@ export const DailyExercisePage = () => {
           </div>
         </div>
         <section className="DailyExercise__content">
-          <div className="DailyExercise__content-box">
-            <h1>기구운동</h1>
-            <div className="DailyExercise__content-box__Num">
-              <span>05:30</span>
-              <span>-100kcal</span>
+          {data?.dailyExercise?.map((exercise) => (
+            <div
+              key={exercise._id}
+              className="DailyExercise__content-box"
+              onClick={() => handleExerciseClick(exercise)}
+            >
+              <h1>{exercise.name}</h1>
+              <div className="DailyExercise__content-box__Num">
+                {/* 시간이랑 분으로 보이게 고쳐야함 */}
+                <span>{exercise.durationOrDistance}분</span>
+                <span>kcal</span>
+              </div>
             </div>
-          </div>
+          ))}
           <Link to={`/exercise/search?date=${selectedDate}`}>
             <div className="DailyExercise__content-box">
               <button>
@@ -61,7 +76,12 @@ export const DailyExercisePage = () => {
           </Link>
         </section>
       </main>
-      <BottomSheet {...bottomSheetProps}></BottomSheet>
+      <BottomSheet {...bottomSheetProps} className="DailyExercise__BottomSheet">
+        <DailyExerciseSelectedPage
+          selectedExercise={selectedExercise}
+          close={bottomSheetProps.close}
+        />
+      </BottomSheet>
     </>
   );
 };

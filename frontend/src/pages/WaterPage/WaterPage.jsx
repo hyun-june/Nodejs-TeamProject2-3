@@ -18,6 +18,8 @@ export const WaterPage = () => {
   useEffect(() => {
     if (data?.data?.amount) {
       setWaterHeight(data?.data?.amount); // API의 물 섭취량으로 초기 상태 설정
+    } else {
+      setWaterHeight(0);
     }
   }, [data]);
 

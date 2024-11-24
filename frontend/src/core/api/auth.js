@@ -1,8 +1,6 @@
 import { api } from "./api";
 
 export const postLogin = async ({ email, password }) => {
-  console.log("Login arguments:", { email, password }); // 확인 로그
-
   const { data } = await api.post("/login", { email, password });
   sessionStorage.setItem("userId", data.user._id);
   return data;

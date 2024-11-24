@@ -51,7 +51,9 @@ export const DailyExerciseSearchPage = () => {
             </div>
           ))
         ) : (
-          <p>검색 결과가 없습니다. 직접 입력하기</p>
+          <section className="DailyFood_Feed-content__no-search">
+            <p>검색 결과가 없습니다.</p>
+          </section>
         )}
         <section>
           <BottomSheet {...bottomSheetProps} className="Food-bottomSheet">

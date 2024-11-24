@@ -46,7 +46,6 @@ export const deleteFoodApi = async (id) => {
 };
 
 export const getFoodSearchResult = async (query, mealtype) => {
-  if (!query) return [];
   try {
     const { data } = await api.get(`/food/search/${mealtype}`, {
       params: { q: query },

@@ -33,30 +33,30 @@ export const FoodSearchResultDetail = ({ selectedFood, mealtype, date }) => {
     );
   };
 
-  const Tabs2 = () => {
-    return (
-      <div className="tab-input-container">
-        <input
-          ref={gramQuantityInputRef} // ref를 사용하여 input을 참조
-          className="tab-input"
-          type="number"
-          value={gramQuantity}
-          onChange={(e) => setGramQuantity(e.target.value)}
-          placeholder="g수를 적어주세요."
-        ></input>
-      </div>
-    );
-  };
+  // const Tabs2 = () => {
+  //   return (
+  //     <div className="tab-input-container">
+  //       <input
+  //         ref={gramQuantityInputRef} // ref를 사용하여 input을 참조
+  //         className="tab-input"
+  //         type="number"
+  //         value={gramQuantity}
+  //         onChange={(e) => setGramQuantity(e.target.value)}
+  //         placeholder="g수를 적어주세요."
+  //       ></input>
+  //     </div>
+  //   );
+  // };
 
   const items = [
     {
       title: `${defaultGram}g`,
       comp: <Tabs1 />,
     },
-    {
-      title: "g",
-      comp: <Tabs2 />,
-    },
+    // {
+    //   title: "g",
+    //   comp: <Tabs2 />,
+    // },
   ];
 
   const handleAddFood = () => {

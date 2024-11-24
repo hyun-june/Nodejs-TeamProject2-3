@@ -26,7 +26,7 @@ foodRouter
 
 foodRouter.route("/").get(getAllFood).post(postFood);
 
+foodRouter.get("/search/:mealtype", getSearchFood);
 foodRouter.route("/:id").get(getFood).put(updateFood).delete(deleteFood);
 
-foodRouter.get("/search/:mealtype", getSearchFood);
 foodRouter.route("/add/:mealtype").post(authenticate, postDailyFood);

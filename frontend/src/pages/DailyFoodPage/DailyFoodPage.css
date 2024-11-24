@@ -13,14 +13,14 @@
   display: flex;
   align-items: center;
   background-color: var(--main-color);
-  padding: 20px;
+  padding: 1.3rem;
   margin-top: 25px;
   width: 90%;
   border-radius: 10px;
 }
 
 .food-calender__calender-icon {
-  font-size: 19px;
+  font-size: 1.2rem;
   margin-right: 15px;
   color: #2563eb;
 }
@@ -34,20 +34,22 @@
 }
 
 /* 스타일 파일 (예: styles.css) */
+.ReactModal__Overlay {
+  display: flex;
+  flex-direction: column;
+}
 .modal-content {
-  font-size: 10px;
-  width: 80%; /* 너비를 원하는 대로 조절 */
-  max-width: 500px; /* 최대 너비 */
-  height: 70%; /* 높이를 원하는 대로 조절 */
-  max-height: 600px; /* 최대 높이 */
-  margin: auto;
+  font-size: 1.2rem;
+  margin-top: 4rem;
   background: none;
-  padding: 20px;
-  border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.react-calendar {
+  padding: 0.3rem;
 }
 
 /* 총 칼로리 위쪽 */
@@ -165,6 +167,9 @@
   justify-content: space-around;
   width: 90%;
   margin-top: 3rem;
+  background-color: var(--main-color);
+  border-radius: 10px;
+  padding: 4rem 0;
 }
 
 .DailyFoodPage__footer-main__text-part {

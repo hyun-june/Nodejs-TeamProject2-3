@@ -2,9 +2,10 @@ import { useState, useRef, useEffect } from "react";
 import { FoodSearchResultDonutChart } from "./FoodSearchResultDonutChart";
 import { Tabs } from "../../../components/shared/Tabs/Tabs";
 import { useAddDailyFood } from "../../../core/query/food/";
+import { PendingButton } from "../../../components/shared/PendingButton/PendingButton";
 
 export const FoodSearchResultDetail = ({ selectedFood, mealtype, date }) => {
-  const { mutate: addFood, isLoading } = useAddDailyFood();
+  const { mutate: addFood, isPending } = useAddDailyFood();
 
   const [quantity, setQuantity] = useState(0);
   const [gramQuantity, setGramQuantity] = useState(0);
@@ -60,7 +61,7 @@ export const FoodSearchResultDetail = ({ selectedFood, mealtype, date }) => {
   ];
 
   const handleAddFood = () => {
-    if (isLoading) return; // 중복 클릭 방지
+    if (isPending) return; // 중복 클릭 방지
     addFood({
       food: selectedFood,
       mealtype,
@@ -123,7 +124,9 @@ export const FoodSearchResultDetail = ({ selectedFood, mealtype, date }) => {
           <Tabs items={items} className="FoodDetailTabs" />
         </div>
         <div className="FoodDetail-addButton">
-          <button onClick={handleAddFood}>추가</button>
+          <PendingButton isPending={isPending} onClick={handleAddFood}>
+            추가
+          </PendingButton>
         </div>
       </section>
     </>

@@ -5,18 +5,14 @@ import { LikeButton } from "../../../components/Feed/LikeButton/LikeButton"; // 
 import { Avatar } from "../../../components/shared/Avatar/Avatar";
 import { timeText } from "../../../core/constants/DateTimeFormat";
 import { IoEyeSharp } from "react-icons/io5";
-
-import { useState } from "react";
 import {
   useIncreaseFeedView,
   useRegisterLike,
   useRegisterUnlike,
-} from "../../../core/query/feed"; // 쿼리 훅
-
+} from "../../../core/query/feed";
 import { FaTrashAlt } from "react-icons/fa";
 import { useDeleteFeed } from "../../../core/query/feed";
 import { PendingButton } from "../../../components/shared/PendingButton/PendingButton";
-
 
 export const FeedDetailBox = ({ feed, refetch }) => {
   const [isDetailVisible, setIsDetailVisible] = useState(false);
@@ -49,11 +45,7 @@ export const FeedDetailBox = ({ feed, refetch }) => {
     refetch();
   };
 
-  const currentUserId = sessionStorage.getItem("userId");
-  const feedId = feed._id;
-
   const { mutate, isPending } = useDeleteFeed();
-
 
   const handleMoveFeed = (feedId) => {
     increaseFeedView(feedId); // 조회수 증가
@@ -78,7 +70,6 @@ export const FeedDetailBox = ({ feed, refetch }) => {
       <div className="feed-top">
         <div className="feed-top-text">
           <Link to={`/user/${feed.userInfo.user}`}>
-
             <Avatar src={feed?.user?.detailInfo?.profileImg} />
           </Link>
 

@@ -12,6 +12,7 @@ import {
   updateDailyExercise,
   deleteDailyExercise,
 } from "../api/exercise";
+import { toast } from "../../components/shared/Toast/Toast";
 
 export const useGetAllExercise = (query) => {
   return useQuery({
@@ -33,6 +34,7 @@ export const useCreateExercise = () => {
     mutationFn: createExerciseApi,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["exercise"] });
+      toast('운동 생성 성공')
     },
   });
 };
@@ -43,6 +45,7 @@ export const useUpdateExercise = () => {
     mutationFn: updateExerciseApi,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["exercise"] });
+      toast('운동 수정 성공')
     },
   });
 };
@@ -53,6 +56,7 @@ export const useDeleteExercise = () => {
     mutationFn: deleteExerciseApi,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["exercise"] });
+      toast('운동 삭제 성공')
     },
   });
 };
@@ -85,6 +89,7 @@ export const useAddDailyExercise = () => {
 
       queryClient.invalidateQueries({ queryKey: ["dailyExercise", date] }); // 날짜 기반 쿼리 무효화
       // 필요한 모든 작업이 끝난 후 navigate 호출
+      toast('운동 추가 성공')
       setTimeout(() => {
         navigate(`/exercise?date=${date}`);
       }, 100); // 잠시 기다린 후 이동
@@ -113,6 +118,7 @@ export const useUpdateDailyExercise = () => {
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["dailyExercise"], data });
+      toast('운동 업데이트 성공')
     },
   });
 };
@@ -126,6 +132,7 @@ export const useDeleteDailyExercise = () => {
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["dailyExercise"], data });
+      toast('운동 삭제 성공')
     },
   });
 };

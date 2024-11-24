@@ -38,14 +38,7 @@ export const FeedDetailPage = () => {
     isError: commentIsError,
     error: commentError,
   } = useUpdateComment({ id });
-
-  if (isPending || commentLoading) {
-    return <div>Loading...</div>;
-  }
-  if (isError || commentIsError) {
-    return <div>Error: {error?.message || "Failed to load feed"}</div>;
-  }
-
+  
   const { nickname, profileImg } = data?.userInfo;
 
   if (isPending || commentLoading) {

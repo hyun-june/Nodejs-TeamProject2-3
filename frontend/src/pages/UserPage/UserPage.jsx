@@ -54,11 +54,6 @@ export const UserPage = ({ handleLogout }) => {
   //     </>
   //   );
 
-  const handleLogoutClick = () => {
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("userId");
-    navigate("/login");
-
   const handleEditButtonClick = () => {
     navigate("/user/detail");
   };

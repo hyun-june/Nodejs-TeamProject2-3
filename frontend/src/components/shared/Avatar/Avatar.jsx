@@ -12,7 +12,7 @@ export const Avatar = ({ src, isOnline, size = 40, style, ...props }) => {
         src={src || "/basic-profile.png"}
         alt="프로필 이미지"
       />
-      <div className={`avatar-status ${isOnline ? "online" : "offline"}`}></div>
+      {/* <div className={`avatar-status ${isOnline ? "online" : "offline"}`}></div> */}
     </div>
   );
 };

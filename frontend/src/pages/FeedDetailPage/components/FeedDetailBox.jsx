@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { LikeButton } from "../../../components/Feed/LikeButton/LikeButton"; // LikeButton 컴포넌트 추가
 import { Avatar } from "../../../components/shared/Avatar/Avatar";
 import { timeText } from "../../../core/constants/DateTimeFormat";
 import { IoEyeSharp } from "react-icons/io5";
+
 import { useState } from "react";
 import {
   useIncreaseFeedView,
@@ -11,10 +13,16 @@ import {
   useRegisterUnlike,
 } from "../../../core/query/feed"; // 쿼리 훅
 
+import { FaTrashAlt } from "react-icons/fa";
+import { useDeleteFeed } from "../../../core/query/feed";
+import { PendingButton } from "../../../components/shared/PendingButton/PendingButton";
+
+
 export const FeedDetailBox = ({ feed, refetch }) => {
   const [isDetailVisible, setIsDetailVisible] = useState(false);
   const navigate = useNavigate();
   const feedDate = new Date(feed.createdAt);
+
   const feedId = feed._id;
 
   // 좋아요 관련 상태 및 뮤테이션
@@ -41,6 +49,12 @@ export const FeedDetailBox = ({ feed, refetch }) => {
     refetch();
   };
 
+  const currentUserId = sessionStorage.getItem("userId");
+  const feedId = feed._id;
+
+  const { mutate, isPending } = useDeleteFeed();
+
+
   const handleMoveFeed = (feedId) => {
     increaseFeedView(feedId); // 조회수 증가
     navigate(`/feed/${feedId}`); // 피드 상세 페이지로 이동
@@ -51,7 +65,11 @@ export const FeedDetailBox = ({ feed, refetch }) => {
   };
 
   const handleFeedDelete = () => {
-    console.log("삭제");
+    mutate(feedId, {
+      onSuccess: () => {
+        navigate(-1);
+      },
+    });
     setIsDetailVisible(false);
   };
 
@@ -60,22 +78,34 @@ export const FeedDetailBox = ({ feed, refetch }) => {
       <div className="feed-top">
         <div className="feed-top-text">
           <Link to={`/user/${feed.userInfo.user}`}>
-            <Avatar src={feed.userInfo.profileImg} isOnline />
+
+            <Avatar src={feed?.user?.detailInfo?.profileImg} />
           </Link>
-          <div>
-            <div>{feed.userInfo.nickname}</div>
-            <span>Lv 0</span>
+
+          <div className="feed-username">
+            {feed?.user?.detailInfo?.nickname}
           </div>
         </div>
         <div className="feed-button">
-          <FaEllipsisVertical onClick={handleToggleMenu} />
-          <span>
-            {isDetailVisible && (
-              <span className="feed-delete" onClick={() => handleFeedDelete()}>
-                삭제
+          {currentUserId === feed.user.detailInfo.user && (
+            <>
+              <FaEllipsisVertical onClick={handleToggleMenu} />
+              <span>
+                {isDetailVisible && (
+                  <span>
+                    <PendingButton
+                      className="feed-delete"
+                      onClick={handleFeedDelete}
+                      isPending={isPending}
+                    >
+                      <FaTrashAlt />
+                      삭제하기
+                    </PendingButton>
+                  </span>
+                )}
               </span>
-            )}
-          </span>
+            </>
+          )}
         </div>
       </div>
       <picture className="feed-imgbox" onClick={() => handleMoveFeed(feedId)}>

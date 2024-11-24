@@ -88,9 +88,9 @@
 
 .controlButton {
   width: 100%;
-  background: var(--text-color);
-  color: var(--main-color);
-  border: none;
+  background: none;
+  color: var(--light-gray-color);
+  border: 1px solid var(--light-gray-color);
   padding: 15px 0;
   font-size: 16px;
   border-radius: 999px;
@@ -98,27 +98,16 @@
 }
 
 .controlButton:hover {
-  background: black;
-}
-
-.controlButton:nth-child(2) {
-  background: none;
-  color: var(--light-gray-color);
-  border: 1px solid var(--light-gray-color);
-}
-
-.controlButton:nth-child(2):hover {
   background: #d6d8d8;
 }
 
-.disabledButton {
-  background: none;
-  color: var(--light-gray-color);
-  border: 1px solid var(--light-gray-color);
-  cursor: not-allowed;
+.controlButton:nth-child(2) {
+  background: var(--text-color);
+  color: var(--main-color);
+  border: none;
 }
 
-.disabledButton:disabled:hover {
-  background: none;
-  color: none;
+.controlButton:nth-child(2):hover {
+  background: var(--text-color);
+  color: var(--light-gray-color);
 }

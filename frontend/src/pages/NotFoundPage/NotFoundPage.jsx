@@ -1,5 +1,5 @@
-import { AuthButton } from "../../components/shared/AuthButton/AuthButton";
 import { useNavigate } from "react-router-dom";
+import { PendingButton } from "../../components/shared/PendingButton/PendingButton";
 import "./css/NotFoundPage.css";
 
 export const NotFoundPage = () => {
@@ -14,9 +14,10 @@ export const NotFoundPage = () => {
       <div className="notFound-Container">
         <img src="/notfound.png" />
         <span>페이지를 찾을 수 없습니다..</span>
-        <AuthButton onClick={handleGoHome} className="button-color_black">
+
+        <PendingButton onClick={handleGoHome} round="sm">
           홈으로 가기
-        </AuthButton>
+        </PendingButton>
       </div>
     </div>
   );

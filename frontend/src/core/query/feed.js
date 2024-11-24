@@ -15,8 +15,10 @@ import {
   deleteFeedApi,
   registerFeedView,
   deleteComments,
+
   registerLike,
   registerUnlike,
+
 } from "../api/feed";
 import { useNavigate } from "react-router-dom";
 
@@ -38,7 +40,7 @@ export const useCreateFeed = () => {
 
 export const useGetAllFeedInfinite = ({ limit }) => {
   return useInfiniteQuery({
-    queryKey: ["AllFeedInfi"],
+    queryKey: ["feed", "AllFeedInfi"],
     queryFn: ({ pageParam = 1 }) => {
       return getFeed(pageParam, limit);
     },
@@ -75,7 +77,7 @@ export const useGetDetailFeed = (id) => {
 
 export const useFeedSearchInfinite = ({ query, limit }) => {
   return useInfiniteQuery({
-    queryKey: ["FeedSearch", query],
+    queryKey: ["feed", "FeedSearch", query],
     queryFn: ({ pageParam = 1 }) => {
       return getFeedSearchResult({ query, page: pageParam, limit });
     },
@@ -143,6 +145,7 @@ export const useIncreaseFeedView = () => {
     onError: (error) => {
       console.error("조회 수 업데이트 실패:", error);
     },
+
   });
 };
 

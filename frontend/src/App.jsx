@@ -1,3 +1,4 @@
+import { ToastContainer } from "./components/shared/Toast/Toast";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppRouter } from "./routes/AppRouter";
@@ -26,12 +27,14 @@ function App() {
   const handleLogout = () => {
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("isStart");
+    sessionStorage.removeItem("userId");
     navigate("/login");
     setIsCoverOpen(true);
   };
 
   return (
     <div id="container">
+      <ToastContainer/>
       <div id="bottom-sheet" />
       {isCoverOpen ? (
         <Cover onClose={handleCloseCover} />
@@ -39,6 +42,7 @@ function App() {
         <AppRouter handleLogout={handleLogout} />
       )}
     </div>
+
   );
 }
 

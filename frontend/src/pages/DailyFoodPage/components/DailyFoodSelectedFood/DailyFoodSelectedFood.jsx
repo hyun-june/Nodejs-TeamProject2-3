@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { FoodSearchResultDonutChart } from "../../../FoodSearchPage/components/FoodSearchResultDonutChart";
-import { useUpdateDailyFood, useDeleteDailyFood } from "../../../../core/query/food";
+import {
+  useUpdateDailyFood,
+  useDeleteDailyFood,
+} from "../../../../core/query/food";
+import { PendingButton } from "../../../../components/shared/PendingButton/PendingButton";
 
 export const DailyFoodSelectedFood = ({ nutrient, close }) => {
   const {
@@ -66,10 +70,14 @@ export const DailyFoodSelectedFood = ({ nutrient, close }) => {
           className="FoodDetail-input"
         ></input>
         <div className="FoodDetail-addButton FoodDetail-deleteButton">
-          <button onClick={handleDeleteFood}>삭제</button>
+          <PendingButton isPending={isPending} onClick={handleDeleteFood}>
+            삭제
+          </PendingButton>
         </div>
         <div className="FoodDetail-addButton">
-          <button onClick={handleUpdateFood}>수정</button>
+          <PendingButton isPending={isPending} onClick={handleUpdateFood}>
+            수정
+          </PendingButton>
         </div>
       </section>
     </>

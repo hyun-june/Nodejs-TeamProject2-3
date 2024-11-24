@@ -8,6 +8,7 @@ import { useGetAllFeed } from "../../core/query/feed.js";
 import { BiSolidPencil } from "react-icons/bi";
 import { FiLogOut } from "react-icons/fi";
 import "./UserPage.css";
+import { PendingButton } from "../../components/shared/PendingButton/PendingButton.jsx";
 
 const TabContent1 = FeedContainer;
 
@@ -96,12 +97,13 @@ export const UserPage = ({ handleLogout }) => {
             </div>
           </div>
           {isMyPage && (
-            <button
+            <PendingButton
+              isPending={userIsPending || feedIsPending}
               className="edit-userinfo-button"
               onClick={handleEditButtonClick}
             >
               <p>내 정보 수정하기</p> <BiSolidPencil size="20" />
-            </button>
+            </PendingButton>
           )}
         </div>
         <div className="feed-container">

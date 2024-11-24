@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 
 import { useAddDailyExercise } from "../../../../core/query/exercise";
+import { PendingButton } from "../../../../components/shared/PendingButton/PendingButton";
 
 export const ExerciseSearchResult = ({ selectedExercise, date }) => {
   const [quantity, setQuantity] = useState("");
@@ -50,7 +51,9 @@ export const ExerciseSearchResult = ({ selectedExercise, date }) => {
             placeholder="운동 시간 입력 (분)"
           ></input>
           <div className="FoodDetail-addButton">
-            <button onClick={handleAddExercise}>추가</button>
+            <PendingButton onClick={handleAddExercise} isPending={isPending}>
+              추가
+            </PendingButton>
           </div>
         </section>
       </footer>

@@ -61,7 +61,7 @@ export const FoodSearchResultDetail = ({ selectedFood, mealtype, date }) => {
   ];
 
   const handleAddFood = () => {
-    if (isLoading) return; // 중복 클릭 방지
+    if (isPending) return; // 중복 클릭 방지
     addFood({
       food: selectedFood,
       mealtype,

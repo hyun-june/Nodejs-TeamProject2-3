@@ -19,6 +19,7 @@ export const FeedPage = () => {
     isLoading,
     isError,
     error,
+    refetch,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
@@ -69,7 +70,7 @@ export const FeedPage = () => {
         {pages.map((page, pageIndex) => (
           <div key={pageIndex}>
             {page.data.map((feed, index) => (
-              <FeedBox feed={feed} key={index} />
+              <FeedBox feed={feed} key={index} refetch={refetch} />
             ))}
           </div>
         ))}

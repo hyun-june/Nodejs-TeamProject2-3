@@ -5,6 +5,12 @@ import { TagButton } from "../TagButton/TagButton";
 import { Avatar } from "../../../../components/shared/Avatar/Avatar";
 import { timeText } from "../../../../core/constants/DateTimeFormat";
 import { IoEyeSharp } from "react-icons/io5";
+import { registerFeedView } from "../../../../core/api/feed";
+import { useMutation } from "@tanstack/react-query";
+import {
+  useIncreaseFeedView,
+  useRegisterLike,
+  useRegisterUnlike,
 import {
   useDeleteFeed,
   useIncreaseFeedView,
@@ -14,15 +20,39 @@ import { FaTrashAlt } from "react-icons/fa";
 import { PendingButton } from "../../../../components/shared/PendingButton/PendingButton";
 import "./FeedBox.css";
 
-export const FeedBox = ({ feed }) => {
+export const FeedBox = ({ feed, refetch }) => {
   const navigate = useNavigate();
   const feedDate = new Date(feed.createdAt);
   const feedId = feed._id;
 
   const [isMenuVisible, setIsMenuVisible] = useState(false);
-  const { mutate: increaseFeedView } = useIncreaseFeedView();
   const currentUserId = sessionStorage.getItem("userId");
+
+
+  // 좋아요 관련 상태 및 뮤테이션
+  const { mutate: increaseFeedView } = useIncreaseFeedView();
+  const { mutate: registerLike } = useRegisterLike();
+  const { mutate: registerUnlike } = useRegisterUnlike();
+  const [liked, setLiked] = useState(feed.likedBy.includes(currentUserId)); // 현재 사용자가 좋아요를 눌렀는지 여부
+  const [likes, setLikes] = useState(feed.likes); // 좋아요 수
+
+  // 좋아요 버튼 클릭 처리
+  const handleLikeToggle = () => {
+    if (liked) {
+      // 좋아요 취소
+      registerUnlike({ feedId, userId: currentUserId });
+      setLikes((prevLikes) => prevLikes - 1);
+    } else {
+      // 좋아요 등록
+      registerLike({ feedId, userId: currentUserId });
+      console.log("dddd", feedId, currentUserId);
+      setLikes((prevLikes) => prevLikes + 1);
+    }
+    setLiked((prev) => !prev);
+    refetch();
+  };
   const { mutate, isPending } = useDeleteFeed();
+
 
   const handleMoveFeed = (feedId) => {
     increaseFeedView(feedId);
@@ -81,7 +111,11 @@ export const FeedBox = ({ feed }) => {
 
       <div className="feed-inner">
         <div className="feed-inner-text">
-          <LikeButton />
+          <LikeButton
+            likes={likes}
+            liked={liked}
+            onLikeToggle={handleLikeToggle}
+          />
           <div className="feed-view-section">
             <IoEyeSharp className="feed-view-icon" />
             <span>{feed.views}</span>

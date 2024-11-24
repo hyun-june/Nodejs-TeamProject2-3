@@ -22,9 +22,10 @@ export const FeedDetailPage = () => {
   const [showComment, setShowComment] = useState({});
   const [visible, setVisible] = useState({});
   const { id } = useParams();
-  const { data, isLoading, isError, error } = useGetDetailFeed(id);
-  const { mutate: deleteComments, isPending } = useDeleteComment({ id });
   const currentUserId = sessionStorage.getItem("userId");
+  const { data, isLoading, isError, error, refetch } = useGetDetailFeed(id);
+  const { mutate: deleteComments } = useDeleteComment({ id });
+
 
   const recentComments = data?.comments
     ? [...data.comments].sort(
@@ -92,7 +93,7 @@ export const FeedDetailPage = () => {
   return (
     <div className="feed-detail-container">
       <Header backTo={-1} title="게시물" />
-      <FeedDetailBox feed={data} />
+      <FeedDetailBox feed={data} refetch={refetch} />
       <div className="feed-comment-section">
         <Avatar src={profileImg} />
 

@@ -197,7 +197,7 @@ export const deleteFeed = async (req, res) => {
     const feed = await Feed.findById(feedId);
     if (!feed) throw new Error("삭제할 피드가 없습니다");
 
-    if (user?.level !== 'admin' && !feed.user.equals(userId)) 
+    if (user?.level !== "admin" && !feed.user.equals(userId))
       throw new Error("권한이 없습니다");
 
     await feed.deleteOne();
@@ -299,11 +299,11 @@ export const registerView = async (req, res) => {
 
 // 좋아요
 export const registerLike = async (req, res) => {
-  const { id } = req.params;
+  const { feedId } = req.params;
   const { userId } = req;
 
   try {
-    const feed = await Feed.findById(id);
+    const feed = await Feed.findById(feedId);
     if (!feed) {
       throw new Error("피드를 찾을 수 없습니다");
     }
@@ -324,11 +324,11 @@ export const registerLike = async (req, res) => {
 
 //좋아요 취소
 export const registerUnlike = async (req, res) => {
-  const { id } = req.params;
+  const { feedId } = req.params;
   const { userId } = req;
 
   try {
-    const feed = await Feed.findById(id);
+    const feed = await Feed.findById(feedId);
     if (!feed) {
       throw new Error("피드를 찾을 수 없습니다.");
     }

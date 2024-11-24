@@ -105,7 +105,6 @@ export const getUserDetail = async (req, res) => {
 
 //유저 디테일 페이지 수정
 export const updateUserDetail = async (req, res) => {
-  console.log("요청 도착: ", req.body); // 백엔드에 요청이 도달하는지 확인
   try {
     const { userId } = req;
     const { profileUrl, nickname, age, height, weight, purpose } = req.body;

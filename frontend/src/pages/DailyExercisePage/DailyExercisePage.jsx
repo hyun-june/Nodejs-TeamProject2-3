@@ -59,7 +59,7 @@ export const DailyExercisePage = () => {
             <span>총 소모 칼로리</span>
           </div>
           <div className="DailyExercise__total-calorie__Num">
-            <span>{`-${totalCalories}`}</span>
+            <span>{`${totalCalories}`}</span>
             <span>kcal</span>
           </div>
         </div>

@@ -3,6 +3,7 @@ import {
   useDeleteDailyExercise,
   useUpdateDailyExercise,
 } from "../../../core/query/exercise";
+import { PendingButton } from "../../../components/shared/PendingButton/PendingButton";
 
 export const DailyExerciseSelectedPage = ({ selectedExercise, close }) => {
   const [quantity, setQuantity] = useState("");
@@ -53,10 +54,14 @@ export const DailyExerciseSelectedPage = ({ selectedExercise, close }) => {
             placeholder="운동 시간 입력 (분)"
           ></input>
           <div className="FoodDetail-addButton ">
-            <button onClick={handleUpdateExercise}>수정</button>
+            <PendingButton isPending={isPending} onClick={handleUpdateExercise}>
+              수정
+            </PendingButton>
           </div>
           <div className="FoodDetail-addButton ExerciseDetail-deleteButton">
-            <button onClick={handleDeleteExercise}>삭제</button>
+            <PendingButton isPending={isPending} onClick={handleDeleteExercise}>
+              삭제
+            </PendingButton>
           </div>
         </section>
       </footer>

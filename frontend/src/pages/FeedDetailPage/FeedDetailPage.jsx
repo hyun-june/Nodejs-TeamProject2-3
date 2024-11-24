@@ -39,7 +39,7 @@ export const FeedDetailPage = () => {
     error: commentError,
   } = useUpdateComment({ id });
   
-  const { nickname, profileImg } = data?.userInfo;
+  const { nickname, profileImg } = data?.userInfo || {};
 
   if (isPending || commentLoading) {
     return <div>Loading...</div>;

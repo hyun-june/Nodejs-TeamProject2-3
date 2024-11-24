@@ -6,7 +6,7 @@ const LOCAL_BACKEND = import.meta.env.VITE_LOCAL_BACKEND;
 const APP_BACKEND = import.meta.env.VITE_APP_BACKEND_URL;
 
 export const api = axios.create({
-  baseURL: LOCAL_BACKEND,
+  baseURL: APP_BACKEND,
   headers: {
     "Content-Type": "application/json",
     Authorization: `Bearer ${sessionStorage.getItem("token")}`,

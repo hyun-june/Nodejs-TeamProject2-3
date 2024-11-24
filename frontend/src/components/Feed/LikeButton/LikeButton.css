@@ -2,15 +2,11 @@
   display: flex;
   align-items: center;
   gap: 1em;
-
-  & span {
-    font-size: 0.9em;
-  }
 }
 
 .like-icon {
   width: 1.5em;
-  color: var(--sub-color);
+  color: #b7b7b7;
 }
 
 .liked {

@@ -8,6 +8,7 @@ import {
   updateComments,
   updateFeed,
   getAllFeed2,
+  registerView,
   deleteComments,
 } from "../controllers/feedController.js";
 import { authenticate } from "../controllers/authController.js";
@@ -29,6 +30,9 @@ feedRouter
 
 // feedRouter.put("/:feedId", updateComments);
 feedRouter.post("/:feedId", authenticate, updateComments);
+
+feedRouter.put("/:feedId/view", registerView);
+
 feedRouter.delete("/:feedId/comments/:commentId", authenticate, deleteComments);
 feedRouter.route("/").get((req, res) => {
   const query = req.query.q;

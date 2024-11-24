@@ -82,10 +82,33 @@
 
 .comment-delete {
   position: absolute;
-  width: 2.3em;
+  width: 6em;
+  height: 3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 1.3em;
+  left: -5.3em;
+  padding: 0.3em;
+  color: var(--warn-color);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 3px 6px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.feed-inner-text {
+  display: flex;
   text-align: center;
-  top: 1em;
-  left: 0;
-  border: 1px solid var(--warn-color);
-  background-color: white;
+  align-items: center;
+}
+
+.feed-view-icon {
+  width: 2em;
+  color: #b7b7b7;
+}
+
+.feed-view-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 3.7em;
 }

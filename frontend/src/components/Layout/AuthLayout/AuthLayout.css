@@ -12,4 +12,10 @@
   margin: 0 auto;
   background-color: var(--main-color);
   color: #1c1917;
+  overflow-y: auto;
+  /* ::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none; */
 }

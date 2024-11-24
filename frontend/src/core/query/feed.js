@@ -13,7 +13,9 @@ import {
   getFeedSearchResult,
   getAllFeedApi,
   deleteFeedApi,
+  registerFeedView,
   deleteComments,
+
 } from "../api/feed";
 import { useNavigate } from "react-router-dom";
 
@@ -127,5 +129,19 @@ export const useDeleteFeed = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["feed"] });
     },
+  });
+};
+
+// React Query 훅을 사용하여 조회 수 증가
+export const useIncreaseFeedView = () => {
+  return useMutation({
+    mutationFn: registerFeedView, // feed 조회 수 증가를 위한 함수
+    onSuccess: (data) => {
+      console.log("조회 수 업데이트 성공:", data);
+    },
+    onError: (error) => {
+      console.error("조회 수 업데이트 실패:", error);
+    },
+
   });
 };

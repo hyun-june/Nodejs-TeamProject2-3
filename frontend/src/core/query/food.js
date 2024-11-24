@@ -63,6 +63,7 @@ export const useFoodSearch = (query, mealtype) => {
   return useQuery({
     queryKey: ["foodSearch", query, mealtype],
     queryFn: () => getFoodSearchResult(query, mealtype),
+    enabled: query !== null,
     onError: (error) =>
       console.log("검색한 음식을 불러오는 데 실패했습니다.", error),
   });

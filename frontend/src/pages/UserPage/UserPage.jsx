@@ -11,7 +11,7 @@ import "./UserPage.css";
 
 const TabContent1 = FeedContainer;
 
-export const UserPage = () => {
+export const UserPage = ({ handleLogout }) => {
   const { pathname } = useLocation();
   let { userId } = useParams();
   const navigate = useNavigate();
@@ -48,11 +48,6 @@ export const UserPage = () => {
   if (userIsPending || feedIsPending) return <>로딩중</>;
   // if (userError||feedError) return <>에러 발생: {userError.message}</>;
 
-  const handleLogoutClick = () => {
-    sessionStorage.removeItem("token");
-    navigate("/login");
-  };
-
   return (
     <>
       {!isMyPage && <Header backTo={-1} />}
@@ -70,11 +65,10 @@ export const UserPage = () => {
             />
             <div
               className="logout"
-              onClick={handleLogoutClick}
+              onClick={() => handleLogout()}
               style={{ top: isMyPage ? "15px" : "50px" }}
             >
               <FiLogOut size="22" color="var(--light-gray-color)" />
-              <p>logout</p>
             </div>
 
             <p className="info-content">{userdata.detailInfo?.nickname}</p>

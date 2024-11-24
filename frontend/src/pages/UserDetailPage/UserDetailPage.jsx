@@ -37,6 +37,7 @@ export const UserDetailPage = () => {
       profileUrl: profileImgfile || profileImgUrl,
       ...formData,
     };
+    console.log("11", formData);
 
     if (userDetails?.data) {
       return updateUserDetail(userData);
@@ -56,6 +57,21 @@ export const UserDetailPage = () => {
       let profile = window.URL.createObjectURL(file);
       setProfileImgUrl(profile);
       setProfileImgfile(file);
+    }
+  };
+
+  const handleAgeLimit = (e) => {
+    let value = e.target.value;
+
+    if (value && !/^\d{0,2}$/.test(value)) {
+      e.target.value = value.slice(0, value.length - 1);
+    }
+  };
+
+  const handleLimit = (e) => {
+    let value = e.target.value;
+    if (value && !/^\d{0,3}(\.\d{0,1})?$/.test(value)) {
+      e.target.value = value.slice(0, value.length - 1);
     }
   };
 
@@ -89,13 +105,20 @@ export const UserDetailPage = () => {
         >
           <AuthInput id="nickname" title="nickname" register={register} />
           <section className="detail-first-section">
-            <AuthInput id="age" title="age" type="number" register={register} />
+            <AuthInput
+              id="age"
+              title="age"
+              type="number"
+              register={register}
+              onChange={handleAgeLimit}
+            />
             <AuthInput
               id="height"
               title="height"
-              type="text"
+              type="number"
               step="0.1"
               register={register}
+              onChange={handleLimit}
             />
             <span>cm</span>
           </section>
@@ -107,6 +130,7 @@ export const UserDetailPage = () => {
                 type="number"
                 step="0.1"
                 register={register}
+                onChange={handleLimit}
               />
               <span>kg</span>
             </div>
@@ -117,6 +141,7 @@ export const UserDetailPage = () => {
                 type="number"
                 step="0.1"
                 register={register}
+                onChange={handleLimit}
               />
               <span>kg</span>
             </div>

@@ -23,9 +23,8 @@ export const FeedDetailPage = () => {
   const [visible, setVisible] = useState({});
   const { id } = useParams();
   const currentUserId = sessionStorage.getItem("userId");
-  const { data, isLoading, isError, error, refetch } = useGetDetailFeed(id);
+  const { data, isPending, isError, error, refetch } = useGetDetailFeed(id);
   const { mutate: deleteComments } = useDeleteComment({ id });
-
 
   const recentComments = data?.comments
     ? [...data.comments].sort(

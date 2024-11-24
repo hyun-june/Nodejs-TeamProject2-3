@@ -13,6 +13,7 @@ import {
 import { FaTrashAlt } from "react-icons/fa";
 import { useDeleteFeed } from "../../../core/query/feed";
 import { PendingButton } from "../../../components/shared/PendingButton/PendingButton";
+import { TagButton } from "../../FeedPage/components/TagButton/TagButton";
 
 export const FeedDetailBox = ({ feed, refetch }) => {
   const [isDetailVisible, setIsDetailVisible] = useState(false);

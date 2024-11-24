@@ -61,6 +61,7 @@
     border: none;
     border-radius: 10px;
     padding: 1em;
+    line-height: 1.6em;
     flex-grow: 0.7;
     background-color: var(--sub-color);
   }

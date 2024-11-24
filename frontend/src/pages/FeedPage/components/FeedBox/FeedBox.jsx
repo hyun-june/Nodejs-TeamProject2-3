@@ -11,9 +11,7 @@ import {
   useIncreaseFeedView,
   useRegisterLike,
   useRegisterUnlike,
-import {
   useDeleteFeed,
-  useIncreaseFeedView,
 } from "../../../../core/query/feed";
 import { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
@@ -27,7 +25,6 @@ export const FeedBox = ({ feed, refetch }) => {
 
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const currentUserId = sessionStorage.getItem("userId");
-
 
   // 좋아요 관련 상태 및 뮤테이션
   const { mutate: increaseFeedView } = useIncreaseFeedView();
@@ -52,7 +49,6 @@ export const FeedBox = ({ feed, refetch }) => {
     refetch();
   };
   const { mutate, isPending } = useDeleteFeed();
-
 
   const handleMoveFeed = (feedId) => {
     increaseFeedView(feedId);

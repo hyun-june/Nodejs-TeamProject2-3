@@ -101,40 +101,45 @@ export const MainPage = () => {
                 <IoIosArrowForward />
               </Link>
             </div>
-          ) : <Link to="/food">
-                <div className="straght-progress-bar-empty sky-thema mb-10">
-                  <h3>오늘 먹은 식단 입력하러가기!</h3>
-                  <IoIosArrowForward />
-                </div>
-              </Link> }
-          {
-            totalExerciseCalorie ? <div className="straght-progress semired-thema">
-            <div className="straght-progress-head">
-              <h4>운동</h4>
-              <div className="progress-number">
-                <span>{totalExerciseCalorie} </span>
-                <span>/ 2500KCAL</span>
+          ) : (
+            <Link to="/food">
+              <div className="straght-progress-bar-empty sky-thema mb-10">
+                <h3>오늘 먹은 식단 입력하러가기!</h3>
+                <IoIosArrowForward />
               </div>
-            </div>
-            <div className="straght-progress-bar">
-              <div
-                style={{
-                  width: `${Math.floor((totalExerciseCalorie / 2500) * 100)}%`,
-                }}
-              />
-            </div>
-            <Link to="/exercise" className="straght-progress-bottom">
-              <div className="center">운동페이지</div>
-              <IoIosArrowForward />
             </Link>
-          </div> : <Link to="/exercise">
-            <div className="straght-progress-bar-empty semired-thema">
-              <h3>오늘 한 운동 입력하러가기!</h3>
-              <IoIosArrowForward />
+          )}
+          {totalExerciseCalorie ? (
+            <div className="straght-progress semired-thema">
+              <div className="straght-progress-head">
+                <h4>운동</h4>
+                <div className="progress-number">
+                  <span>{totalExerciseCalorie} </span>
+                  <span>/ 2500KCAL</span>
+                </div>
+              </div>
+              <div className="straght-progress-bar">
+                <div
+                  style={{
+                    width: `${Math.floor(
+                      (totalExerciseCalorie / 2500) * 100
+                    )}%`,
+                  }}
+                />
+              </div>
+              <Link to="/exercise" className="straght-progress-bottom">
+                <div className="center">운동페이지</div>
+                <IoIosArrowForward />
+              </Link>
             </div>
-          </Link> 
-          }
-
+          ) : (
+            <Link to="/exercise">
+              <div className="straght-progress-bar-empty semired-thema">
+                <h3>오늘 한 운동 입력하러가기!</h3>
+                <IoIosArrowForward />
+              </div>
+            </Link>
+          )}
         </section>
         <section className="weight-section">
           <h3 className="small-title">몸무게</h3>

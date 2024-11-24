@@ -12,6 +12,7 @@ import {
   deleteFoodApi,
 } from "../api/food";
 import { addDailyFood } from "../api/food";
+import { toast } from "../../components/shared/Toast/Toast";
 
 export const useGetAllFood = (query) => {
   return useQuery({
@@ -33,6 +34,7 @@ export const useCreateFood = () => {
     mutationFn: createFoodApi,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["food"] });
+      toast('푸드 생성 성공')
     },
   });
 };

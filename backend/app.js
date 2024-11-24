@@ -13,8 +13,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use("/api", apiRouter);
 
-const mongoURI = process.env.LOCAL_DB_ADDRESS;
-// const mongoURI = process.env.MONGODB_URI_PROD;
+// const mongoURI = process.env.LOCAL_DB_ADDRESS;
+const mongoURI = process.env.MONGODB_URI_PROD;
 
 const connectDB = async () => {
   try {

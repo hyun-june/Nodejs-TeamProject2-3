@@ -15,7 +15,8 @@ import {
   deleteFeedApi,
   registerFeedView,
   deleteComments,
-
+  registerLike,
+  registerUnlike,
 } from "../api/feed";
 import { useNavigate } from "react-router-dom";
 
@@ -142,6 +143,34 @@ export const useIncreaseFeedView = () => {
     onError: (error) => {
       console.error("조회 수 업데이트 실패:", error);
     },
+  });
+};
 
+export const useRegisterLike = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ feedId, userId }) => {
+      return registerLike(feedId, userId);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries("feed");
+      queryClient.invalidateQueries("DetailFeed");
+      queryClient.invalidateQueries("FeedSearch");
+      queryClient.invalidateQueries("AllFeedInfi");
+    },
+  });
+};
+
+export const useRegisterUnlike = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ feedId, userId }) => registerUnlike(feedId, userId),
+    onSuccess: () => {
+      queryClient.invalidateQueries("feed");
+      queryClient.invalidateQueries("DetailFeed");
+      queryClient.invalidateQueries("FeedSearch");
+      queryClient.invalidateQueries("AllFeedInfi");
+    },
   });
 };

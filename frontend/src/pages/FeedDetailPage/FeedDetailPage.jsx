@@ -21,7 +21,7 @@ export const FeedDetailPage = () => {
   const [visible, setVisible] = useState({});
   const { id } = useParams();
   const currentUserId = sessionStorage.getItem("userId");
-  const { data, isLoading, isError, error } = useGetDetailFeed(id);
+  const { data, isLoading, isError, error, refetch } = useGetDetailFeed(id);
   const { mutate: deleteComments } = useDeleteComment({ id });
 
   const recentComments = data?.comments
@@ -90,7 +90,7 @@ export const FeedDetailPage = () => {
   return (
     <div className="feed-detail-container">
       <Header backTo={-1} title="게시물" />
-      <FeedDetailBox feed={data} />
+      <FeedDetailBox feed={data} refetch={refetch} />
       <div className="feed-comment-section">
         <Avatar src={profileImg} isOnline={true} />
 

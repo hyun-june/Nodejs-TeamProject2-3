@@ -42,11 +42,6 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  p {
-    margin-left: 5px;
-    font-size: 13px;
-    color: var(--light-gray-color);
-  }
 }
 
 .avatar-container {
@@ -75,11 +70,6 @@
   width: 1px;
   background-color: var(--sub-color);
   height: 100%;
-}
-
-.button-container {
-  display: flex;
-  justify-content: center;
 }
 
 .edit-userinfo-button {

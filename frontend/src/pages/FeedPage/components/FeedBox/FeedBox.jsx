@@ -5,19 +5,25 @@ import { TagButton } from "../TagButton/TagButton";
 import { Avatar } from "../../../../components/shared/Avatar/Avatar";
 import { timeText } from "../../../../core/constants/DateTimeFormat";
 import { IoEyeSharp } from "react-icons/io5";
-import { registerFeedView } from "../../../../core/api/feed";
-import { useMutation } from "@tanstack/react-query";
-import { useIncreaseFeedView } from "../../../../core/query/feed";
+import {
+  useDeleteFeed,
+  useIncreaseFeedView,
+} from "../../../../core/query/feed";
 import { useState } from "react";
+import { FaTrashAlt } from "react-icons/fa";
+import { PendingButton } from "../../../../components/shared/PendingButton/PendingButton";
 import "./FeedBox.css";
 
 export const FeedBox = ({ feed }) => {
   const navigate = useNavigate();
   const feedDate = new Date(feed.createdAt);
   const feedId = feed._id;
+
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const { mutate: increaseFeedView } = useIncreaseFeedView();
   const currentUserId = sessionStorage.getItem("userId");
+  const { mutate, isPending } = useDeleteFeed();
+
   const handleMoveFeed = (feedId) => {
     increaseFeedView(feedId);
     navigate(`/feed/${feedId}`);
@@ -28,7 +34,7 @@ export const FeedBox = ({ feed }) => {
   };
 
   const handleFeedDelete = () => {
-    console.log("삭제");
+    mutate(feedId);
     setIsMenuVisible(false);
   };
 
@@ -42,22 +48,31 @@ export const FeedBox = ({ feed }) => {
       <div className="feed-top">
         <div className="feed-top-text">
           <Link to={profileLink}>
-            <Avatar src={feed.userInfo.profileImg} isOnline />
+            <Avatar src={feed.userInfo.profileImg} />
           </Link>
-          <div>
-            <div>{feed.userInfo.nickname}</div>
-            <span>Lv 0</span>
-          </div>
+
+          <div className="feed-username">{feed.userInfo.nickname}</div>
         </div>
         <div className="feed-button">
-          <FaEllipsisVertical onClick={handleToggleMenu} />
-          <span>
-            {isMenuVisible && (
-              <span className="feed-delete" onClick={() => handleFeedDelete()}>
-                삭제
+          {currentUserId === feed.userInfo.user && (
+            <>
+              <FaEllipsisVertical onClick={handleToggleMenu} />
+              <span>
+                {isMenuVisible && (
+                  <span>
+                    <PendingButton
+                      className="feed-delete"
+                      onClick={handleFeedDelete}
+                      isPending={isPending}
+                    >
+                      <FaTrashAlt />
+                      삭제하기
+                    </PendingButton>
+                  </span>
+                )}
               </span>
-            )}
-          </span>
+            </>
+          )}
         </div>
       </div>
       <picture className="feed-imgbox" onClick={() => handleMoveFeed(feedId)}>

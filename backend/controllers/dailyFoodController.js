@@ -42,7 +42,6 @@ export const getDailyFood = async (req, res) => {
         });
       }
     });
-    console.log("결과", result);
     res.status(200).json({ status: "success", data: result });
   } catch (error) {
     res.status(500).json({ status: "fail", message: "서버 오류" });
@@ -51,7 +50,7 @@ export const getDailyFood = async (req, res) => {
 
 export const getSearchFood = async (req, res) => {
   try {
-    const { q, date } = req.query;
+    const { q } = req.query;
     const search = {};
 
     if (q) {

@@ -12,6 +12,7 @@ import {
   deleteFoodApi,
 } from "../api/food";
 import { addDailyFood } from "../api/food";
+import { toast } from "../../components/shared/Toast/Toast";
 
 export const useGetAllFood = (query) => {
   return useQuery({
@@ -33,6 +34,7 @@ export const useCreateFood = () => {
     mutationFn: createFoodApi,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["food"] });
+      toast('푸드 생성 성공')
     },
   });
 };
@@ -61,6 +63,7 @@ export const useFoodSearch = (query, mealtype) => {
   return useQuery({
     queryKey: ["foodSearch", query, mealtype],
     queryFn: () => getFoodSearchResult(query, mealtype),
+    enabled: query !== null,
     onError: (error) =>
       console.log("검색한 음식을 불러오는 데 실패했습니다.", error),
   });

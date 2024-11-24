@@ -11,6 +11,8 @@ import {
 } from "../../core/query/feed";
 import { Link, useParams } from "react-router-dom";
 import { timeText } from "../../core/constants/DateTimeFormat";
+import { FaTrashAlt } from "react-icons/fa";
+import { PendingButton } from "../../components/shared/PendingButton/PendingButton";
 import "./css/FeedDetailPage.css";
 
 const maxLength = 30;
@@ -20,9 +22,9 @@ export const FeedDetailPage = () => {
   const [showComment, setShowComment] = useState({});
   const [visible, setVisible] = useState({});
   const { id } = useParams();
-  const currentUserId = sessionStorage.getItem("userId");
   const { data, isLoading, isError, error } = useGetDetailFeed(id);
-  const { mutate: deleteComments } = useDeleteComment({ id });
+  const { mutate: deleteComments, isPending } = useDeleteComment({ id });
+  const currentUserId = sessionStorage.getItem("userId");
 
   const recentComments = data?.comments
     ? [...data.comments].sort(
@@ -92,7 +94,7 @@ export const FeedDetailPage = () => {
       <Header backTo={-1} title="게시물" />
       <FeedDetailBox feed={data} />
       <div className="feed-comment-section">
-        <Avatar src={profileImg} isOnline={true} />
+        <Avatar src={profileImg} />
 
         <input
           type="text"
@@ -116,6 +118,7 @@ export const FeedDetailPage = () => {
 
           const commentDate = new Date(item.createdAt);
           const timeAgoText = timeText(commentDate);
+          const isCommentOwner = currentUserId === item.userId;
 
           const profileLink =
             currentUserId === item.userId ? "/user/me" : `/user/${item.userId}`;
@@ -125,7 +128,7 @@ export const FeedDetailPage = () => {
               <div className="feed-comment">
                 <div>
                   <Link to={profileLink}>
-                    <Avatar src={item.userInfo.profileImg} isOnline={true} />
+                    <Avatar src={item.userInfo.profileImg} />
                   </Link>
                 </div>
 
@@ -135,21 +138,29 @@ export const FeedDetailPage = () => {
                       <span> {item.userInfo.nickname}</span>
                       <span> {timeAgoText}</span>{" "}
                     </p>
-                    <div className="comment-button">
-                      <FaEllipsisVertical
-                        onClick={() => toggleVisible(index)}
-                      />
-                      <span>
-                        {visible[index] && (
-                          <span
-                            className="comment-delete"
-                            onClick={() => handleCommentDelete(id, item._id)}
-                          >
-                            삭제
-                          </span>
-                        )}
-                      </span>
-                    </div>
+                    {isCommentOwner && (
+                      <div className="comment-button">
+                        <FaEllipsisVertical
+                          onClick={() => toggleVisible(index)}
+                        />
+                        <span>
+                          {visible[index] && (
+                            <span>
+                              <PendingButton
+                                className="comment-delete"
+                                onClick={() =>
+                                  handleCommentDelete(id, item._id)
+                                }
+                                isPending={isPending}
+                              >
+                                <FaTrashAlt />
+                                삭제하기
+                              </PendingButton>
+                            </span>
+                          )}
+                        </span>
+                      </div>
+                    )}
                   </div>
 
                   <div className="feed-content-inner">

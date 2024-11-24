@@ -22,16 +22,22 @@ import { WeightPage } from "../pages/WeightPage/WeightPage";
 import { DailyExercisePage } from "../pages/DailyExercisePage/DailyExercisePage";
 import { DailyExerciseSearchPage } from "../pages/DailyExerciseSearchPage/DailyExerciseSearchPage";
 
-export const AppRouter = () => {
+export const AppRouter = ({ handleLogout }) => {
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
         <Route path="" element={<MainPage />} />
         <Route path="feed" element={<FeedPage />} />
-        <Route path="/user/me" element={<UserPage />} />
+        <Route
+          path="/user/me"
+          element={<UserPage handleLogout={handleLogout} />}
+        />
       </Route>
 
-      <Route path="/user/:userId" element={<UserPage />} />
+      <Route
+        path="/user/:userId"
+        element={<UserPage handleLogout={handleLogout} />}
+      />
       <Route path="/feed/:id" element={<FeedDetailPage />} />
       <Route path="/feed-create" element={<FeedCreatePage />} />
       <Route path="/water" element={<WaterPage />} />

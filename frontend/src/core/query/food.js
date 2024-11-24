@@ -45,6 +45,7 @@ export const useUpdateFood = () => {
     mutationFn: updateFoodApi,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["food"] });
+      toast('푸드 수정 성공')
     },
   });
 };
@@ -55,6 +56,7 @@ export const useDeleteFood = () => {
     mutationFn: deleteFoodApi,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["food"] });
+      toast('푸드 삭제 성공')
     },
   });
 };
@@ -66,6 +68,7 @@ export const useFoodSearch = (query, mealtype) => {
     enabled: query !== null,
     onError: (error) =>
       console.log("검색한 음식을 불러오는 데 실패했습니다.", error),
+    
   });
 };
 
@@ -73,7 +76,10 @@ export const useFoodPage = (query) => {
   return useQuery({
     queryKey: ["dailyFood", query],
     queryFn: () => getDailyFood(query),
-    onError: (data) => console.log("FoodPage 불러오기 실패", data),
+    onError: (data) => {
+      toast('페이지 불러오기에 실패하였습니다', { status : 'fail'})
+      console.log("FoodPage 불러오기 실패", data)
+    } 
   });
 };
 
@@ -89,9 +95,11 @@ export const useAddDailyFood = () => {
       queryClient.invalidateQueries("dailyFood");
       navigate("/food");
       console.log("음식 추가 성공", data);
+      toast('음식 추가 성공')
     },
     onError: (error) => {
       console.log("음식 추가 실패", error);
+      toast('음식 추가 실패', { status : 'fail'})
     },
   });
 };
@@ -106,9 +114,12 @@ export const useUpdateDailyFood = () => {
     onSuccess: (data) => {
       console.log("음식 수정 성공", data);
       queryClient.invalidateQueries(["dailyFood"]);
+      toast('음식 수정 성공')
     },
     onError: (error) => {
       console.log("음식 수정 실패", error);
+      toast('음식 수정 실패', { status : 'fail'})
+
     },
   });
 };
@@ -123,9 +134,11 @@ export const useDeleteDailyFood = () => {
     onSuccess: (data) => {
       queryClient.invalidateQueries(["dailyFood"]);
       console.log("음식 삭제 성공", data);
+      toast('음식 삭제 성공')
     },
     onError: (error) => {
       console.log("음식 삭제 실패", error);
+      toast('음식 삭제 실패', { status : 'fail'})
     },
   });
 };

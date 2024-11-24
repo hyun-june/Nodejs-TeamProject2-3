@@ -11,11 +11,11 @@ const toastStatus =  {
     },
     success : {
         color : '#16a34a',
-        icon : <FaCircleCheck />
+        icon : <FaCircleCheck size={20}/>
     },
     fail : {
         color : '#991b1b',
-        icon : <FaCircleCheck />
+        icon : <FaCircleCheck size={20}/>
     },
 }
 
@@ -23,7 +23,7 @@ const toastStatus =  {
 export const toast = (message, options) => {
     const duration = options?.duration || 2000
     const status = options?.status || 'success'
-    console.log(status,duration)
+
     if (setToastsFn) {
         const newToast = {
             id: Date.now(),
@@ -41,8 +41,7 @@ export const toast = (message, options) => {
 }
 
 export const ToastContainer = () => {
-    const [toastList, setToastList] = useState([
-    ]);
+    const [toastList, setToastList] = useState([ ]);
 
     useEffect(() => {
         setToastsFn = setToastList;
@@ -56,7 +55,7 @@ export const ToastContainer = () => {
             {toastList.map(({id, message, duration, status}) => 
                 <div key={id} className='toast-item' style={{color : toastStatus[status]?.color }}>
                     {toastStatus[status]?.icon}
-                    <div>{message}</div>
+                    <h3>{message}</h3>
                     <div className='toast-bar'style={{
                         animationDuration : `${duration / 1000}s` ,
                         backgroundColor : toastStatus[status]?.color

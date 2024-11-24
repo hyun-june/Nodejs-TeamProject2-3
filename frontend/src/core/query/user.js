@@ -6,6 +6,7 @@ import {
   getUserDetail,
   updateUserDetail,
 } from "../api/user";
+import { toast } from "../../components/shared/Toast/Toast";
 
 export const useGetMyInfo = () => {
   return useQuery({
@@ -37,6 +38,7 @@ export const useUpdateUserDetail = () => {
     },
     onSuccess: (data) => {
       navigate("/user/me");
+      toast('정보 수정 성공!')
     },
   });
 };

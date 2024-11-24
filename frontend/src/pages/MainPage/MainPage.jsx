@@ -80,7 +80,7 @@ export const MainPage = () => {
           </div>
         </section>
         <section>
-          {dailyFoodData && (
+          {totalFoodCalorie ? (
             <div className="straght-progress sky-thema">
               <div className="straght-progress-head">
                 <h4>식단</h4>
@@ -101,9 +101,14 @@ export const MainPage = () => {
                 <IoIosArrowForward />
               </Link>
             </div>
-          )}
-
-          <div className="straght-progress semired-thema">
+          ) : <Link to="/food">
+                <div className="straght-progress-bar-empty sky-thema mb-10">
+                  <h3>오늘 먹은 식단 입력하러가기!</h3>
+                  <IoIosArrowForward />
+                </div>
+              </Link> }
+          {
+            totalExerciseCalorie ? <div className="straght-progress semired-thema">
             <div className="straght-progress-head">
               <h4>운동</h4>
               <div className="progress-number">
@@ -122,7 +127,14 @@ export const MainPage = () => {
               <div className="center">운동페이지</div>
               <IoIosArrowForward />
             </Link>
-          </div>
+          </div> : <Link to="/exercise">
+            <div className="straght-progress-bar-empty semired-thema">
+              <h3>오늘 한 운동 입력하러가기!</h3>
+              <IoIosArrowForward />
+            </div>
+          </Link> 
+          }
+
         </section>
         <section className="weight-section">
           <h3 className="small-title">몸무게</h3>
@@ -137,7 +149,7 @@ export const MainPage = () => {
               <span>만큼 줄었어요</span> */}
           </div>
           <Link to="/weight">
-            <Button thema="point" round="sm">
+            <Button thema="" round="sm">
               몸무게 기록하기
             </Button>
           </Link>

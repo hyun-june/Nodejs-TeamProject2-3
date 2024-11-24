@@ -112,12 +112,30 @@
     }
 }
 
+.straght-progress-bar-empty{
+    font-weight: bold;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1em 0;
+    font-size: 1.2em;
+    border-radius: 8px;
+    color: white;
+    border: 2px solid var(--sub-color);
+    background-color: var(--thema-color);
+}
+
 .sky-thema {
     --thema-color : #90ADFF;
 }
 
 .semired-thema {
     --thema-color : #FF9090;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
 }
 
 .weight-section{

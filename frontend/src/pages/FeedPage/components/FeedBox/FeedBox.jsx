@@ -8,6 +8,7 @@ import { IoEyeSharp } from "react-icons/io5";
 import { registerFeedView } from "../../../../core/api/feed";
 import { useMutation } from "@tanstack/react-query";
 import {
+  useDeleteFeed,
   useIncreaseFeedView,
   useRegisterLike,
   useRegisterUnlike,

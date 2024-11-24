@@ -7,7 +7,7 @@ import { IoMdCloseCircle } from "react-icons/io";
 import "react-calendar/dist/Calendar.css"; // Calendar 스타일을 위해 추가
 import "./WaterCalendar.css";
 
-export const WaterCalender = ({ onDateChange }) => {
+export const WaterCalendar = ({ onDateChange }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [date, setDate] = useState(new Date());
   const [today, setToday] = useState("");

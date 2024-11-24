@@ -80,10 +80,16 @@
   padding: 0.8em;
   border: 1px solid var(--light-gray-color);
   border-radius: 999px;
+  background-color: var(--main-color);
   p {
-    margin-right: 10px;
     color: var(--dark-gray-color);
+    margin-right: 10px;
   }
+}
+
+.edit-userinfo-button button {
+  margin-right: 10px;
+  color: var(--dark-gray-color);
 }
 
 .feed-container {

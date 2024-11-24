@@ -142,15 +142,15 @@ export const DailyFoodPage = () => {
           <section className="DailyFoodPage__footer-main">
             <section className="DailyFoodPage__footer-main__text-part">
               <div>
-                <p>{totalNutrients.carbohydrate}g</p>
+                <p>{Math.floor(totalNutrients.carbohydrate)}g</p>
                 <p>탄수화물</p>
               </div>
               <div>
-                <p> {totalNutrients.protein}g</p>
+                <p> {Math.floor(totalNutrients.protein)}g</p>
                 <p>단백질</p>
               </div>
               <div>
-                <p>{totalNutrients.fat}g</p>
+                <p>{Math.floor(totalNutrients.fat)}g</p>
                 <p>지방</p>
               </div>
             </section>

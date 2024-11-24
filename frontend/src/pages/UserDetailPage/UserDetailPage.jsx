@@ -6,9 +6,9 @@ import { Header } from "../../components/shared/Header/Header";
 import { FaPlus } from "react-icons/fa6";
 import { IoCloseSharp } from "react-icons/io5";
 import { useInputDetail } from "../../core/query/auth";
-import "./css/UserDetailPage.css";
 import { useGetUserDetail, useUpdateUserDetail } from "../../core/query/user";
 import { PendingButton } from "../../components/shared/PendingButton/PendingButton";
+import "./css/UserDetailPage.css";
 
 export const UserDetailPage = () => {
   const { register, handleSubmit, setValue } = useForm();
@@ -58,6 +58,7 @@ export const UserDetailPage = () => {
       setProfileImgfile(file);
     }
   };
+
   return (
     <>
       <Header title="개인정보 입력" />
@@ -92,26 +93,33 @@ export const UserDetailPage = () => {
             <AuthInput
               id="height"
               title="height"
-              type="number"
+              type="text"
               step="0.1"
               register={register}
             />
+            <span>cm</span>
           </section>
           <section className="detail-second-section">
-            <AuthInput
-              id="weight"
-              title="weight"
-              type="number"
-              step="0.1"
-              register={register}
-            />
-            <AuthInput
-              id="purpose"
-              title="purpose"
-              type="number"
-              step="0.1"
-              register={register}
-            />
+            <div className="weight-input">
+              <AuthInput
+                id="weight"
+                title="weight"
+                type="number"
+                step="0.1"
+                register={register}
+              />
+              <span>kg</span>
+            </div>
+            <div className="purpose-input">
+              <AuthInput
+                id="purpose"
+                title="purpose"
+                type="number"
+                step="0.1"
+                register={register}
+              />
+              <span>kg</span>
+            </div>
 
             <PendingButton thema="point" round="sm" isPending={isPending}>
               {userDetails?.data ? "수정" : "저장"}

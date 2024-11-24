@@ -63,7 +63,7 @@ export const MainPage = () => {
             className="circle-progress-bar"
             style={{
               background: `conic-gradient( #90ADFF ${Math.floor(
-                (totalFoodCalorie / 1500) * 100
+                (totalFoodCalorie / 2500) * 100
               )}%, transparent 0%)`,
             }}
           >
@@ -86,13 +86,13 @@ export const MainPage = () => {
                 <h4>식단</h4>
                 <div className="progress-number">
                   <span>{totalFoodCalorie} </span>
-                  <span>/ 1500KCAL</span>
+                  <span>/ 2500KCAL</span>
                 </div>
               </div>
               <div className="straght-progress-bar">
                 <div
                   style={{
-                    width: `${Math.floor((totalFoodCalorie / 1500) * 100)}%`,
+                    width: `${Math.floor((totalFoodCalorie / 2500) * 100)}%`,
                   }}
                 />
               </div>
@@ -113,7 +113,7 @@ export const MainPage = () => {
               <h4>운동</h4>
               <div className="progress-number">
                 <span>{totalExerciseCalorie} </span>
-                <span>/ 1500KCAL</span>
+                <span>/ 2500KCAL</span>
               </div>
             </div>
             <div className="straght-progress-bar">

@@ -3,7 +3,6 @@
 }
 
 .react-calendar {
-  width: 100%;
   background-color: var(--main-color);
   color: #222;
   border-radius: 8px;

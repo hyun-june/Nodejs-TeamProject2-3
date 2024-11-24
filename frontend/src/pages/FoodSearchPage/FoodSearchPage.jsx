@@ -15,16 +15,16 @@ export const FoodSearchPage = () => {
   const { bottomSheetProps, open } = useBottomSheet();
   const [selectedFood, setSelectedFood] = useState(null); // 선택된 food 데이터를 로컬에서 관리
 
-  const query = new URLSearchParams(search).get("q"); // q에 해당하는 검색어 값을 추출하는 코드
+  const query = new URLSearchParams(search).get("q") || "";
   const date = new URLSearchParams(search).get("date");
-
-  console.log("Dddd", date);
 
   const {
     data: foods,
     isLoading,
     error,
   } = useFoodSearch(query, mealtype, date);
+
+  console.log("Dddd", foods);
 
   const handleFoodClick = (food) => {
     setSelectedFood(food);
@@ -57,7 +57,9 @@ export const FoodSearchPage = () => {
             </section>
           ))
         ) : (
-          <p> 검색 결과가 없습니다. 직접 입력하기</p>
+          <section className="DailyFood_Feed-content__no-search">
+            <p> 검색 결과가 없습니다.</p>
+          </section>
         )}
 
         <section>

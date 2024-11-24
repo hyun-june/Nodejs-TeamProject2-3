@@ -2,22 +2,24 @@ import { Food } from "../Model/Food.js";
 
 export const getAllFood = async (req, res) => {
   try {
-    const { page, q, size, } = req.query
-    const cond = q ? { name:{ $regex:q, $options:'i' } } : {}
-            
-    let query = Food.find(cond).sort({ createdAt: -1 })
-    let response = { status : 'success' }
-            
-    if(page && size){
-          query.skip((page-1)*size).limit(size)
-          const totalItemNum = await Food.countDocuments(cond);
-          response.totalPageNum = Math.ceil(totalItemNum / size)
+    const { page, q, size } = req.query;
+    console.log("qqqq", q);
+    const cond = q ? { name: { $regex: q, $options: "i" } } : {};
+
+    let query = Food.find(cond).sort({ createdAt: -1 });
+    let response = { status: "success" };
+
+    if (page && size) {
+      query.skip((page - 1) * size).limit(size);
+      const totalItemNum = await Food.countDocuments(cond);
+      response.totalPageNum = Math.ceil(totalItemNum / size);
     }
 
-    const food = await query.exec()
-    response.data = food
-          
-    res.status(200).json(response)
+    const food = await query.exec();
+    response.data = food;
+
+    res.status(200).json(response);
+    console.log("rrrr", response);
   } catch (error) {
     res.status(500).json({
       status: "fail",

@@ -2,14 +2,13 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { AuthInput } from "../../components/shared/AuthInput/AuthInput";
-import { AuthButton } from "../../components/shared/AuthButton/AuthButton";
 import { Header } from "../../components/shared/Header/Header";
 import { FaPlus } from "react-icons/fa6";
 import { IoCloseSharp } from "react-icons/io5";
-import { inputUserDetail } from "../../core/api/auth";
 import { useInputDetail } from "../../core/query/auth";
 import "./css/UserDetailPage.css";
 import { useGetUserDetail, useUpdateUserDetail } from "../../core/query/user";
+import { PendingButton } from "../../components/shared/PendingButton/PendingButton";
 
 export const UserDetailPage = () => {
   const { register, handleSubmit, setValue } = useForm();
@@ -113,14 +112,15 @@ export const UserDetailPage = () => {
               step="0.1"
               register={register}
             />
-            <AuthButton type="submit" className="button-color_blue">
+
+            <PendingButton thema="point" round="sm" isPending={isPending}>
               {userDetails?.data ? "수정" : "저장"}
-            </AuthButton>
+            </PendingButton>
             {userDetails?.data ? (
               <Link to="/user/me" className="detail-cancel-button">
-                <AuthButton type="submit" className="button-color_blue">
+                <PendingButton thema="point" round="sm" isPending={isPending}>
                   수정 취소
-                </AuthButton>
+                </PendingButton>
               </Link>
             ) : (
               ""

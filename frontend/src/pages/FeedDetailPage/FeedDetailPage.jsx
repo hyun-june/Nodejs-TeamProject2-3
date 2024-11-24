@@ -12,6 +12,7 @@ import {
 import { Link, useParams } from "react-router-dom";
 import { timeText } from "../../core/constants/DateTimeFormat";
 import { FaTrashAlt } from "react-icons/fa";
+import { PendingButton } from "../../components/shared/PendingButton/PendingButton";
 import "./css/FeedDetailPage.css";
 
 const maxLength = 30;
@@ -22,7 +23,7 @@ export const FeedDetailPage = () => {
   const [visible, setVisible] = useState({});
   const { id } = useParams();
   const { data, isLoading, isError, error } = useGetDetailFeed(id);
-  const { mutate: deleteComments } = useDeleteComment({ id });
+  const { mutate: deleteComments, isPending } = useDeleteComment({ id });
   const currentUserId = sessionStorage.getItem("userId");
 
   const recentComments = data?.comments
@@ -144,12 +145,17 @@ export const FeedDetailPage = () => {
                         />
                         <span>
                           {visible[index] && (
-                            <span
-                              className="comment-delete"
-                              onClick={() => handleCommentDelete(id, item._id)}
-                            >
-                              <FaTrashAlt />
-                              삭제하기
+                            <span>
+                              <PendingButton
+                                className="comment-delete"
+                                onClick={() =>
+                                  handleCommentDelete(id, item._id)
+                                }
+                                isPending={isPending}
+                              >
+                                <FaTrashAlt />
+                                삭제하기
+                              </PendingButton>
                             </span>
                           )}
                         </span>

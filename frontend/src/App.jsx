@@ -26,6 +26,7 @@ function App() {
   const handleLogout = () => {
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("isStart");
+    sessionStorage.removeItem("userId");
     navigate("/login");
     setIsCoverOpen(true);
   };

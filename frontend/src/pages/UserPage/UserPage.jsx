@@ -1,4 +1,4 @@
-import { useLocation, useParams, useNavigate, Link } from "react-router-dom";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 import { Header } from "../../components/shared/Header/Header.jsx";
 import { Avatar } from "../../components/shared/Avatar/Avatar.jsx";
 import { Tabs } from "../../components/shared/Tabs/Tabs.jsx";
@@ -13,8 +13,8 @@ const TabContent1 = FeedContainer;
 
 export const UserPage = ({ handleLogout }) => {
   const { pathname } = useLocation();
-  let { userId } = useParams();
   const navigate = useNavigate();
+  let { userId } = useParams();
   const isMyPage = pathname === "/user/me";
 
   const useGetInfo = (isMyPage) => {
@@ -46,7 +46,17 @@ export const UserPage = ({ handleLogout }) => {
   ];
 
   if (userIsPending || feedIsPending) return <>로딩중</>;
-  // if (userError||feedError) return <>에러 발생: {userError.message}</>;
+  // if (userError || feedError)
+  //   return (
+  //     <>
+  //       에러 발생: {userError.message}
+  //       {feedError.message}
+  //     </>
+  //   );
+
+  const handleEditButtonClick = () => {
+    navigate("/user/detail");
+  };
 
   return (
     <>
@@ -63,13 +73,11 @@ export const UserPage = ({ handleLogout }) => {
               isOnline={true}
               size="100"
             />
-            <div
-              className="logout"
-              onClick={() => handleLogout()}
-              style={{ top: isMyPage ? "15px" : "50px" }}
-            >
-              <FiLogOut size="22" color="var(--light-gray-color)" />
-            </div>
+            {isMyPage && (
+              <div className="logout" onClick={() => handleLogout()}>
+                <FiLogOut size="22" color="var(--light-gray-color)" />
+              </div>
+            )}
 
             <p className="info-content">{userdata.detailInfo?.nickname}</p>
             <p className="useremail">{userdata.email}</p>
@@ -88,13 +96,12 @@ export const UserPage = ({ handleLogout }) => {
             </div>
           </div>
           {isMyPage && (
-            <div className="button-container">
-              <Link to="/user/detail">
-                <button className="edit-userinfo-button">
-                  <p>내 정보 수정하기</p> <BiSolidPencil size="20" />
-                </button>
-              </Link>
-            </div>
+            <button
+              className="edit-userinfo-button"
+              onClick={handleEditButtonClick}
+            >
+              <p>내 정보 수정하기</p> <BiSolidPencil size="20" />
+            </button>
           )}
         </div>
         <div className="feed-container">

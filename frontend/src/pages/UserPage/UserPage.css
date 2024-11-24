@@ -72,11 +72,6 @@
   height: 100%;
 }
 
-.button-container {
-  display: flex;
-  justify-content: center;
-}
-
 .edit-userinfo-button {
   display: flex;
   justify-content: center;

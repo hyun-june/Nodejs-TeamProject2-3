@@ -4,7 +4,6 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { useMutation } from "@tanstack/react-query";
-
 import {
   createFeed,
   getDetailFeed,
@@ -18,6 +17,7 @@ import {
 
 } from "../api/feed";
 import { useNavigate } from "react-router-dom";
+import { toast } from "../../components/shared/Toast/Toast";
 
 export const useCreateFeed = () => {
   const navigate = useNavigate();
@@ -28,9 +28,11 @@ export const useCreateFeed = () => {
     onSuccess: (data) => {
       navigate("/feed");
       console.log("피드 생성 성공", data);
+      toast('피드 생성 성공!')
     },
     onError: (error) => {
       console.log("피드 생성 실패", error);
+      toast('피드 생성 실패', { status : 'fail'})
     },
   });
 };
@@ -54,6 +56,7 @@ export const useGetAllFeedInfinite = ({ limit }) => {
     },
     onError: (error) => {
       console.log("피드 로드 실패", error);
+      toast('피드를 가져오는데 실패했어요', { status : 'fail'})
     },
   });
 };
@@ -90,6 +93,7 @@ export const useFeedSearchInfinite = ({ query, limit }) => {
     },
     onError: (error) => {
       console.log("피드 검색 실패", error);
+      toast('피드 검색이 실패했어요', { status : 'fail'})
     },
   });
 };
@@ -102,9 +106,11 @@ export const useUpdateComment = ({ id }) => {
     onSuccess: (data) => {
       queryClient.invalidateQueries("DetailFeed");
       console.log("댓글 생성 성공", data);
+      toast('댓글이 추가되었어요')
     },
     onError: (error) => {
       console.log("댓글 생성 실패", error);
+      toast('댓글 생성에 실패했어요', { status : 'fail'})
     },
   });
 };
@@ -116,9 +122,11 @@ export const useDeleteComment = ({ id }) => {
     mutationFn: ({ id, commentId }) => deleteComments({ id, commentId }),
     onSuccess: (data, variables) => {
       queryClient.invalidateQueries(["feed", variables.feedId]);
+      toast('댓글이 삭제되었어요')
     },
     onError: (error) => {
       console.log("댓글 삭제 실패", error);
+      toast('댓글 삭제 요청에 실패했어요')
     },
   });
 };
@@ -128,6 +136,7 @@ export const useDeleteFeed = () => {
     mutationFn: deleteFeedApi,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["feed"] });
+      toast('피드가 삭제되었어요')
     },
   });
 };
@@ -142,6 +151,5 @@ export const useIncreaseFeedView = () => {
     onError: (error) => {
       console.error("조회 수 업데이트 실패:", error);
     },
-
   });
 };

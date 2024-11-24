@@ -119,7 +119,7 @@ export const MainPage = () => {
             <div className="straght-progress-bar">
               <div
                 style={{
-                  width: `${Math.floor((totalExerciseCalorie / 1500) * 100)}%`,
+                  width: `${Math.floor((totalExerciseCalorie / 2500) * 100)}%`,
                 }}
               />
             </div>

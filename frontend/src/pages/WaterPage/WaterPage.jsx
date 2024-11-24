@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Header } from "../../components/shared/Header/Header";
-import { WaterCalender } from "./WaterCalender/WaterCalender";
+import { WaterCalendar } from "./WaterCalendar/WaterCalendar";
 import {
   useGetWaterAmount,
   useUpdateWaterAmount,
@@ -62,7 +62,7 @@ export const WaterPage = () => {
     <>
       <Header backTo={-1} title="물 마시기" />
       <div className="water-container">
-        <WaterCalender onDateChange={onDateChange} value={selectedData} />
+        <WaterCalendar onDateChange={onDateChange} value={selectedData} />
         <div className="container">
           <div className="bottle-neck"></div>
           <div className="bottle">
@@ -75,18 +75,14 @@ export const WaterPage = () => {
           <p>/2000mL</p>
           <div className="buttonContainer">
             <button
-              className={`controlButton ${
-                waterHeight === 0 ? "disabledButton" : ""
-              }`}
+              className="controlButton"
               onClick={handleRemoveWater}
               disabled={waterHeight === 0}
             >
               - 250mL
             </button>
             <button
-              className={`controlButton ${
-                waterHeight === MAX_WATER ? "disabledButton" : ""
-              }`}
+              className="controlButton"
               onClick={handleAddWater}
               disabled={waterHeight === MAX_WATER}
             >

@@ -76,21 +76,21 @@ export const WaterPage = () => {
           <div className="buttonContainer">
             <button
               className={`controlButton ${
-                waterHeight === MAX_WATER ? "disabledButton" : ""
-              }`}
-              onClick={handleAddWater}
-              disabled={waterHeight === MAX_WATER}
-            >
-              + 250mL
-            </button>
-            <button
-              className={`controlButton ${
                 waterHeight === 0 ? "disabledButton" : ""
               }`}
               onClick={handleRemoveWater}
               disabled={waterHeight === 0}
             >
               - 250mL
+            </button>
+            <button
+              className={`controlButton ${
+                waterHeight === MAX_WATER ? "disabledButton" : ""
+              }`}
+              onClick={handleAddWater}
+              disabled={waterHeight === MAX_WATER}
+            >
+              + 250mL
             </button>
           </div>
         </div>

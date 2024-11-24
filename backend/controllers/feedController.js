@@ -141,6 +141,7 @@ export const getSearchFeed = async (req, res) => {
       };
     }
     const feedSearch = await Feed.find(search)
+      .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)
       .populate("userInfo");

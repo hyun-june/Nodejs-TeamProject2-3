@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AddButton } from "../../components/shared/AddButton/AddButton";
 import { SearchBar } from "../../components/shared/SearchBar/SearchBar";

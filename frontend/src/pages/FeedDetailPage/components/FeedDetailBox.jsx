@@ -9,8 +9,7 @@ import {
   useIncreaseFeedView,
   useRegisterLike,
   useRegisterUnlike,
-} from "../../../core/query/feed"; // 쿼리 훅
-
+} from "../../../core/query/feed";
 import { FaTrashAlt } from "react-icons/fa";
 import { useDeleteFeed } from "../../../core/query/feed";
 import { PendingButton } from "../../../components/shared/PendingButton/PendingButton";

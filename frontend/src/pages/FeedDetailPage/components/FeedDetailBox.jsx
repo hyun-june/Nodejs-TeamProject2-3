@@ -8,6 +8,7 @@ import { timeText } from "../../../core/constants/DateTimeFormat";
 import { IoEyeSharp } from "react-icons/io5";
 import { FaTrashAlt } from "react-icons/fa";
 import { useDeleteFeed } from "../../../core/query/feed";
+import { PendingButton } from "../../../components/shared/PendingButton/PendingButton";
 
 export const FeedDetailBox = ({ feed }) => {
   const [isDetailVisible, setIsDetailVisible] = useState(false);
@@ -16,7 +17,7 @@ export const FeedDetailBox = ({ feed }) => {
   const currentUserId = sessionStorage.getItem("userId");
   const feedId = feed._id;
 
-  const { mutate } = useDeleteFeed();
+  const { mutate, isPending } = useDeleteFeed();
 
   const handleMoveFeed = (feedId) => {
     navigate(`/feed/${feedId}`);
@@ -29,7 +30,7 @@ export const FeedDetailBox = ({ feed }) => {
   const handleFeedDelete = () => {
     mutate(feedId, {
       onSuccess: () => {
-        navigate("/feed");
+        navigate(-1);
       },
     });
     setIsDetailVisible(false);
@@ -53,9 +54,15 @@ export const FeedDetailBox = ({ feed }) => {
               <FaEllipsisVertical onClick={handleToggleMenu} />
               <span>
                 {isDetailVisible && (
-                  <span className="feed-delete" onClick={handleFeedDelete}>
-                    <FaTrashAlt />
-                    삭제하기
+                  <span>
+                    <PendingButton
+                      className="feed-delete"
+                      onClick={handleFeedDelete}
+                      isPending={isPending}
+                    >
+                      <FaTrashAlt />
+                      삭제하기
+                    </PendingButton>
                   </span>
                 )}
               </span>

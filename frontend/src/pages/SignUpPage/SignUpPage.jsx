@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AuthInput } from "../../components/shared/AuthInput/AuthInput";
-import { AuthButton } from "../../components/shared/AuthButton/AuthButton";
 import { useSignUp } from "../../core/query/auth";
 import "./css/SignUpPage.css";
+import { PendingButton } from "../../components/shared/PendingButton/PendingButton";
 
 export const SignUpPage = () => {
   const {
@@ -13,7 +13,7 @@ export const SignUpPage = () => {
     formState: { errors },
   } = useForm({ mode: "onChange" });
 
-  const { mutate: signUp, isLoading, isError, error } = useSignUp();
+  const { mutate: signUp, isPending, isError, error } = useSignUp();
 
   const handleSingUpSubmit = async (formData) => {
     const { Password, ConfirmPassword, Email, Name } = formData;
@@ -65,9 +65,9 @@ export const SignUpPage = () => {
           error={errors.ConfirmPassword}
         />
 
-        <AuthButton type="submit" className="button-color_black">
+        <PendingButton round="sm" isPending={isPending}>
           회원가입
-        </AuthButton>
+        </PendingButton>
       </form>
       <footer>
         <Link to="/login">로그인 하기</Link>

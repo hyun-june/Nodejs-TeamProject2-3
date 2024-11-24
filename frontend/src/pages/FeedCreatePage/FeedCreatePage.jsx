@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Header } from "../../components/shared/Header/Header";
-import { AuthButton } from "../../components/shared/AuthButton/AuthButton";
 import { FaPlus } from "react-icons/fa6";
 import { IoCloseSharp } from "react-icons/io5";
 import { useCreateFeed } from "../../core/query/feed";
 import "./css/FeedCreatePage.css";
+import { PendingButton } from "../../components/shared/PendingButton/PendingButton";
 
 export const FeedCreatePage = () => {
   const [mainImageUrl, setMainImageUrl] = useState();
@@ -13,7 +13,7 @@ export const FeedCreatePage = () => {
   const [tags, setTags] = useState([]);
   const [newTag, setNewTag] = useState("");
 
-  const { mutate: createFeed, isLoading, isError, error } = useCreateFeed();
+  const { mutate: createFeed, isPending, isError, error } = useCreateFeed();
 
   const handleImageChange = (e) => {
     if (!e.target.files) return;
@@ -107,9 +107,15 @@ export const FeedCreatePage = () => {
             </div>
           </ul>
         </div>
-        <AuthButton onClick={handleFeedSubmit} className="button-color_blue">
+
+        <PendingButton
+          onClick={handleFeedSubmit}
+          isPending={isPending}
+          round="sm"
+          thema="point"
+        >
           올리기
-        </AuthButton>
+        </PendingButton>
       </div>
     </div>
   );

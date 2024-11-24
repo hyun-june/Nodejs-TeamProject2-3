@@ -1,10 +1,9 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AuthInput } from "../../components/shared/AuthInput/AuthInput";
-import { AuthButton } from "../../components/shared/AuthButton/AuthButton";
 import { useLogin } from "../../core/query/auth";
 import "./css/LoginPage.css";
+import { PendingButton } from "../../components/shared/PendingButton/PendingButton";
 
 export const LoginPage = () => {
   const {
@@ -14,7 +13,7 @@ export const LoginPage = () => {
     formState: { errors },
   } = useForm({ mode: "onChange" });
 
-  const { mutate: login, isLoading, isError, error } = useLogin();
+  const { mutate: login, isPending, isError, error } = useLogin();
 
   const handleLoginSubmit = (formData) => {
     login({ email: formData.Email, password: formData.Password });
@@ -38,9 +37,9 @@ export const LoginPage = () => {
             register={register}
             error={errors.Password}
           />
-          <AuthButton type="submit" className="button-color_black">
+          <PendingButton isPending={isPending} round="sm">
             로그인
-          </AuthButton>
+          </PendingButton>
         </form>
 
         <footer>

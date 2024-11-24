@@ -11,6 +11,7 @@ import {
 } from "../../../../core/query/feed";
 import { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
+import { PendingButton } from "../../../../components/shared/PendingButton/PendingButton";
 import "./FeedBox.css";
 
 export const FeedBox = ({ feed }) => {
@@ -21,7 +22,7 @@ export const FeedBox = ({ feed }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const { mutate: increaseFeedView } = useIncreaseFeedView();
   const currentUserId = sessionStorage.getItem("userId");
-  const { mutate } = useDeleteFeed();
+  const { mutate, isPending } = useDeleteFeed();
 
   const handleMoveFeed = (feedId) => {
     increaseFeedView(feedId);
@@ -33,13 +34,7 @@ export const FeedBox = ({ feed }) => {
   };
 
   const handleFeedDelete = () => {
-    mutate(feedId, {
-      onSuccess: () => {
-        navigate("/feed");
-        window.location.reload();
-      },
-    });
-
+    mutate(feedId);
     setIsMenuVisible(false);
   };
 
@@ -64,9 +59,15 @@ export const FeedBox = ({ feed }) => {
               <FaEllipsisVertical onClick={handleToggleMenu} />
               <span>
                 {isMenuVisible && (
-                  <span className="feed-delete" onClick={handleFeedDelete}>
-                    <FaTrashAlt />
-                    삭제하기
+                  <span>
+                    <PendingButton
+                      className="feed-delete"
+                      onClick={handleFeedDelete}
+                      isPending={isPending}
+                    >
+                      <FaTrashAlt />
+                      삭제하기
+                    </PendingButton>
                   </span>
                 )}
               </span>

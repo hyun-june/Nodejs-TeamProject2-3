@@ -110,3 +110,35 @@ export const deleteComments = async ({ id, commentId }) => {
     console.log("댓글 삭제 실패", error);
   }
 };
+
+// 좋아요 등록 함수
+export const registerLike = async (feedId, userId) => {
+  console.log("ffff", feedId), console.log("uuuu", userId);
+
+  try {
+    // 좋아요 등록을 위한 POST 요청
+    const { data } = await api.post(`/feed/${feedId}/like`, {
+      userId, // 사용자 ID를 전달
+    });
+
+    console.log("좋아요 등록 성공:", data);
+    return data; // 응답 데이터를 반환
+  } catch (error) {
+    console.error("좋아요 등록 실패:", error);
+  }
+};
+
+// 좋아요 취소 함수
+export const registerUnlike = async (feedId, userId) => {
+  try {
+    // 좋아요 취소를 위한 POST 요청
+    const { data } = await api.post(`/feed/${feedId}/unlike`, {
+      userId: userId, // 사용자 ID를 전달
+    });
+
+    console.log("좋아요 취소 성공:", data);
+    return data; // 응답 데이터를 반환
+  } catch (error) {
+    console.error("좋아요 취소 실패:", error);
+  }
+};

@@ -3,8 +3,8 @@ import { Header } from "../../components/shared/Header/Header";
 import { FaPlus } from "react-icons/fa6";
 import { IoCloseSharp } from "react-icons/io5";
 import { useCreateFeed } from "../../core/query/feed";
-import "./css/FeedCreatePage.css";
 import { PendingButton } from "../../components/shared/PendingButton/PendingButton";
+import "./css/FeedCreatePage.css";
 
 export const FeedCreatePage = () => {
   const [mainImageUrl, setMainImageUrl] = useState();

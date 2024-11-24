@@ -1,26 +1,63 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEllipsisVertical } from "react-icons/fa6";
-import { LikeButton } from "../../../components/Feed/LikeButton/LikeButton";
-import { TagButton } from "../../FeedPage/components/TagButton/TagButton";
+import { LikeButton } from "../../../components/Feed/LikeButton/LikeButton"; // LikeButton 컴포넌트 추가
 import { Avatar } from "../../../components/shared/Avatar/Avatar";
 import { timeText } from "../../../core/constants/DateTimeFormat";
 import { IoEyeSharp } from "react-icons/io5";
+
+import { useState } from "react";
+import {
+  useIncreaseFeedView,
+  useRegisterLike,
+  useRegisterUnlike,
+} from "../../../core/query/feed"; // 쿼리 훅
+
 import { FaTrashAlt } from "react-icons/fa";
 import { useDeleteFeed } from "../../../core/query/feed";
 import { PendingButton } from "../../../components/shared/PendingButton/PendingButton";
 
-export const FeedDetailBox = ({ feed }) => {
+
+export const FeedDetailBox = ({ feed, refetch }) => {
   const [isDetailVisible, setIsDetailVisible] = useState(false);
   const navigate = useNavigate();
   const feedDate = new Date(feed.createdAt);
+
+  const feedId = feed._id;
+
+  // 좋아요 관련 상태 및 뮤테이션
+  const currentUserId = sessionStorage.getItem("userId");
+  const { mutate: increaseFeedView } = useIncreaseFeedView();
+  const { mutate: registerLike } = useRegisterLike();
+  const { mutate: registerUnlike } = useRegisterUnlike();
+  const [liked, setLiked] = useState(feed.likedBy.includes(currentUserId)); // 좋아요 여부
+  const [likes, setLikes] = useState(feed.likes); // 좋아요 수
+
+  // 좋아요 버튼 클릭 시 처리
+  const handleLikeToggle = () => {
+    if (liked) {
+      // 좋아요 취소
+      registerUnlike({ feedId, userId: currentUserId });
+      setLikes((prevLikes) => prevLikes - 1);
+    } else {
+      // 좋아요 등록
+      registerLike({ feedId, userId: currentUserId });
+      setLikes((prevLikes) => prevLikes + 1);
+    }
+    setLiked((prev) => !prev); // 상태 토글
+
+    refetch();
+  };
+
   const currentUserId = sessionStorage.getItem("userId");
   const feedId = feed._id;
 
   const { mutate, isPending } = useDeleteFeed();
 
+
   const handleMoveFeed = (feedId) => {
-    navigate(`/feed/${feedId}`);
+    increaseFeedView(feedId); // 조회수 증가
+    navigate(`/feed/${feedId}`); // 피드 상세 페이지로 이동
   };
 
   const handleToggleMenu = () => {
@@ -37,10 +74,11 @@ export const FeedDetailBox = ({ feed }) => {
   };
 
   return (
-    <article className={location.pathname === "/feed" ? "feed-container" : ""}>
+    <article className="feed-container">
       <div className="feed-top">
         <div className="feed-top-text">
           <Link to={`/user/${feed.userInfo.user}`}>
+
             <Avatar src={feed?.user?.detailInfo?.profileImg} />
           </Link>
 
@@ -76,7 +114,12 @@ export const FeedDetailBox = ({ feed }) => {
 
       <div className="feed-inner">
         <div className="feed-inner-text">
-          <LikeButton />
+          {/* LikeButton 컴포넌트에 likes와 liked 상태 전달 */}
+          <LikeButton
+            likes={likes} // 좋아요 수
+            liked={liked} // 좋아요 여부
+            onLikeToggle={handleLikeToggle} // 좋아요 클릭 시 호출될 함수
+          />
           <div className="feed-view-section">
             <IoEyeSharp className="feed-view-icon" />
             <span>{feed.views}</span>
@@ -85,9 +128,7 @@ export const FeedDetailBox = ({ feed }) => {
 
         <div
           onClick={() => handleMoveFeed(feedId)}
-          className={
-            location.pathname === "/feed" ? "feed-text" : "feed-detail-text"
-          }
+          className="feed-detail-text"
         >
           <div>{feed?.description}</div>
         </div>

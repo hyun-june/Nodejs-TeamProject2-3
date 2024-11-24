@@ -5,10 +5,9 @@ import { TagButton } from "../TagButton/TagButton";
 import { Avatar } from "../../../../components/shared/Avatar/Avatar";
 import { timeText } from "../../../../core/constants/DateTimeFormat";
 import { IoEyeSharp } from "react-icons/io5";
-import { registerFeedView } from "../../../../core/api/feed";
-import { useMutation } from "@tanstack/react-query";
 import { useIncreaseFeedView } from "../../../../core/query/feed";
 import { useState } from "react";
+import { FaTrashAlt } from "react-icons/fa";
 import "./FeedBox.css";
 
 export const FeedBox = ({ feed }) => {
@@ -42,7 +41,7 @@ export const FeedBox = ({ feed }) => {
       <div className="feed-top">
         <div className="feed-top-text">
           <Link to={profileLink}>
-            <Avatar src={feed.userInfo.profileImg} isOnline />
+            <Avatar src={feed.userInfo.profileImg} />
           </Link>
           <div>
             <div>{feed.userInfo.nickname}</div>
@@ -54,7 +53,8 @@ export const FeedBox = ({ feed }) => {
           <span>
             {isMenuVisible && (
               <span className="feed-delete" onClick={() => handleFeedDelete()}>
-                삭제
+                <FaTrashAlt />
+                삭제하기
               </span>
             )}
           </span>

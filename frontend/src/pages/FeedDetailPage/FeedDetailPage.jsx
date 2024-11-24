@@ -11,6 +11,7 @@ import {
 } from "../../core/query/feed";
 import { Link, useParams } from "react-router-dom";
 import { timeText } from "../../core/constants/DateTimeFormat";
+import { FaTrashAlt } from "react-icons/fa";
 import "./css/FeedDetailPage.css";
 
 const maxLength = 30;
@@ -92,7 +93,7 @@ export const FeedDetailPage = () => {
       <Header backTo={-1} title="게시물" />
       <FeedDetailBox feed={data} />
       <div className="feed-comment-section">
-        <Avatar src={profileImg} isOnline={true} />
+        <Avatar src={profileImg} />
 
         <input
           type="text"
@@ -125,7 +126,7 @@ export const FeedDetailPage = () => {
               <div className="feed-comment">
                 <div>
                   <Link to={profileLink}>
-                    <Avatar src={item.userInfo.profileImg} isOnline={true} />
+                    <Avatar src={item.userInfo.profileImg} />
                   </Link>
                 </div>
 
@@ -145,7 +146,8 @@ export const FeedDetailPage = () => {
                             className="comment-delete"
                             onClick={() => handleCommentDelete(id, item._id)}
                           >
-                            삭제
+                            <FaTrashAlt />
+                            삭제하기
                           </span>
                         )}
                       </span>

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { LikeButton } from "../../../components/Feed/LikeButton/LikeButton";
@@ -5,7 +6,7 @@ import { TagButton } from "../../FeedPage/components/TagButton/TagButton";
 import { Avatar } from "../../../components/shared/Avatar/Avatar";
 import { timeText } from "../../../core/constants/DateTimeFormat";
 import { IoEyeSharp } from "react-icons/io5";
-import { useState } from "react";
+import { FaTrashAlt } from "react-icons/fa";
 
 export const FeedDetailBox = ({ feed }) => {
   const [isDetailVisible, setIsDetailVisible] = useState(false);
@@ -31,7 +32,7 @@ export const FeedDetailBox = ({ feed }) => {
       <div className="feed-top">
         <div className="feed-top-text">
           <Link to={`/user/${feed.userInfo.user}`}>
-            <Avatar src={feed?.user?.detailInfo?.profileImg} isOnline />
+            <Avatar src={feed?.user?.detailInfo?.profileImg} />
           </Link>
           <div>
             <div>{feed?.user?.detailInfo?.nickname}</div>
@@ -43,7 +44,8 @@ export const FeedDetailBox = ({ feed }) => {
           <span>
             {isDetailVisible && (
               <span className="feed-delete" onClick={() => handleFeedDelete()}>
-                삭제
+                <FaTrashAlt />
+                삭제하기
               </span>
             )}
           </span>

@@ -22,7 +22,7 @@ export const DailyFoodFeed = ({
               onClick={() => onFoodClick(food)}
             >
               <div className="DailyFood__Feed-content-box-inner">
-                <h3>{food.food}</h3>
+                <h3>{`${food.food} ${food.quantity}개`}</h3>
                 <div className="DailyFood_Feed-content-box__explain">
                   <p>{food.quantity * food.defaultGram} g</p>
                   <p>{food.calories * food.quantity}Kcal</p>

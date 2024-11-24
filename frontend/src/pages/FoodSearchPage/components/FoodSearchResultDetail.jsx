@@ -7,7 +7,7 @@ import { PendingButton } from "../../../components/shared/PendingButton/PendingB
 export const FoodSearchResultDetail = ({ selectedFood, mealtype, date }) => {
   const { mutate: addFood, isPending } = useAddDailyFood();
 
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState("");
   const [gramQuantity, setGramQuantity] = useState(0);
 
   const quantityInputRef = useRef(null); // input을 참조하는 ref
@@ -25,7 +25,7 @@ export const FoodSearchResultDetail = ({ selectedFood, mealtype, date }) => {
         <input
           ref={quantityInputRef} // ref를 사용하여 input을 참조
           className="tab-input"
-          placeholder="인분 or 개수를 적어주세요."
+          placeholder="개수를 적어주세요."
           type="number"
           value={quantity}
           onChange={(e) => setQuantity(e.target.value)}

@@ -5,6 +5,7 @@ import { SlCalender } from "react-icons/sl";
 import { FaCaretDown } from "react-icons/fa";
 import { IoMdCloseCircle } from "react-icons/io";
 import "react-calendar/dist/Calendar.css"; // Calendar 스타일을 위해 추가
+import "./WaterCalendar.css";
 
 export const WaterCalender = ({ onDateChange }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -48,13 +49,10 @@ export const WaterCalender = ({ onDateChange }) => {
   }, [today]);
   return (
     <>
-      <div className="water-calender">
+      <div className="water-calender" onClick={handleToggleModal}>
         <SlCalender className="water-calender__calender-icon" />
         <span>{today}</span> {/* 최신 today 출력 */}
-        <FaCaretDown
-          className="water-calender__downBtn-icon"
-          onClick={handleToggleModal}
-        />
+        <FaCaretDown className="water-calender__downBtn-icon" />
       </div>
       <Modal
         isOpen={isModalOpen}

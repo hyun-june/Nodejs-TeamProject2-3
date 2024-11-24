@@ -21,9 +21,9 @@ export const FeedDetailPage = () => {
   const [showComment, setShowComment] = useState({});
   const [visible, setVisible] = useState({});
   const { id } = useParams();
-  const currentUserId = sessionStorage.getItem("userId");
   const { data, isLoading, isError, error } = useGetDetailFeed(id);
   const { mutate: deleteComments } = useDeleteComment({ id });
+  const currentUserId = sessionStorage.getItem("userId");
 
   const recentComments = data?.comments
     ? [...data.comments].sort(
@@ -117,6 +117,7 @@ export const FeedDetailPage = () => {
 
           const commentDate = new Date(item.createdAt);
           const timeAgoText = timeText(commentDate);
+          const isCommentOwner = currentUserId === item.userId;
 
           const profileLink =
             currentUserId === item.userId ? "/user/me" : `/user/${item.userId}`;
@@ -136,22 +137,24 @@ export const FeedDetailPage = () => {
                       <span> {item.userInfo.nickname}</span>
                       <span> {timeAgoText}</span>{" "}
                     </p>
-                    <div className="comment-button">
-                      <FaEllipsisVertical
-                        onClick={() => toggleVisible(index)}
-                      />
-                      <span>
-                        {visible[index] && (
-                          <span
-                            className="comment-delete"
-                            onClick={() => handleCommentDelete(id, item._id)}
-                          >
-                            <FaTrashAlt />
-                            삭제하기
-                          </span>
-                        )}
-                      </span>
-                    </div>
+                    {isCommentOwner && (
+                      <div className="comment-button">
+                        <FaEllipsisVertical
+                          onClick={() => toggleVisible(index)}
+                        />
+                        <span>
+                          {visible[index] && (
+                            <span
+                              className="comment-delete"
+                              onClick={() => handleCommentDelete(id, item._id)}
+                            >
+                              <FaTrashAlt />
+                              삭제하기
+                            </span>
+                          )}
+                        </span>
+                      </div>
+                    )}
                   </div>
 
                   <div className="feed-content-inner">

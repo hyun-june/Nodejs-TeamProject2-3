@@ -7,13 +7,17 @@ import { Avatar } from "../../../components/shared/Avatar/Avatar";
 import { timeText } from "../../../core/constants/DateTimeFormat";
 import { IoEyeSharp } from "react-icons/io5";
 import { FaTrashAlt } from "react-icons/fa";
+import { useDeleteFeed } from "../../../core/query/feed";
 
 export const FeedDetailBox = ({ feed }) => {
   const [isDetailVisible, setIsDetailVisible] = useState(false);
   const navigate = useNavigate();
   const feedDate = new Date(feed.createdAt);
-  console.log("1111", feed);
+  const currentUserId = sessionStorage.getItem("userId");
   const feedId = feed._id;
+
+  const { mutate } = useDeleteFeed();
+
   const handleMoveFeed = (feedId) => {
     navigate(`/feed/${feedId}`);
   };
@@ -23,7 +27,11 @@ export const FeedDetailBox = ({ feed }) => {
   };
 
   const handleFeedDelete = () => {
-    console.log("삭제");
+    mutate(feedId, {
+      onSuccess: () => {
+        navigate("/feed");
+      },
+    });
     setIsDetailVisible(false);
   };
 
@@ -34,21 +42,25 @@ export const FeedDetailBox = ({ feed }) => {
           <Link to={`/user/${feed.userInfo.user}`}>
             <Avatar src={feed?.user?.detailInfo?.profileImg} />
           </Link>
-          <div>
-            <div>{feed?.user?.detailInfo?.nickname}</div>
-            <span>Lv 0</span>
+
+          <div className="feed-username">
+            {feed?.user?.detailInfo?.nickname}
           </div>
         </div>
         <div className="feed-button">
-          <FaEllipsisVertical onClick={handleToggleMenu} />
-          <span>
-            {isDetailVisible && (
-              <span className="feed-delete" onClick={() => handleFeedDelete()}>
-                <FaTrashAlt />
-                삭제하기
+          {currentUserId === feed.user.detailInfo.user && (
+            <>
+              <FaEllipsisVertical onClick={handleToggleMenu} />
+              <span>
+                {isDetailVisible && (
+                  <span className="feed-delete" onClick={handleFeedDelete}>
+                    <FaTrashAlt />
+                    삭제하기
+                  </span>
+                )}
               </span>
-            )}
-          </span>
+            </>
+          )}
         </div>
       </div>
       <picture className="feed-imgbox" onClick={() => handleMoveFeed(feedId)}>

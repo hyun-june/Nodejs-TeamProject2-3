@@ -50,6 +50,7 @@ export const UserPage = () => {
 
   const handleLogoutClick = () => {
     sessionStorage.removeItem("token");
+    sessionStorage.removeItem("userId");
     navigate("/login");
   };
 

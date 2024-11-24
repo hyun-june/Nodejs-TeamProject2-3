@@ -45,6 +45,10 @@
   align-items: center;
 }
 
+.feed-username {
+  padding-bottom: 1em;
+}
+
 .feed-tags-list {
   display: flex;
   gap: 1em;

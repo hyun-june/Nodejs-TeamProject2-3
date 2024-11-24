@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { LikeButton } from "../../../components/Feed/LikeButton/LikeButton";
@@ -5,14 +6,18 @@ import { TagButton } from "../../FeedPage/components/TagButton/TagButton";
 import { Avatar } from "../../../components/shared/Avatar/Avatar";
 import { timeText } from "../../../core/constants/DateTimeFormat";
 import { IoEyeSharp } from "react-icons/io5";
-import { useState } from "react";
+import { FaTrashAlt } from "react-icons/fa";
+import { useDeleteFeed } from "../../../core/query/feed";
 
 export const FeedDetailBox = ({ feed }) => {
   const [isDetailVisible, setIsDetailVisible] = useState(false);
   const navigate = useNavigate();
   const feedDate = new Date(feed.createdAt);
-  console.log("1111", feed);
+  const currentUserId = sessionStorage.getItem("userId");
   const feedId = feed._id;
+
+  const { mutate } = useDeleteFeed();
+
   const handleMoveFeed = (feedId) => {
     navigate(`/feed/${feedId}`);
   };
@@ -22,7 +27,11 @@ export const FeedDetailBox = ({ feed }) => {
   };
 
   const handleFeedDelete = () => {
-    console.log("삭제");
+    mutate(feedId, {
+      onSuccess: () => {
+        navigate("/feed");
+      },
+    });
     setIsDetailVisible(false);
   };
 
@@ -31,22 +40,27 @@ export const FeedDetailBox = ({ feed }) => {
       <div className="feed-top">
         <div className="feed-top-text">
           <Link to={`/user/${feed.userInfo.user}`}>
-            <Avatar src={feed?.user?.detailInfo?.profileImg} isOnline />
+            <Avatar src={feed?.user?.detailInfo?.profileImg} />
           </Link>
-          <div>
-            <div>{feed?.user?.detailInfo?.nickname}</div>
-            <span>Lv 0</span>
+
+          <div className="feed-username">
+            {feed?.user?.detailInfo?.nickname}
           </div>
         </div>
         <div className="feed-button">
-          <FaEllipsisVertical onClick={handleToggleMenu} />
-          <span>
-            {isDetailVisible && (
-              <span className="feed-delete" onClick={() => handleFeedDelete()}>
-                삭제
+          {currentUserId === feed.user.detailInfo.user && (
+            <>
+              <FaEllipsisVertical onClick={handleToggleMenu} />
+              <span>
+                {isDetailVisible && (
+                  <span className="feed-delete" onClick={handleFeedDelete}>
+                    <FaTrashAlt />
+                    삭제하기
+                  </span>
+                )}
               </span>
-            )}
-          </span>
+            </>
+          )}
         </div>
       </div>
       <picture className="feed-imgbox" onClick={() => handleMoveFeed(feedId)}>
